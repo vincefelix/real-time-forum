@@ -18,12 +18,13 @@ nav {
     padding-right: 20px;
     min-height: 50px;
     width: 100%;
-    height: 20px;
+    height: 35px;
     display: flex;
     position: fixed;
     justify-content: space-between;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
         rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    z-index: 2;
 }
 
 nav .logo h1 {
@@ -38,6 +39,7 @@ nav .logo h1 {
 
 nav .user-nav {
     display: flex;
+    width: 15%;
 }
 
 nav .logo {
@@ -78,18 +80,24 @@ nav .others-page ul {
     height: 14px;
     border-radius: 50%;
     background-color: rgb(143, 204, 81);
-    margin-left: 5%;
 }
 .hamburger{
     margin-top: 7%;
 }
+.user-nav-info{
+    span{
+        margin-left: -26px;
+    }
+}
+
+
 
 .user-nav .user-nav-info .username {
     width: 100%;
     padding-top: 2%;
     display: flex;
-    margin-top: -29%;
-    margin-left: -120%;
+    margin-top: -33%;
+    margin-left: 2%;
 
 }
 
@@ -97,7 +105,7 @@ nav .user_nav-img {
     display: flex;
     position: absolute;
     top: 12%;
-    left: 86%;
+    left: 98%;
 }
 
 .leftside {
@@ -129,7 +137,7 @@ nav .user_nav-img {
     height: 92vh;
     width: 52%;
     left: 21%;
-    top: 8.2%;
+    top: 53px;
     overflow-y: scroll;
     overflow-x: hidden;
     margin-left: 1%;
@@ -393,5 +401,46 @@ nav .user_nav-img {
     color: #fff;
     background-color: #ff9900;
 }
+.disconnection-element{
+    position: absolute;
+    width: 20%;
+    height: 25%;
+    margin-top: 25%;
+}
+.toogle-allelement{
+    width: 15%;
+    height: 20%;
+    position: absolute;
+    left: 84%;
+    top: 15px;
+    justify-content: center;
+    align-items: center;
+    background-color: #555555;
+    border-radius: 14px;
+}
 
-/* comment toogler */
+.disconnection-button button, .darkmod-button button{
+    width: 95%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 14px;
+    margin-top: 5%;
+    margin-left: 3%;
+    border-radius: 15px;
+    transition: ease-in 20ms linear;
+    background-color: #55555570;
+    border: transparent;
+    color: #c0b6b6e3;
+    img{
+        width: 40px;
+        margin-left: -40%;
+    }
+    span{
+        margin-top: 5px;
+        margin-left: -70%;
+        font-size: 1.5rem;
+    }
+}
+.disconnection-button button:hover, .darkmod-button button:hover{
+    background-color: #111111;
+}
