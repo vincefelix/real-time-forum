@@ -18,7 +18,7 @@ nav {
     padding-right: 20px;
     min-height: 50px;
     width: 100%;
-    height: 8vh;
+    height: 20px;
     display: flex;
     position: fixed;
     justify-content: space-between;
@@ -102,7 +102,7 @@ nav .user_nav-img {
 
 .leftside {
     position: fixed;
-    top: 8.2%;
+    top: 52px;
     width: 20%;
     height: 92%;
     background-color: white;
@@ -166,12 +166,10 @@ nav .user_nav-img {
     margin-left: 4%;
 
     .post-creation {
-        margin-top: 8%;
         width: 75%;
-        align-items: center;
         text-align: center;
         justify-content: center;
-
+        align-items: center;
     }
 
     .post-creation-img img {
@@ -183,7 +181,7 @@ nav .user_nav-img {
 }
 
 .feed{
-    width: 90%;
+    width: 97%;
     height: 70%;
     margin-top: 5%;
 }
@@ -202,7 +200,7 @@ nav .user_nav-img {
 .feedpost .a-post img{
     width: 90%;
     margin-left: 5%;
-    margin-top: 1%;
+    margin-top: -1%;
     height: 45vh;
     border-radius: 20px;
     background-size: contain;
@@ -211,7 +209,7 @@ nav .user_nav-img {
 }
 .feedpost .user-publish {
     display: flex;
-    margin-left: 20%;
+    
 }
 .feedpost .user-publish span{
        margin-top: 2.5%; 
@@ -219,7 +217,7 @@ nav .user_nav-img {
 .feedpost .user-publish img{
     width: 60px;
     height: 50px;
-    margin-left: 70%;
+    margin-left: 1%;
     margin-top: 1%;
 }
 .feedpost .reaction-table{
@@ -233,10 +231,11 @@ nav .user_nav-img {
     justify-content: space-around;
 }
 .feedpost .reaction-table span{
-    margin-top: -99px;
+    /* margin-top: -99px; */
 }
 .feedpost .reaction-table img{
-    width: 30px;
+    width: 20px;
+    height: 20px;
 }
 .like-reaction img, .dislike-reaction img, .comment-reaction img{
     margin-top: 10%;
@@ -257,26 +256,142 @@ nav .user_nav-img {
     top: 8.2%;
 }
 .right-sidebar .connected-users{
-    margin-top: 4%;
-    height: 45%;
+    margin-top: 20px;
+    height: 35%;
     margin-left: 5%;
-    width: 80%;
+    border-radius: 15px;
+    width: 85%;
     overflow-y: scroll;
-    
+    background-color: rgba(0, 0, 0, 0.156);
 }
 .right-sidebar .connected-users img{
     height: 40px;
     width: 40px;
 }
+.user-connected{
+    margin-top: 10px;
+}
+.connection-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .connected-name{
+        /* margin-top: 5%; */
+        /* margin-left: 15%; */
+    }
+    .connection-indicator{
+        height: 10px;
+        width: 10px;
+        /* margin-left: -25%; */
+        /* margin-top: 5%; */
+        border-radius: 50%;
+        background-color: rgb(5, 129, 5);
+    }
+}
+.on-or-offline{
+    margin-top: 20px;
+}
 .right-sidebar .disconnected-users{
-    margin-top: 4%;
-    height: 45%;
+    margin-top: 20px;
+    height: 35%;
     margin-left: 5%;
-    width: 80%;
+    width: 86%;
+    border-radius: 15px;
     overflow-y: scroll;
-    
+    background-color: rgba(0, 0, 0, 0.156);
 }
 .right-sidebar .disconnected-users img{
     height: 40px;
     width: 40px;
+    filter: grayscale(1);
 }
+.user-disconnected{
+    margin-top: 10px;
+}
+.isnotconnected-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .isnotconnected{
+        /* margin-top: 5%; */
+        /* margin-left: 15%; */
+    }
+    .connection-indicator{
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        background-color: rgb(146, 8, 6);
+    }
+}
+.right-sidebar::-webkit-scrollbar,.connected-users::-webkit-scrollbar, .disconnected-users::-webkit-scrollbar {
+    width: 7px;
+}
+
+.right-sidebar::-webkit-scrollbar-thumb, .disconnected-users::-webkit-scrollbar-thumb, .connected-users::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.right-sidebar:hover::-webkit-scrollbar, .disconnected-users::-webkit-scrollbar, .connected-users::-webkit-scrollbar-thumb{
+    width: 5px;
+}
+
+.right-sidebar:hover::-webkit-scrollbar-thumb, .disconnected-users::-webkit-scrollbar-thumb,  .connected-users::-webkit-scrollbar-thumb{
+    background-color: #555;
+}
+
+
+/* hover */
+
+.right-sidebar .connected-users a:hover {
+    color: #fff;
+    background-color: #ff9900;
+}
+
+.right-sidebar .disconnected-users a:hover {
+    color: #fff;
+    background-color: #ff9900;
+}
+
+.right-sidebar .connected-name:hover {
+    color: #fff;
+    cursor: pointer;
+}
+
+.right-sidebar .isnotconnected-name:hover {
+    color: #fff;
+    cursor: pointer;
+}
+
+.right-sidebar .connection-info:hover {
+    background-color: #ff9900;
+    color: #fff;
+}
+.right-sidebar .connected-users a:hover {
+    color: #fff;
+    background-color: #ff9900;
+}
+
+.right-sidebar .disconnected-users a:hover {
+    color: #fff;
+    background-color: #ff9900;
+}
+
+.right-sidebar .connected-name:hover,
+.right-sidebar .isnotconnected-name:hover {
+    color: #fff;
+    cursor: pointer;
+}
+
+.right-sidebar .connection-info:hover,
+.right-sidebar .isnotconnected-info:hover {
+    background-color: #ff9900;
+    color: #fff;
+}
+
+.leftside .left-sidebar ul li a:hover {
+    color: #fff;
+    background-color: #ff9900;
+}
+
+/* comment toogler */

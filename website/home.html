@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./home.css">
+    <script type="text/javascript" src="./" defer></script>
     <title>Document</title>
 </head>
 
@@ -42,15 +43,15 @@
         <section class="leftside">
             <div class="left-sidebar">
                 <ul>
-                    <li>Categories</li>
-                    <li>others</li>
-                    <li>others</li>
+                    <li><a href="">Categories</a></li>
+                    <li><a href="">others</a></li>
+                    <li><a href="">others</a></li>
                 </ul>
             </div>
         </section>
         <section class="main-content">
             <div class="create-post">
-                <span class="post-creation">Create a Post</span>
+                <span class="post-creation"><h3>Create a Post</h3></span>
                 <span class="post-creation-img">
                     <img src="./assets/plus.png" alt="">
                 </span>
@@ -117,12 +118,14 @@
             </div>
         </section>
         <section class="right-sidebar">
+            <h3 class="on-or-offline">Online users</h2>
             <div class="connected-users">
                 <div class="user-connected">
                     <span class="is-connected"></span>
                     <div class="connection-info">
                         <img src="./assets/user-connection/profile1.png" alt="">
-                        <span class="connected-name">user4</span>
+                        <span class="connected-name">userze4</span>
+                        <span class="connection-indicator"></span>
                     </div>
                 </div>
                 <div class="user-connected">
@@ -130,29 +133,34 @@
                     <div class="connection-info">
                         <img src="./assets/user-connection/profile4.png" alt="">
                         <span class="connected-name">user2</span>
+                        <span class="connection-indicator"></span>
                     </div>
                 </div>
                 <div class="user-connected">
                     <span class="is-connected"></span>
                     <div class="connection-info">
                         <img src="./assets/user-connection/profile3.png" alt="">
-                        <span class="connected-name">elle</span>
+                        <span class="connected-name">ellet3</span>
+                        <span class="connection-indicator"></span>
                     </div>
                 </div>
                 <div class="user-connected">
                     <span class="is-connected"></span>
                     <div class="connection-info">
                         <img src="./assets/user-connection/profile4.png" alt="">
-                        <span class="connected-name">lui</span>
+                        <span class="connected-name">luitc0</span>
+                        <span class="connection-indicator"></span>
                     </div>
                 </div>
             </div>
+            <h3 class="on-or-offline">Offline users</h2>
             <div class="disconnected-users">
                 <div class="user-disconnected">
                     <span class="is-notconnected"></span>
                     <div class="isnotconnected-info">
                         <img src="./assets/user-connection/profile6.png" alt="">
                         <span class="isnotconnected-name">user5</span>
+                        <span class="connection-indicator"></span>
                     </div>
                 </div>
                 <div class="user-disconnected">
@@ -160,6 +168,7 @@
                     <div class="isnotconnected-info">
                         <img src="./assets/user-connection/profile5.png" alt="">
                         <span class="isnotconnected-name">user6</span>
+                        <span class="connection-indicator"></span>
                     </div>
                 </div>
                 <div class="user-disconnected">
@@ -167,6 +176,7 @@
                     <div class="isnotconnected-info">
                         <img src="./assets/user-connection/profile4.png" alt="">
                         <span class="isnotconnected-name">user7</span>
+                        <span class="connection-indicator"></span>
                     </div>
                 </div>
                 <div class="user-disconnected">
@@ -174,9 +184,40 @@
                     <div class="isnotconnected-info">
                         <img src="./assets/user-connection/profile3.png" alt="">
                         <span class="isnotconnected-name">user8</span>
+                        <span class="connection-indicator"></span>
                     </div>
                 </div>
             </div>
+        </section>
+        <section>
+            <!-- comment toogler -->
+            <div class="comment-section">
+                <div class="comment-header">
+                    <h2>Comments</h2>
+                    <img src="./assets/comment-icon.png" alt="Comment Icon" id="comment-toggle">
+                </div>
+                <div class="comment-content" style="display: none;">
+                    
+                    <div class="comment">
+                        <p>Lorem ipsum dolor sit amet....</p>
+                        <div class="actions">
+                            <button class="like-btn">Like</button>
+                            <button class="dislike-btn">Dislike</button>
+                            <button class="reply-btn">Reply</button>
+                        </div>
+                    </div>
+                    <!-- Commentaire 2 -->
+                    <div class="comment">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, beatae....</p>
+                        <div class="actions">
+                            <button class="like-btn">Like</button>
+                            <button class="dislike-btn">Dislike</button>
+                            <button class="reply-btn">Reply</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </section>
     </main>
 </body>
