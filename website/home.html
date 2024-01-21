@@ -57,20 +57,21 @@
         </section>
         <section class="main-content">
             <div class="create-post">
-                <!-- <span class="post-creation">
-                    <h3>Create a Post</h3>
-                </span>
-                <span class="post-creation-img">
-                    <img src="./assets/plus.png" alt="">
-                </span> -->
                 <div class="add-post-container">
-                    <h2>Ajouter un Post</h2>
+                    <h2>Post</h2>
                     <form id="addPostForm">
                         <textarea id="postText" placeholder="Saisissez votre message"></textarea>
                         <div class="validation-post">
+                            <select id="postCategories" multiple class="collapsible-select">
+                                <option value="sport">Sport</option>
+                                <option value="art">Art</option>
+                                <option value="cine">Cinéma</option>
+                                <option value="musique">Musique</option>
+                                <option value="informatique">Informatique</option>
+                            </select>
                             <input type="file" id="postImage" accept="image/*" onchange="previewImage()" />
                             <div id="imagePreview"></div>
-                            <button type="button" onclick="addPost()">Post</button>
+                            <button type="button" onclick="addPost()" class="post-publish-button">Post</button>
                         </div>
                     </form>
                 </div>
@@ -83,6 +84,7 @@
                     </div>
                     <div class="a-post">
                         <img src="./assets/feedtrying.jpg" alt="">
+                        
                     </div>
                     <div class="reaction-table">
                         <div class="user-img-feed">

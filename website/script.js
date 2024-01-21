@@ -142,3 +142,48 @@ function toggleComments() {
         newCommentForm.style.display = 'none';
     }
 }
+
+// --------------------------------categoriesadded---------
+
+document.addEventListener('DOMContentLoaded', function () {
+    var categorySelect = document.getElementById('postCategories');
+    var isMouseDown = false;
+
+    categorySelect.addEventListener('mousedown', function (event) {
+        isMouseDown = true;
+        event.target.selected = !event.target.selected;
+        event.preventDefault();
+    });
+
+    categorySelect.addEventListener('mousemove', function (event) {
+        if (isMouseDown) {
+            event.target.selected = !event.target.selected;
+            event.preventDefault();
+        }
+    });
+
+    categorySelect.addEventListener('mouseup', function () {
+        isMouseDown = false;
+    });
+});
+
+function addPost() {
+    var selectedCategories = [];
+    var categoriesSelect = document.getElementById('postCategories');
+
+    for (var i = 0; i < categoriesSelect.options.length; i++) {
+        if (categoriesSelect.options[i].selected) {
+            selectedCategories.push(categoriesSelect.options[i].value);
+        }
+    }
+
+    var postText = document.getElementById('postText').value;
+    var postImage = document.getElementById('postImage').value;
+
+    console.log('Selected Categories:', selectedCategories);
+    console.log('Post Text:', postText);
+    console.log('Post Image:', postImage);
+
+    // Clear the form or perform additional actions as needed
+}
+// ---------------------select----------
