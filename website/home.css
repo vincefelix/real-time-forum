@@ -30,7 +30,7 @@ nav {
 nav .logo h1 {
     margin-top: 10%;
     margin-left: 15%;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     background: linear-gradient(to right, #b927fc 0%, #2c64fc 100%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -81,11 +81,13 @@ nav .others-page ul {
     border-radius: 50%;
     background-color: rgb(143, 204, 81);
 }
-.hamburger{
+
+.hamburger {
     margin-top: 7%;
 }
-.user-nav-info{
-    span{
+
+.user-nav-info {
+    span {
         margin-left: -26px;
     }
 }
@@ -109,6 +111,7 @@ nav .user_nav-img {
 }
 
 .leftside {
+    display: none;
     position: fixed;
     top: 52px;
     width: 20%;
@@ -135,8 +138,7 @@ nav .user_nav-img {
 .main-content {
     position: fixed;
     height: 92vh;
-    width: 52%;
-    left: 21%;
+    width: 70%;
     top: 53px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -164,7 +166,7 @@ nav .user_nav-img {
 .main-content .create-post {
     display: flex;
     width: 83%;
-    height: 20%;
+    height: 29%;
     margin-top: 3%;
     justify-content: center;
     border-top-left-radius: 25px;
@@ -188,12 +190,13 @@ nav .user_nav-img {
     }
 }
 
-.feed{
+.feed {
     width: 97%;
     height: 70%;
     margin-top: 5%;
 }
-.feedpost{
+
+.feedpost {
     margin-top: 2%;
     margin-bottom: 8%;
     width: 100%;
@@ -201,11 +204,12 @@ nav .user_nav-img {
     background-color: #edeef0;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
         rgba(0, 0, 0, 0.3) 0px 4px 13px -1px;
-    border-top-left-radius: 20px;  
-    border-bottom-right-radius: 20px;   
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     overflow: hidden;
 }
-.feedpost .a-post img{
+
+.feedpost .a-post img {
     width: 90%;
     margin-left: 5%;
     margin-top: -1%;
@@ -215,20 +219,24 @@ nav .user_nav-img {
     background-position: center;
     background-repeat: no-repeat;
 }
+
 .feedpost .user-publish {
     display: flex;
-    
+
 }
-.feedpost .user-publish span{
-       margin-top: 2.5%; 
+
+.feedpost .user-publish span {
+    margin-top: 2.5%;
 }
-.feedpost .user-publish img{
+
+.feedpost .user-publish img {
     width: 60px;
     height: 50px;
     margin-left: 1%;
     margin-top: 1%;
 }
-.feedpost .reaction-table{
+
+.feedpost .reaction-table {
     width: 95%;
     margin-left: 2.5%;
     margin-top: 1%;
@@ -238,21 +246,27 @@ nav .user_nav-img {
     display: flex;
     justify-content: space-around;
 }
-.feedpost .reaction-table span{
-    /* margin-top: -99px; */
-}
-.feedpost .reaction-table img{
+
+.feedpost .reaction-table img {
     width: 20px;
     height: 20px;
 }
-.like-reaction img, .dislike-reaction img, .comment-reaction img{
+
+.like-reaction img,
+.dislike-reaction img,
+.comment-reaction img {
     margin-top: 10%;
 }
-.user-img-feed span, .like-reaction span, .dislike-reaction span, .comment-reaction span{
+
+.user-img-feed span,
+.like-reaction span,
+.dislike-reaction span,
+.comment-reaction span {
     margin-top: -20px;
     margin-left: 10px;
 }
-.user-img-feed img{
+
+.user-img-feed img {
     margin-top: 15px;
 }
 
@@ -263,7 +277,8 @@ nav .user_nav-img {
     left: 77%;
     top: 8.2%;
 }
-.right-sidebar .connected-users{
+
+.right-sidebar .connected-users {
     margin-top: 20px;
     height: 35%;
     margin-left: 5%;
@@ -272,22 +287,22 @@ nav .user_nav-img {
     overflow-y: scroll;
     background-color: rgba(0, 0, 0, 0.156);
 }
-.right-sidebar .connected-users img{
+
+.right-sidebar .connected-users img {
     height: 40px;
     width: 40px;
 }
-.user-connected{
+
+.user-connected {
     margin-top: 10px;
 }
-.connection-info{
+
+.connection-info {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    .connected-name{
-        /* margin-top: 5%; */
-        /* margin-left: 15%; */
-    }
-    .connection-indicator{
+
+    .connection-indicator {
         height: 10px;
         width: 10px;
         /* margin-left: -25%; */
@@ -296,10 +311,12 @@ nav .user_nav-img {
         background-color: rgb(5, 129, 5);
     }
 }
-.on-or-offline{
+
+.on-or-offline {
     margin-top: 20px;
 }
-.right-sidebar .disconnected-users{
+
+.right-sidebar .disconnected-users {
     margin-top: 20px;
     height: 35%;
     margin-left: 5%;
@@ -308,43 +325,52 @@ nav .user_nav-img {
     overflow-y: scroll;
     background-color: rgba(0, 0, 0, 0.156);
 }
-.right-sidebar .disconnected-users img{
+
+.right-sidebar .disconnected-users img {
     height: 40px;
     width: 40px;
     filter: grayscale(1);
 }
-.user-disconnected{
+
+.user-disconnected {
     margin-top: 10px;
 }
-.isnotconnected-info{
+
+.isnotconnected-info {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    .isnotconnected{
-        /* margin-top: 5%; */
-        /* margin-left: 15%; */
-    }
-    .connection-indicator{
+
+    .connection-indicator {
         height: 10px;
         width: 10px;
         border-radius: 50%;
         background-color: rgb(146, 8, 6);
     }
 }
-.right-sidebar::-webkit-scrollbar,.connected-users::-webkit-scrollbar, .disconnected-users::-webkit-scrollbar {
+
+.right-sidebar::-webkit-scrollbar,
+.connected-users::-webkit-scrollbar,
+.disconnected-users::-webkit-scrollbar {
     width: 7px;
 }
 
-.right-sidebar::-webkit-scrollbar-thumb, .disconnected-users::-webkit-scrollbar-thumb, .connected-users::-webkit-scrollbar-thumb {
+.right-sidebar::-webkit-scrollbar-thumb,
+.disconnected-users::-webkit-scrollbar-thumb,
+.connected-users::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 5px;
 }
 
-.right-sidebar:hover::-webkit-scrollbar, .disconnected-users::-webkit-scrollbar, .connected-users::-webkit-scrollbar-thumb{
+.right-sidebar:hover::-webkit-scrollbar,
+.disconnected-users::-webkit-scrollbar,
+.connected-users::-webkit-scrollbar-thumb {
     width: 5px;
 }
 
-.right-sidebar:hover::-webkit-scrollbar-thumb, .disconnected-users::-webkit-scrollbar-thumb,  .connected-users::-webkit-scrollbar-thumb{
+.right-sidebar:hover::-webkit-scrollbar-thumb,
+.disconnected-users::-webkit-scrollbar-thumb,
+.connected-users::-webkit-scrollbar-thumb {
     background-color: #555;
 }
 
@@ -375,6 +401,7 @@ nav .user_nav-img {
     background-color: #ff9900;
     color: #fff;
 }
+
 .right-sidebar .connected-users a:hover {
     color: #fff;
     background-color: #ff9900;
@@ -401,25 +428,30 @@ nav .user_nav-img {
     color: #fff;
     background-color: #ff9900;
 }
-.disconnection-element{
+
+.disconnection-element {
     position: absolute;
     width: 20%;
     height: 25%;
     margin-top: 25%;
 }
-.toogle-allelement{
+
+.toogle-allelement {
+    min-width: 200px;
+    min-height: 120px;
     width: 15%;
     height: 20%;
     position: absolute;
     left: 84%;
-    top: 15px;
+    top: 57px;
     justify-content: center;
     align-items: center;
     background-color: #555555;
     border-radius: 14px;
 }
 
-.disconnection-button button, .darkmod-button button{
+.disconnection-button button,
+.darkmod-button button {
     width: 95%;
     display: flex;
     justify-content: space-around;
@@ -431,16 +463,383 @@ nav .user_nav-img {
     background-color: #55555570;
     border: transparent;
     color: #c0b6b6e3;
-    img{
+
+    img {
         width: 40px;
         margin-left: -40%;
     }
-    span{
+
+    span {
         margin-top: 5px;
         margin-left: -70%;
         font-size: 1.5rem;
     }
 }
-.disconnection-button button:hover, .darkmod-button button:hover{
+
+.disconnection-button button:hover,
+.darkmod-button button:hover {
     background-color: #111111;
+}
+
+.profile-toogle {
+    display: none;
+    position: fixed;
+    width: 15%;
+    height: 20%;
+    left: 84%;
+    top: 57px;
+}
+
+.leftside {
+    display: none;
+    /* Masquer la barre latérale gauche sur les petits écrans */
+}
+
+.profile-toogle-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    border-radius: 14px;
+}
+
+.toogle-allelement {
+    min-width: 200px;
+    min-height: 120px;
+    width: 80%;
+    height: 60%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    background-color: #555555;
+    border-radius: 14px;
+}
+
+/* Ajoutez ces styles pour cacher la div au départ */
+/* .profile-toogle:not(.show) {
+    display: none;
+} */
+
+/* ------------------------------------------ */
+
+@media only screen and (max-width: 1200px) {
+    body {
+        font-size: 14px;
+    }
+
+    /* .rightside {
+        display: none;
+    } */
+
+    .responsive-toggle {
+        display: block;
+        /* Ajoutez le style CSS souhaité pour la petite div ici */
+    }
+
+    /* .leftside {
+        width: 100%;
+    } */
+
+    .main-content {
+        left: 0;
+        width: 75%
+    }
+
+    .right-sidebar {
+        width: 20%;
+    }
+
+    .left-sidebar {
+        overflow-x: hidden;
+    }
+
+    .toogle-allelement {
+        left: 76%;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+
+    .main-content {
+        width: 73%;
+        left: 0%;
+    }
+
+    .feedpost {
+        height: 73%;
+    }
+
+    .feedpost .a-post img {
+        height: 33vh;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    nav {
+        padding-right: 10px;
+    }
+
+    .leftside {
+        display: none;
+    }
+
+
+    .responsive-toggle {
+        display: block;
+        /* Ajoutez le style CSS souhaité pour la petite div ici */
+    }
+
+    nav .logo img {
+        margin-left: 20%;
+        width: 30px;
+        height: 30px;
+    }
+
+    nav .user-nav {
+        width: 25%;
+    }
+
+    .homeTab {
+        margin-right: 40px;
+    }
+
+    nav .others-page {
+        width: 15%;
+    }
+
+    nav .user-nav-info .presence-status {
+        margin-top: 15%;
+    }
+
+    .user-nav .user-nav-info .username {
+        margin-top: -28%;
+    }
+
+    .post-creation-img img {
+        width: 6%;
+        height: 7%;
+    }
+
+    .feedpost .a-post img {
+        height: 25vh;
+    }
+
+    .reaction-table {
+        height: 15%;
+    }
+
+    .reaction-table img {
+        width: 15px;
+        height: 15px;
+    }
+
+    .user-connected img,
+    .user-disconnected img {
+        height: 30px;
+        width: 30px;
+    }
+
+    .right-sidebar,
+    .connected-users,
+    .disconnected-users {
+        width: 22%;
+    }
+
+    .connected-users,
+    .disconnected-users {
+        width: 100%;
+    }
+
+    .right-sidebar .connected-users,
+    .right-sidebar .disconnected-users {
+        height: 25%;
+    }
+
+    .feedpost {
+        height: 60%;
+    }
+}
+
+/* ------------------------------------- */
+.message-popup {
+    display: block;
+    position: fixed;
+    top: 80%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1;
+}
+
+.message-popup-content {
+    width: 300px;
+}
+
+.message-popup-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.close-button {
+    float: right;
+    cursor: pointer;
+}
+
+.message-popup-body {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.message-popup-footer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+}
+
+button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.create-post {
+    .add-post-container {
+        min-width: 100px;
+        width: 90%;
+        margin-top: -10px;
+        padding: 20px;
+        /* background-color: #fff;
+        border: 1px solid #ccc; */
+    }
+
+    .validation-post {
+        display: flex;
+    }
+
+    textarea {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        resize: vertical;
+    }
+
+    input[type="file"] {
+        margin: -5px 0 10px 0;
+    }
+
+    button {
+        padding: 0 20px;
+        cursor: pointer;
+        margin-top: -2px 0 0 0;
+    }
+
+    h2 {
+        height: auto;
+        width: 70%;
+        font-weight: 1vw;
+    }
+}
+
+nav .logo .tooglerleftimg {
+    width: 15px;
+    height: 15px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/* .leftside {
+    display: flex;
+    flex-direction: column;
+    background-color: #333;
+}
+
+.leftside .left-sidebar ul li {
+    list-style: none;
+    font-size: 1rem;
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.leftside .left-sidebar ul li:hover {
+    background-color: #555; 
+    color: #fff; 
+} */
+
+/*-------------------------------------*/
+
+
+.leftside .left-sidebar ul li {
+    position: relative;
+}
+
+.leftside .left-sidebar ul li .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.leftside .left-sidebar ul li .dropdown-content a {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.leftside .left-sidebar ul li .dropdown-content a:hover {
+    background-color: #555;
+}
+
+.leftside .left-sidebar ul li:hover .dropdown-content {
+    display: block;
+}
+
+/* ----------------commenthandling--------- */
+
+.comment-reaction .comments-section {
+    display: none;
+    max-height: 200px;
+    /* Set a maximum height for the comment section */
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+.comment-reaction .comment {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.comment-reaction .comment img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-reaction .comment-content {
+    flex: 1;
+}
+
+.comment-reaction .comment-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comment-reaction .new-comment-form {
+    display: none;
+    margin-top: 10px;
 }

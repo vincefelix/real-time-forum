@@ -5,22 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./home.css">
-    <script type="text/javascript" src="./" defer></script>
+    <script type="text/javascript" src="./script.js" defer></script>
     <title>Document</title>
 </head>
 
 <body>
     <nav>
         <div class="logo">
-            <img src="./assets/realtime-logo.png" alt="logo" />
+            <img class="logo-img" src="./assets/realtime-logo.png" alt="logo" />
             <h1>LOGO</h1>
+            <img class="tooglerleftimg" src="./assets/hamburger.png" alt="">
         </div>
         <div class="others-page">
             <ul>
-                <li>
+                <li id="homeTab" class="active" style="margin-right: 20px;">
                     <a href="#">Home</a>
                 </li>
-                <li>
+                <li id="profileTab">
                     <a href="#">Profil</a>
                 </li>
             </ul>
@@ -29,7 +30,7 @@
             <div class="user-nav-info">
                 <span class="presence-status"></span>
                 <span class="user_nav-img">
-                    <img src="./assets/profil-img.png" alt="">
+                    <img class="options-menu-img" src="./assets/profil-img.png" alt="">
                 </span>
                 <span class="username">Masseck</span>
             </div>
@@ -40,20 +41,39 @@
         <section class="leftside">
             <div class="left-sidebar">
                 <ul>
-                    <li><a href="">Categories</a></li>
-                    <li><a href="">others</a></li>
-                    <li><a href="">others</a></li>
+                    <li><a href="">Categories</a>
+                        <div class="dropdown-content">
+                            <a href="#">Sport</a>
+                            <a href="#">Art</a>
+                            <a href="#">Cinema</a>
+                            <a href="#">Music</a>
+                            <a href="#">Computer Science</a>
+                        </div>
+                    </li>
+                    <li><a href="">Post</a></li>
+                    <li><a href="">Comment</a></li>
                 </ul>
             </div>
         </section>
         <section class="main-content">
             <div class="create-post">
-                <span class="post-creation">
+                <!-- <span class="post-creation">
                     <h3>Create a Post</h3>
                 </span>
                 <span class="post-creation-img">
                     <img src="./assets/plus.png" alt="">
-                </span>
+                </span> -->
+                <div class="add-post-container">
+                    <h2>Ajouter un Post</h2>
+                    <form id="addPostForm">
+                        <textarea id="postText" placeholder="Saisissez votre message"></textarea>
+                        <div class="validation-post">
+                            <input type="file" id="postImage" accept="image/*" onchange="previewImage()" />
+                            <div id="imagePreview"></div>
+                            <button type="button" onclick="addPost()">Post</button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="feed">
                 <div class="feedpost">
@@ -78,10 +98,53 @@
                             <span class="reaction-text">Dislike</span>
                             <span class="dislike-counter">6</span>
                         </div>
-                        <div class="comment-reaction">
-                            <img src="./assets/comment.png" alt="">
-                            <span class="reaction-text">Comment</span>
-                            <span class="comment-counter">9</span>
+                        <div class="about-comment">
+                            <div class="comment-reaction" onclick="toggleComments()">
+                                <img src="./assets/comment.png" alt="">
+                                <span class="reaction-text">Comment</span>
+                                <span class="comment-counter">9</span>
+
+                                <!-- Comment section -->
+                                <div class="comments-section">
+                                    <!-- Individual comments go here -->
+                                    <div class="comment">
+                                        <img src="./assets/profile-picture.jpg" alt="">
+                                        <div class="comment-content">
+                                            <span class="comment-author">John Doe</span>
+                                            <p>This is a comment.</p>
+                                        </div>
+                                    </div>
+                                    <!-- Add more comments as needed -->
+                                </div>
+
+                                <!-- Add a new comment form -->
+                                <div class="new-comment-form">
+                                    <textarea placeholder="Add a comment"></textarea>
+                                    <button onclick="addComment()">Post</button>
+                                </div>
+
+                                <!-- Popup pour les messages -->
+                                <div class="message-popup" id="messagePopup">
+                                    <div class="message-popup-content">
+                                        <div class="message-popup-header">
+                                            <span class="close-button" onclick="closeMessagePopup()">&times;</span>
+                                            <h3>Nom de l'utilisateur</h3>
+                                        </div>
+                                        <div class="message-popup-body" id="messagePopupBody">
+                                            <!-- Historique des messages précédents -->
+                                            <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing
+                                                elit. Perferendis, ut?</div>
+                                            <div class="message">Message 2</div>
+                                            <!-- Ajoutez d'autres messages ici -->
+                                        </div>
+                                        <div class="message-popup-footer">
+                                            <textarea id="newMessageInput"
+                                                placeholder="Saisissez votre message"></textarea>
+                                            <button onclick="sendMessage()">Envoyer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -107,10 +170,50 @@
                             <span class="reaction-text">Dislike</span>
                             <span class="dislike-counter">6</span>
                         </div>
-                        <div class="comment-reaction">
+                        <div class="comment-reaction" onclick="toggleComments()">
                             <img src="./assets/comment.png" alt="">
                             <span class="reaction-text">Comment</span>
                             <span class="comment-counter">9</span>
+
+                            <!-- Comment section -->
+                            <div class="comments-section">
+                                <!-- Individual comments go here -->
+                                <div class="comment">
+                                    <img src="./assets/profile-picture.jpg" alt="">
+                                    <div class="comment-content">
+                                        <span class="comment-author">John Doe</span>
+                                        <p>This is a comment.</p>
+                                    </div>
+                                </div>
+                                <!-- Add more comments as needed -->
+                            </div>
+
+                            <!-- Add a new comment form -->
+                            <div class="new-comment-form">
+                                <textarea placeholder="Add a comment"></textarea>
+                                <button onclick="addComment()">Post</button>
+                            </div>
+
+                            <!-- Popup pour les messages -->
+                            <div class="message-popup" id="messagePopup">
+                                <div class="message-popup-content">
+                                    <div class="message-popup-header">
+                                        <span class="close-button" onclick="closeMessagePopup()">&times;</span>
+                                        <h3>Nom de l'utilisateur</h3>
+                                    </div>
+                                    <div class="message-popup-body" id="messagePopupBody">
+                                        <!-- Historique des messages précédents -->
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                                            Perferendis, ut?</div>
+                                        <div class="message">Message 2</div>
+                                        <!-- Ajoutez d'autres messages ici -->
+                                    </div>
+                                    <div class="message-popup-footer">
+                                        <textarea id="newMessageInput" placeholder="Saisissez votre message"></textarea>
+                                        <button onclick="sendMessage()">Envoyer</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,8 +292,7 @@
                     </div>
         </section>
         <section>
-            <div class="profile-toogle" style="display: none;">
-                <div class="profile-toogle-overlay"></div>
+            <div class="profile-toogle">
                 <div class="toogle-allelement">
                     <div class="disconnection-button">
                         <button>
@@ -205,7 +307,6 @@
                         </button>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
