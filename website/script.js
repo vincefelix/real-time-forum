@@ -46,30 +46,111 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // --------------------Message----------------------
 
-function openMessagePopup() {
-    var messagePopup = document.getElementById('messagePopup');
-    messagePopup.style.display = 'block';
+// function openMessagePopup() {
+//     var messagePopup = document.getElementById('messagePopup');
+//     messagePopup.style.display = 'block';
+// }
+
+// function closeMessagePopup() {
+//     var messagePopup = document.getElementById('messagePopup');
+//     messagePopup.style.display = 'none';
+// }
+
+// function sendMessage() {
+//     var newMessageInput = document.getElementById('newMessageInput');
+//     var messagePopupBody = document.getElementById('messagePopupBody');
+
+//     // Récupérez le contenu du champ de saisie et ajoutez-le à l'historique des messages
+//     var messageText = newMessageInput.value;
+//     if (messageText.trim() !== '') {
+//         var newMessage = document.createElement('div');
+//         newMessage.className = 'message';
+//         newMessage.textContent = messageText;
+//         messagePopupBody.appendChild(newMessage);
+
+//         // Effacez le champ de saisie après l'envoi du message
+//         newMessageInput.value = '';
+//     }
+// }
+
+function closeMessagePopup(userName) {
+    var popupId = 'messagePopup-' + userName;
+    var popup = document.getElementById(popupId);
+    closer = document.querySelector(".close-button")
+    closer.addEventListener('click', e=> popup.style.display = 'none')
+    
 }
 
-function closeMessagePopup() {
-    var messagePopup = document.getElementById('messagePopup');
-    messagePopup.style.display = 'none';
+function showConnectedMessages(userName) {
+    // Masquer toutes les boîtes de dialogue des messages
+    document.querySelectorAll('.message-popup').forEach(function (popup) {
+        popup.style.display = 'none';
+    });
+
+    // Afficher la boîte de dialogue des messages pour l'utilisateur spécifique
+    var popupId = 'messagePopup-' + userName;
+    var popup = document.getElementById(popupId);
+    if (popup) {
+        popup.style.display = 'block';
+    }
 }
 
-function sendMessage() {
-    var newMessageInput = document.getElementById('newMessageInput');
-    var messagePopupBody = document.getElementById('messagePopupBody');
+function showDisconnectedMessages(userName) {
+    // Masquer toutes les boîtes de dialogue des messages
+    document.querySelectorAll('.message-popup').forEach(function (popup) {
+        popup.style.display = 'none';
+    });
 
-    // Récupérez le contenu du champ de saisie et ajoutez-le à l'historique des messages
-    var messageText = newMessageInput.value;
-    if (messageText.trim() !== '') {
-        var newMessage = document.createElement('div');
-        newMessage.className = 'message';
-        newMessage.textContent = messageText;
-        messagePopupBody.appendChild(newMessage);
+    // Afficher la boîte de dialogue des messages pour l'utilisateur spécifique
+    var popupId = 'messagePopup-' + userName;
+    var popup = document.getElementById(popupId);
+    if (popup) {
+        popup.style.display = 'block';
+    }
+}
 
-        // Effacez le champ de saisie après l'envoi du message
-        newMessageInput.value = '';
+document.querySelectorAll('.connection-info').forEach(function (connectionInfo) {
+    connectionInfo.addEventListener('click', function () {
+        var userName = connectionInfo.querySelector('.connected-name').textContent;
+        showConnectedMessages(userName);
+    });
+});
+
+// Associer la fonction showDisconnectedMessages à chaque utilisateur déconnecté
+document.querySelectorAll('.isnotconnected-info').forEach(function (disconnectedInfo) {
+    disconnectedInfo.addEventListener('click', function () {
+        var userName = disconnectedInfo.querySelector('.isnotconnected-name').textContent;
+        showDisconnectedMessages(userName);
+    });
+});
+
+
+
+function showConnectedMessages(userName) {
+    // Masquer toutes les boîtes de dialogue des messages
+    document.querySelectorAll('.message-popup').forEach(function (popup) {
+        popup.style.display = 'none';
+    });
+
+    // Afficher la boîte de dialogue des messages pour l'utilisateur spécifique
+    var popupId = 'messagePopup-' + userName;
+    var popup = document.getElementById(popupId);
+    if (popup) {
+        popup.style.display = 'block';
+    }
+}
+
+function showDisconnectedMessages(userName) {
+    // Masquer toutes les boîtes de dialogue des messages
+    document.querySelectorAll('.message-popup').forEach(function (popup) {
+        popup.style.display = 'none';
+    });
+
+    // Afficher la boîte de dialogue des messages pour l'utilisateur spécifique
+    var popupId = 'messagePopup-' + userName;
+    var popup = document.getElementById(popupId);
+    if (popup) {
+        popup.style.display = 'block';
     }
 }
 

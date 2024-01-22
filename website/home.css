@@ -166,7 +166,7 @@ nav .user_nav-img {
 .main-content .create-post {
     display: flex;
     width: 83%;
-    height: 29%;
+    height: 50%;
     margin-top: 3%;
     justify-content: center;
     border-top-left-radius: 25px;
@@ -399,7 +399,6 @@ nav .user_nav-img {
 
 .right-sidebar .connection-info:hover {
     background-color: #ff9900;
-    color: #fff;
 }
 
 .right-sidebar .connected-users a:hover {
@@ -421,7 +420,6 @@ nav .user_nav-img {
 .right-sidebar .connection-info:hover,
 .right-sidebar .isnotconnected-info:hover {
     background-color: #ff9900;
-    color: #fff;
 }
 
 .leftside .left-sidebar ul li a:hover {
@@ -668,7 +666,8 @@ nav .user_nav-img {
     display: block;
     position: fixed;
     top: 80%;
-    right: 20%;
+    
+    right: 2%;
     transform: translate(-50%, -50%);
     background-color: #fff;
     border: 1px solid #ccc;

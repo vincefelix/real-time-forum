@@ -84,7 +84,7 @@
                     </div>
                     <div class="a-post">
                         <img src="./assets/feedtrying.jpg" alt="">
-                        
+
                     </div>
                     <div class="reaction-table">
                         <div class="user-img-feed">
@@ -123,28 +123,6 @@
                                 <div class="new-comment-form">
                                     <textarea placeholder="Add a comment"></textarea>
                                     <button onclick="addComment()">Post</button>
-                                </div>
-
-                                <!-- Popup pour les messages -->
-                                <div class="message-popup" id="messagePopup">
-                                    <div class="message-popup-content">
-                                        <div class="message-popup-header">
-                                            <span class="close-button" onclick="closeMessagePopup()">&times;</span>
-                                            <h3>Nom de l'utilisateur</h3>
-                                        </div>
-                                        <div class="message-popup-body" id="messagePopupBody">
-                                            <!-- Historique des messages précédents -->
-                                            <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing
-                                                elit. Perferendis, ut?</div>
-                                            <div class="message">Message 2</div>
-                                            <!-- Ajoutez d'autres messages ici -->
-                                        </div>
-                                        <div class="message-popup-footer">
-                                            <textarea id="newMessageInput"
-                                                placeholder="Saisissez votre message"></textarea>
-                                            <button onclick="sendMessage()">Envoyer</button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -195,27 +173,6 @@
                                 <textarea placeholder="Add a comment"></textarea>
                                 <button onclick="addComment()">Post</button>
                             </div>
-
-                            <!-- Popup pour les messages -->
-                            <div class="message-popup" id="messagePopup">
-                                <div class="message-popup-content">
-                                    <div class="message-popup-header">
-                                        <span class="close-button" onclick="closeMessagePopup()">&times;</span>
-                                        <h3>Nom de l'utilisateur</h3>
-                                    </div>
-                                    <div class="message-popup-body" id="messagePopupBody">
-                                        <!-- Historique des messages précédents -->
-                                        <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                            Perferendis, ut?</div>
-                                        <div class="message">Message 2</div>
-                                        <!-- Ajoutez d'autres messages ici -->
-                                    </div>
-                                    <div class="message-popup-footer">
-                                        <textarea id="newMessageInput" placeholder="Saisissez votre message"></textarea>
-                                        <button onclick="sendMessage()">Envoyer</button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -230,6 +187,26 @@
                             <img src="./assets/user-connection/profile1.png" alt="">
                             <span class="connected-name">userze4</span>
                             <span class="connection-indicator"></span>
+                            <!-- --------------------------popupmsg------------------- -->
+                            <div class="message-popup" id="messagePopup-userze4">
+                                <div class="message-popup-content">
+                                    <div class="message-popup-header">
+                                        <span class="close-button" onclick="closeMessagePopup('userze4')">&times;</span>
+                                        <h3>userze4</h3>
+                                    </div>
+                                    <div class="message-popup-body" id="messagePopupBody">
+                                        <!-- Historique des messages précédents -->
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing
+                                            elit. Perferendis, ut?4</div>
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur.4</div>
+                                        <!-- Ajoutez d'autres messages ici -->
+                                    </div>
+                                    <div class="message-popup-footer">
+                                        <textarea id="newMessageInput" placeholder="Saisissez votre message"></textarea>
+                                        <button onclick="sendMessage()">Envoyer</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="user-connected">
@@ -238,6 +215,26 @@
                             <img src="./assets/user-connection/profile4.png" alt="">
                             <span class="connected-name">user2</span>
                             <span class="connection-indicator"></span>
+                            <!-- --------------------------popupmsg------------------- -->
+                            <div class="message-popup" id="messagePopup-user2">
+                                <div class="message-popup-content">
+                                    <div class="message-popup-header">
+                                        <span class="close-button" onclick="closeMessagePopup('user2')">&times;</span>
+                                        <h3>user2</h3>
+                                    </div>
+                                    <div class="message-popup-body" id="messagePopupBody">
+
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing
+                                            elit. Perferendis, ut?2</div>
+                                        <div class="message">Lorem ipsum dolor sit.2</div>
+                                        <!-- Ajoutez d'autres messages ici -->
+                                    </div>
+                                    <div class="message-popup-footer">
+                                        <textarea id="newMessageInput" placeholder="Saisissez votre message"></textarea>
+                                        <button onclick="sendMessage()">Envoyer</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="user-connected">
@@ -246,6 +243,26 @@
                             <img src="./assets/user-connection/profile3.png" alt="">
                             <span class="connected-name">ellet3</span>
                             <span class="connection-indicator"></span>
+                            <!-- --------------------------popupmsg------------------- -->
+                            <div class="message-popup" id="messagePopup-ellet3">
+                                <div class="message-popup-content">
+                                    <div class="message-popup-header">
+                                        <span class="close-button" onclick="closeMessagePopup('ellet3')">&times;</span>
+                                        <h3>ellet3</h3>
+                                    </div>
+                                    <div class="message-popup-body" id="messagePopupBody">
+                                        <!-- Historique des messages précédents -->
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing
+                                            elit. Perferendis, ut?3</div>
+                                        <div class="message">Lorem ipsum dolor sit.3</div>
+                                        <!-- Ajoutez d'autres messages ici -->
+                                    </div>
+                                    <div class="message-popup-footer">
+                                        <textarea id="newMessageInput" placeholder="Saisissez votre message"></textarea>
+                                        <button onclick="sendMessage()">Envoyer</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="user-connected">
@@ -254,6 +271,25 @@
                             <img src="./assets/user-connection/profile4.png" alt="">
                             <span class="connected-name">luitc0</span>
                             <span class="connection-indicator"></span>
+                            <div class="message-popup" id="messagePopup-luitc0">
+                                <div class="message-popup-content">
+                                    <div class="message-popup-header">
+                                        <span class="close-button" onclick="closeMessagePopup('luitc0')">&times;</span>
+                                        <h3>ellet3</h3>
+                                    </div>
+                                    <div class="message-popup-body" id="messagePopupBody">
+                                        <!-- Historique des messages précédents -->
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing
+                                            elit. Perferendis, ut?3</div>
+                                        <div class="message">Lorem ipsum dolor sit.3</div>
+                                        <!-- Ajoutez d'autres messages ici -->
+                                    </div>
+                                    <div class="message-popup-footer">
+                                        <textarea id="newMessageInput" placeholder="Saisissez votre message"></textarea>
+                                        <button onclick="sendMessage()">Envoyer</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -265,6 +301,26 @@
                                 <img src="./assets/user-connection/profile6.png" alt="">
                                 <span class="isnotconnected-name">user5</span>
                                 <span class="connection-indicator"></span>
+                                <!-- --------------------------popupmsg------------------- -->
+                            <div class="message-popup" id="messagePopup-user5">
+                                <div class="message-popup-content">
+                                    <div class="message-popup-header">
+                                        <span class="close-button" onclick="closeMessagePopup('user5')">&times;</span>
+                                        <h3>user5</h3>
+                                    </div>
+                                    <div class="message-popup-body" id="messagePopupBody">
+                                        <!-- Historique des messages précédents -->
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing
+                                            elit. Perferendis, ut?5</div>
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur.5</div>
+                                        <!-- Ajoutez d'autres messages ici -->
+                                    </div>
+                                    <div class="message-popup-footer">
+                                        <textarea id="newMessageInput" placeholder="Saisissez votre message"></textarea>
+                                        <button onclick="sendMessage()">Envoyer</button>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                         <div class="user-disconnected">
@@ -273,6 +329,26 @@
                                 <img src="./assets/user-connection/profile5.png" alt="">
                                 <span class="isnotconnected-name">user6</span>
                                 <span class="connection-indicator"></span>
+                                <!-- --------------------------popupmsg------------------- -->
+                            <div class="message-popup" id="messagePopup-user6">
+                                <div class="message-popup-content">
+                                    <div class="message-popup-header">
+                                        <span class="close-button" onclick="closeMessagePopup('user6')">&times;</span>
+                                        <h3>user6</h3>
+                                    </div>
+                                    <div class="message-popup-body" id="messagePopupBody">
+                                        <!-- Historique des messages précédents -->
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing
+                                            elit. Perferendis, ut?6</div>
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur.6</div>
+                                        <!-- Ajoutez d'autres messages ici -->
+                                    </div>
+                                    <div class="message-popup-footer">
+                                        <textarea id="newMessageInput" placeholder="Saisissez votre message"></textarea>
+                                        <button onclick="sendMessage()">Envoyer</button>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                         <div class="user-disconnected">
@@ -281,6 +357,26 @@
                                 <img src="./assets/user-connection/profile4.png" alt="">
                                 <span class="isnotconnected-name">user7</span>
                                 <span class="connection-indicator"></span>
+                                <!-- --------------------------popupmsg------------------- -->
+                            <div class="message-popup" id="messagePopup-user7">
+                                <div class="message-popup-content">
+                                    <div class="message-popup-header">
+                                        <span class="close-button" onclick="closeMessagePopup('user7')">&times;</span>
+                                        <h3>user7</h3>
+                                    </div>
+                                    <div class="message-popup-body" id="messagePopupBody">
+                                        <!-- Historique des messages précédents -->
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing
+                                            elit. Perferendis, ut?7</div>
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur.7</div>
+                                        <!-- Ajoutez d'autres messages ici -->
+                                    </div>
+                                    <div class="message-popup-footer">
+                                        <textarea id="newMessageInput" placeholder="Saisissez votre message"></textarea>
+                                        <button onclick="sendMessage()">Envoyer</button>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                         <div class="user-disconnected">
@@ -289,6 +385,26 @@
                                 <img src="./assets/user-connection/profile3.png" alt="">
                                 <span class="isnotconnected-name">user8</span>
                                 <span class="connection-indicator"></span>
+                                <!-- --------------------------popupmsg------------------- -->
+                            <div class="message-popup" id="messagePopup-user8">
+                                <div class="message-popup-content">
+                                    <div class="message-popup-header">
+                                        <span class="close-button" onclick="closeMessagePopup('user8')">&times;</span>
+                                        <h3>user8</h3>
+                                    </div>
+                                    <div class="message-popup-body" id="messagePopupBody">
+                                        <!-- Historique des messages précédents -->
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing
+                                            elit. Perferendis, ut?8</div>
+                                        <div class="message">Lorem ipsum dolor sit amet consectetur.8</div>
+                                        <!-- Ajoutez d'autres messages ici -->
+                                    </div>
+                                    <div class="message-popup-footer">
+                                        <textarea id="newMessageInput" placeholder="Saisissez votre message"></textarea>
+                                        <button onclick="sendMessage()">Envoyer</button>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
