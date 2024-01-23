@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var menutotoogle = document.querySelector('.profile-toogle');
 
     profilemenutoogler.addEventListener('mouseenter', function () {
-        console.log("au dessus");
         menutotoogle.style.display = 'block';
     });
 
@@ -73,13 +72,20 @@ document.addEventListener('DOMContentLoaded', function () {
 //     }
 // }
 
-function closeMessagePopup(userName) {
-    var popupId = 'messagePopup-' + userName;
-    var popup = document.getElementById(popupId);
-    closer = document.querySelector(".close-button")
-    closer.addEventListener('click', e=> popup.style.display = 'none')
-    
-}
+document.addEventListener('DOMContentLoaded', function () {
+    // Attacher l'événement de fermeture aux boutons de fermeture
+    var closeButtons = document.querySelectorAll('.close-button');
+
+    closeButtons.forEach(function (closer) {
+        closer.addEventListener('click', function () {
+            var popup = closer.closest('.message-popup');
+            if (popup) {
+                popup.style.display = 'none';
+                console.log('Popup closed');
+            }
+        });
+    });
+});
 
 function showConnectedMessages(userName) {
     // Masquer toutes les boîtes de dialogue des messages
@@ -140,21 +146,6 @@ function showConnectedMessages(userName) {
     }
 }
 
-function showDisconnectedMessages(userName) {
-    // Masquer toutes les boîtes de dialogue des messages
-    document.querySelectorAll('.message-popup').forEach(function (popup) {
-        popup.style.display = 'none';
-    });
-
-    // Afficher la boîte de dialogue des messages pour l'utilisateur spécifique
-    var popupId = 'messagePopup-' + userName;
-    var popup = document.getElementById(popupId);
-    if (popup) {
-        popup.style.display = 'block';
-    }
-}
-
-
 // ----------------------------------------------
 function previewImage() {
     var previewContainer = document.getElementById('imagePreview');
@@ -212,16 +203,12 @@ function addPost() {
 
 
 function toggleComments() {
-    var commentsSection = document.querySelector('.comment-reaction .comments-section');
-    var newCommentForm = document.querySelector('.comment-reaction .new-comment-form');
+    const commentsSection = document.getElementById('commentsSection');
+    const newCommentForm = document.getElementById('newCommentForm');
 
-    if (commentsSection.style.display === 'none' || commentsSection.style.display === '') {
-        commentsSection.style.display = 'block';
-        newCommentForm.style.display = 'block';
-    } else {
-        commentsSection.style.display = 'none';
-        newCommentForm.style.display = 'none';
-    }
+    // Toggle the 'active' class to show/hide comments section and new comment form
+    commentsSection.classList.toggle('active');
+    newCommentForm.classList.toggle('active');
 }
 
 // --------------------------------categoriesadded---------

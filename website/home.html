@@ -105,27 +105,25 @@
                                 <img src="./assets/comment.png" alt="">
                                 <span class="reaction-text">Comment</span>
                                 <span class="comment-counter">9</span>
-
-                                <!-- Comment section -->
-                                <div class="comments-section">
-                                    <!-- Individual comments go here -->
-                                    <div class="comment">
-                                        <img src="./assets/profile-picture.jpg" alt="">
-                                        <div class="comment-content">
-                                            <span class="comment-author">John Doe</span>
-                                            <p>This is a comment.</p>
-                                        </div>
-                                    </div>
-                                    <!-- Add more comments as needed -->
-                                </div>
-
-                                <!-- Add a new comment form -->
-                                <div class="new-comment-form">
-                                    <textarea placeholder="Add a comment"></textarea>
-                                    <button onclick="addComment()">Post</button>
-                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="comments-section" id="commentsSection">
+                        <!-- Individual comments go here -->
+                        <div class="comment">
+                            <img src="./assets/profil-img.png" alt="">
+                            <div class="comment-content">
+                                <span class="comment-author">John Doe</span>
+                                <p>This is a comment.</p>
+                            </div>
+                        </div>
+                        <!-- Add more comments as needed -->
+                    </div>
+            
+                    <!-- Add a new comment form -->
+                    <div class="new-comment-form" id="newCommentForm">
+                        <textarea placeholder="Add a comment"></textarea>
+                        <button onclick="addComment()">Post</button>
                     </div>
                 </div>
                 <div class="feedpost">
@@ -154,26 +152,24 @@
                             <img src="./assets/comment.png" alt="">
                             <span class="reaction-text">Comment</span>
                             <span class="comment-counter">9</span>
-
-                            <!-- Comment section -->
-                            <div class="comments-section">
-                                <!-- Individual comments go here -->
-                                <div class="comment">
-                                    <img src="./assets/profile-picture.jpg" alt="">
-                                    <div class="comment-content">
-                                        <span class="comment-author">John Doe</span>
-                                        <p>This is a comment.</p>
-                                    </div>
-                                </div>
-                                <!-- Add more comments as needed -->
-                            </div>
-
-                            <!-- Add a new comment form -->
-                            <div class="new-comment-form">
-                                <textarea placeholder="Add a comment"></textarea>
-                                <button onclick="addComment()">Post</button>
+                        </div>
+                    </div>
+                    <div class="comments-section" id="commentsSection">
+                        <!-- Individual comments go here -->
+                        <div class="comment">
+                            <img src="./assets/profil-img.png" alt="">
+                            <div class="comment-content">
+                                <span class="comment-author">John Doe</span>
+                                <p>This is a comment.</p>
                             </div>
                         </div>
+                        <!-- Add more comments as needed -->
+                    </div>
+            
+                    <!-- Add a new comment form -->
+                    <div class="new-comment-form" id="newCommentForm">
+                        <textarea placeholder="Add a comment"></textarea>
+                        <button onclick="addComment()">Post</button>
                     </div>
                 </div>
             </div>
@@ -191,7 +187,7 @@
                             <div class="message-popup" id="messagePopup-userze4">
                                 <div class="message-popup-content">
                                     <div class="message-popup-header">
-                                        <span class="close-button" onclick="closeMessagePopup('userze4')">&times;</span>
+                                        <span class="close-button" >&times;</span>
                                         <h3>userze4</h3>
                                     </div>
                                     <div class="message-popup-body" id="messagePopupBody">
@@ -219,11 +215,11 @@
                             <div class="message-popup" id="messagePopup-user2">
                                 <div class="message-popup-content">
                                     <div class="message-popup-header">
-                                        <span class="close-button" onclick="closeMessagePopup('user2')">&times;</span>
+                                        <span class="close-button">&times;</span>
                                         <h3>user2</h3>
                                     </div>
                                     <div class="message-popup-body" id="messagePopupBody">
-
+                                        <!-- Historique des messages précédents -->
                                         <div class="message">Lorem ipsum dolor sit amet consectetur, adipisicing
                                             elit. Perferendis, ut?2</div>
                                         <div class="message">Lorem ipsum dolor sit.2</div>
@@ -247,7 +243,7 @@
                             <div class="message-popup" id="messagePopup-ellet3">
                                 <div class="message-popup-content">
                                     <div class="message-popup-header">
-                                        <span class="close-button" onclick="closeMessagePopup('ellet3')">&times;</span>
+                                        <span class="close-button">&times;</span>
                                         <h3>ellet3</h3>
                                     </div>
                                     <div class="message-popup-body" id="messagePopupBody">
@@ -274,7 +270,7 @@
                             <div class="message-popup" id="messagePopup-luitc0">
                                 <div class="message-popup-content">
                                     <div class="message-popup-header">
-                                        <span class="close-button" onclick="closeMessagePopup('luitc0')">&times;</span>
+                                        <span class="close-button" >&times;</span>
                                         <h3>ellet3</h3>
                                     </div>
                                     <div class="message-popup-body" id="messagePopupBody">
@@ -305,7 +301,7 @@
                             <div class="message-popup" id="messagePopup-user5">
                                 <div class="message-popup-content">
                                     <div class="message-popup-header">
-                                        <span class="close-button" onclick="closeMessagePopup('user5')">&times;</span>
+                                        <span class="close-button">&times;</span>
                                         <h3>user5</h3>
                                     </div>
                                     <div class="message-popup-body" id="messagePopupBody">
@@ -333,7 +329,7 @@
                             <div class="message-popup" id="messagePopup-user6">
                                 <div class="message-popup-content">
                                     <div class="message-popup-header">
-                                        <span class="close-button" onclick="closeMessagePopup('user6')">&times;</span>
+                                        <span class="close-button">&times;</span>
                                         <h3>user6</h3>
                                     </div>
                                     <div class="message-popup-body" id="messagePopupBody">
@@ -361,7 +357,7 @@
                             <div class="message-popup" id="messagePopup-user7">
                                 <div class="message-popup-content">
                                     <div class="message-popup-header">
-                                        <span class="close-button" onclick="closeMessagePopup('user7')">&times;</span>
+                                        <span class="close-button">&times;</span>
                                         <h3>user7</h3>
                                     </div>
                                     <div class="message-popup-body" id="messagePopupBody">
@@ -389,7 +385,7 @@
                             <div class="message-popup" id="messagePopup-user8">
                                 <div class="message-popup-content">
                                     <div class="message-popup-header">
-                                        <span class="close-button" onclick="closeMessagePopup('user8')">&times;</span>
+                                        <span class="close-button" >&times;</span>
                                         <h3>user8</h3>
                                     </div>
                                     <div class="message-popup-body" id="messagePopupBody">
