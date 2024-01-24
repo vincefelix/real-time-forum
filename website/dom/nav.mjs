@@ -19,7 +19,7 @@ export class Navigation {
 
         // Logo text
         const logoText = document.createElement('h1');
-        logoText.textContent = 'LOGO';
+        logoText.textContent = 'Forum';
 
         // Hamburger icon
         const tooglerLeftImg = document.createElement('img');

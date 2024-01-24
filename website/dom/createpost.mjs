@@ -54,37 +54,176 @@ export class MainContentSection {
     }
 
     createPost() {
+        // Create postContainer
         const postContainer = document.createElement('div');
         postContainer.className = 'feedpost';
 
-        // ... (Add your post content creation here)
+        // Create user-publish section
+        const userPublish = document.createElement('div');
+        userPublish.className = 'user-publish';
+
+        const userImage = document.createElement('img');
+        userImage.src = './assets/user-connection/profile4.png';
+        userImage.alt = '';
+
+        const publisherName = document.createElement('span');
+        publisherName.className = 'publisher-name';
+        publisherName.textContent = 'Mthiaw';
+
+        userPublish.appendChild(userImage);
+        userPublish.appendChild(publisherName);
+
+        // Create a-post section
+        const aPost = document.createElement('div');
+        aPost.className = 'a-post';
+
+        const postImage = document.createElement('img');
+        postImage.src = './assets/feedtrying.jpg';
+        postImage.alt = '';
+
+        aPost.appendChild(postImage);
+
+        // Create reaction-table section
+        const reactionTable = document.createElement('div');
+        reactionTable.className = 'reaction-table';
+
+        // Create user-img-feed section
+        const userImgFeed = document.createElement('div');
+        userImgFeed.className = 'user-img-feed';
+
+        const userImgFeedImage = document.createElement('img');
+        userImgFeedImage.src = './assets/profil-img.png';
+        userImgFeedImage.alt = '';
+
+        userImgFeed.appendChild(userImgFeedImage);
+
+        // Create like-reaction section
+        const likeReaction = document.createElement('div');
+        likeReaction.className = 'like-reaction';
+
+        const likeImg = document.createElement('img');
+        likeImg.src = './assets/like.png';
+        likeImg.alt = '';
+
+        const likeText = document.createElement('span');
+        likeText.className = 'reaction-text';
+        likeText.textContent = 'like';
+
+        const likeCounter = document.createElement('span');
+        likeCounter.className = 'like-counter';
+        likeCounter.textContent = '5';
+
+        likeReaction.appendChild(likeImg);
+        likeReaction.appendChild(likeText);
+        likeReaction.appendChild(likeCounter);
+
+        // Create dislike-reaction section
+        const dislikeReaction = document.createElement('div');
+        dislikeReaction.className = 'dislike-reaction';
+
+        const dislikeImg = document.createElement('img');
+        dislikeImg.src = './assets/dislike.png';
+        dislikeImg.alt = '';
+
+        const dislikeText = document.createElement('span');
+        dislikeText.className = 'reaction-text';
+        dislikeText.textContent = 'Dislike';
+
+        const dislikeCounter = document.createElement('span');
+        dislikeCounter.className = 'dislike-counter';
+        dislikeCounter.textContent = '6';
+
+        dislikeReaction.appendChild(dislikeImg);
+        dislikeReaction.appendChild(dislikeText);
+        dislikeReaction.appendChild(dislikeCounter);
+
+        // Create about-comment section
+        const aboutComment = document.createElement('div');
+        aboutComment.className = 'about-comment';
+
+        // Create comment-reaction section
+        const commentReaction = document.createElement('div');
+        commentReaction.className = 'comment-reaction';
+        commentReaction.onclick = toggleComments;
+
+        const commentImg = document.createElement('img');
+        commentImg.src = './assets/comment.png';
+        commentImg.alt = '';
+
+        const commentText = document.createElement('span');
+        commentText.className = 'reaction-text';
+        commentText.textContent = 'Comment';
+
+        const commentCounter = document.createElement('span');
+        commentCounter.className = 'comment-counter';
+        commentCounter.textContent = '9';
+
+        commentReaction.appendChild(commentImg);
+        commentReaction.appendChild(commentText);
+        commentReaction.appendChild(commentCounter);
+
+        aboutComment.appendChild(commentReaction);
+
+        // Create comments-section section
+        const commentsSection = document.createElement('div');
+        commentsSection.className = 'comments-section';
+        commentsSection.id = 'commentsSection';
+
+        // Create new-comment-form section
+        const newCommentForm = document.createElement('div');
+        newCommentForm.className = 'new-comment-form';
+        newCommentForm.id = 'newCommentForm';
+
+        const commentTextarea = document.createElement('textarea');
+        commentTextarea.placeholder = 'Add a comment';
+
+        const postButton = document.createElement('button');
+        postButton.textContent = 'Post';
+        postButton.onclick = addComment;
+
+        newCommentForm.appendChild(commentTextarea);
+        newCommentForm.appendChild(postButton);
+
+        // Append sections to reactionTable
+        reactionTable.appendChild(userImgFeed);
+        reactionTable.appendChild(likeReaction);
+        reactionTable.appendChild(dislikeReaction);
+        reactionTable.appendChild(aboutComment);
+
+        // Append sections to postContainer
+        postContainer.appendChild(userPublish);
+        postContainer.appendChild(aPost);
+        postContainer.appendChild(reactionTable);
+        postContainer.appendChild(commentsSection);
+        postContainer.appendChild(newCommentForm);
 
         return postContainer;
     }
+
     createPostSection() {
         const createPost = document.createElement('div');
         createPost.className = 'create-post';
-    
+
         const addPostContainer = document.createElement('div');
         addPostContainer.className = 'add-post-container';
-    
+
         const postTitle = document.createElement('h2');
         postTitle.textContent = 'Post';
-    
+
         const addPostForm = document.createElement('form');
         addPostForm.id = 'addPostForm';
-    
+
         // Create textarea for post text
         const postTextArea = document.createElement('textarea');
         postTextArea.id = 'postText';
         postTextArea.placeholder = 'Saisissez votre message';
-    
+
         // Create select for post categories
         const postCategoriesSelect = document.createElement('select');
         postCategoriesSelect.id = 'postCategories';
         postCategoriesSelect.multiple = true;
         postCategoriesSelect.className = 'collapsible-select';
-    
+
         // Add options to the select
         const categories = ['Sport', 'Art', 'Cinéma', 'Musique', 'Informatique'];
         categories.forEach(category => {
@@ -93,7 +232,7 @@ export class MainContentSection {
             option.textContent = category;
             postCategoriesSelect.appendChild(option);
         });
-    
+
         // Create input for post image
         const postImageInput = document.createElement('input');
         postImageInput.type = 'file';
@@ -101,21 +240,21 @@ export class MainContentSection {
         postImageInput.placeholder = 'Parcourir';
         postImageInput.accept = 'image/*';
         postImageInput.addEventListener('change', previewImage);
-    
+
         // Create div for image preview
         const imagePreviewDiv = document.createElement('div');
         imagePreviewDiv.id = 'imagePreview';
-    
+
         // Create button for posting
         const postButton = document.createElement('button');
         postButton.type = 'button';
         postButton.textContent = 'Post';
         postButton.addEventListener('click', addPost);
-    
+
         // Create div for the validation post section
         const validationPostDiv = document.createElement('div');
         validationPostDiv.className = 'validation-post';
-    
+
         // Append elements to the form
         addPostForm.appendChild(postTextArea);
         addPostForm.appendChild(postCategoriesSelect);
@@ -123,15 +262,15 @@ export class MainContentSection {
         addPostForm.appendChild(imagePreviewDiv);
         validationPostDiv.appendChild(postButton);
         addPostForm.appendChild(validationPostDiv);
-    
+
         // Append elements to the add post container
         addPostContainer.appendChild(postTitle);
         addPostContainer.appendChild(addPostForm);
-    
+
         // Append add post container to create post
         createPost.appendChild(addPostContainer);
-    
+
         return createPost;
     }
-    
+
 }

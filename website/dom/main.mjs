@@ -19,5 +19,3 @@ const leftsection = new LeftsideSection()
 
 // Instantiate and create the toogler
 const profileToggle = new ProfileToggleSection();
-
-

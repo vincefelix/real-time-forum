@@ -433,10 +433,13 @@ nav .user_nav-img {
     margin-left: 1vw;
     height: 10vh;
     background-color: #333;
-    padding: 15px 20px; /* Ajustez la marge intérieure selon vos besoins */
-    color: #ffffff; /* Couleur du texte */
+    padding: 15px 20px;
+    /* Ajustez la marge intérieure selon vos besoins */
+    color: #ffffff;
+    /* Couleur du texte */
     transition: background-color 0.3s ease, color 0.3s ease;
-    a{
+
+    a {
         color: white;
         justify-content: center;
     }
@@ -581,9 +584,10 @@ nav .user_nav-img {
         left: 0%;
     }
 
-    nav ul{
+    nav ul {
         margin: 16px 0 0 30px;
     }
+
     .feedpost {
         height: 73%;
     }
@@ -597,37 +601,55 @@ nav .user_nav-img {
     nav {
         padding-right: 10px;
     }
+
     .leftside .left-sidebar ul {
         margin-left: -18px;
-    li{
-        height: 3vh;
+
+        li {
+            height: 3vh;
+            font-size: 12px;
+        }
     }
-}
-
-#postImage {
-    margin-left: 6px;
-  }
-.collapsible-select{ 
-    padding-right: 78px;
-}
-
-    .reaction-text{
+    nav .logo .tooglerleftimg{
+        margin-left: 4px;
+    }
+    .connected-name {
         display: none;
     }
-    .feedpost .reaction-table img{
+
+    #postImage {
+        margin-left: 6px;
+    }
+
+    .collapsible-select {
+        width: 58%;
+        margin-left: -3%;
+        padding-right: 78px;
+    }
+
+    .reaction-text {
+        display: none;
+    }
+
+    .feedpost .reaction-table img {
         margin-top: 7%;
     }
-    .toogle-allelement{
+
+    .toogle-allelement {
         left: -50%;
     }
-    nav ul{
-        margin: 16px 0 0 30px;
+
+    nav ul {
+        margin: 16px 0 0 6px;
     }
+
     .leftside {
         display: none;
     }
-    nav .logo h1{
+
+    nav .logo h1 {
         margin-top: 15%;
+        margin-left:3px;
     }
 
     .responsive-toggle {
@@ -637,7 +659,8 @@ nav .user_nav-img {
     #postImage {
         margin-left: 11px;
     }
-    .post-publish-button{
+
+    .post-publish-button {
         position: absolute;
         left: 52%;
         top: 18%;
@@ -677,9 +700,11 @@ nav .user_nav-img {
     .feedpost .a-post img {
         height: 25vh;
     }
+
     .comment {
         margin: 10px 0;
     }
+
     .reaction-table {
         height: 15%;
     }
@@ -774,6 +799,9 @@ button {
         /* background-color: #fff;
         border: 1px solid #ccc; */
     }
+    body {
+        font-size: 10px;
+      }
 
     .validation-post {
         display: flex;
@@ -781,7 +809,7 @@ button {
 
     textarea {
         width: 100%;
-        min-width: 110px;
+        min-width: 80px;
         box-sizing: border-box;
         margin-bottom: 10px;
         resize: vertical;
@@ -867,7 +895,8 @@ nav .logo .tooglerleftimg {
 .comment {
     display: flex;
     margin-bottom: 10px;
-    border-bottom: 1px solid #ddd; /* Ajoute une ligne de séparation entre les commentaires */
+    border-bottom: 1px solid #ddd;
+    /* Ajoute une ligne de séparation entre les commentaires */
     padding-bottom: 10px;
 }
 
@@ -885,12 +914,14 @@ nav .logo .tooglerleftimg {
 .comment-author {
     font-weight: bold;
     margin-bottom: 5px;
-    color: #333; /* Couleur du nom de l'auteur du commentaire */
+    color: #333;
+    /* Couleur du nom de l'auteur du commentaire */
 }
 
 .comment p {
     margin: 0;
-    color: #555; /* Couleur du texte du commentaire */
+    color: #555;
+    /* Couleur du texte du commentaire */
 }
 
 
@@ -929,14 +960,15 @@ nav .logo .tooglerleftimg {
     margin-top: 10px;
 }
 
-.post-publish-button{
+.post-publish-button {
     max-height: 20px;
 }
 
-#postImage{
-    margin-left: 20px;
+#postImage {
+    margin-left: -2px;
 }
-.collapsible-select{
+
+.collapsible-select {
     height: 60px;
     overflow-y: scroll;
     margin-top: 4px;
@@ -971,7 +1003,8 @@ nav .logo .tooglerleftimg {
     width: calc(100% - 20px);
     box-sizing: border-box;
     margin-bottom: 10px;
-    margin-left: 10px; /* Ajout de la marge à gauche */
+    margin-left: 10px;
+    /* Ajout de la marge à gauche */
     resize: vertical;
 }
 
@@ -981,10 +1014,12 @@ nav .logo .tooglerleftimg {
 }
 
 
-.comments-section, .new-comment-form {
+.comments-section,
+.new-comment-form {
     display: none;
 }
 
-.comments-section.active, .new-comment-form.active {
+.comments-section.active,
+.new-comment-form.active {
     display: block;
 }

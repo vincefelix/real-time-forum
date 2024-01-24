@@ -89,6 +89,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+function addComment() {
+    // Ajoutez le code nécessaire pour gérer l'ajout d'un commentaire ici
+    console.log('Comment added!');
+}
+
 function showConnectedMessages(userName) {
     // Masquer toutes les boîtes de dialogue des messages
     document.querySelectorAll('.message-popup').forEach(function (popup) {
