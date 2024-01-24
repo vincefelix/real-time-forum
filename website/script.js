@@ -71,17 +71,19 @@ document.addEventListener('DOMContentLoaded', function () {
 //         newMessageInput.value = '';
 //     }
 // }
-
 document.addEventListener('DOMContentLoaded', function () {
-    // Attacher l'événement de fermeture aux boutons de fermeture
-    var closeButtons = document.querySelectorAll('.close-button');
+    // Sélectionnez tous les boutons de fermeture
+    var closeButtonList = document.querySelectorAll('.close-button');
 
-    closeButtons.forEach(function (closer) {
-        closer.addEventListener('click', function () {
-            var popup = closer.closest('.message-popup');
-            if (popup) {
-                popup.style.display = 'none';
-                console.log('Popup closed');
+    // Ajoutez un écouteur d'événement à chaque bouton
+    closeButtonList.forEach(function (closeButton) {
+        closeButton.addEventListener('click', function () {
+            // Trouvez l'élément parent avec la classe 'allinfo-msg'
+            var parentAllinfoMsg = closeButton.closest('.allinfo-msg');
+
+            // Masquez l'élément parent
+            if (parentAllinfoMsg) {
+                parentAllinfoMsg.style.display = 'none';
             }
         });
     });
@@ -97,8 +99,16 @@ function showConnectedMessages(userName) {
     var popupId = 'messagePopup-' + userName;
     var popup = document.getElementById(popupId);
     if (popup) {
+        showAllInfoMsg()
         popup.style.display = 'block';
     }
+}
+
+function showAllInfoMsg() {
+    console.log('dokhna');
+    document.querySelectorAll('.allinfo-msg').forEach(function (allinfoMsg) {
+        allinfoMsg.style.display = 'block';
+    });
 }
 
 function showDisconnectedMessages(userName) {
@@ -235,23 +245,23 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-function addPost() {
-    var selectedCategories = [];
-    var categoriesSelect = document.getElementById('postCategories');
+// function addPost() {
+//     var selectedCategories = [];
+//     var categoriesSelect = document.getElementById('postCategories');
 
-    for (var i = 0; i < categoriesSelect.options.length; i++) {
-        if (categoriesSelect.options[i].selected) {
-            selectedCategories.push(categoriesSelect.options[i].value);
-        }
-    }
+//     for (var i = 0; i < categoriesSelect.options.length; i++) {
+//         if (categoriesSelect.options[i].selected) {
+//             selectedCategories.push(categoriesSelect.options[i].value);
+//         }
+//     }
 
-    var postText = document.getElementById('postText').value;
-    var postImage = document.getElementById('postImage').value;
+//     var postText = document.getElementById('postText').value;
+//     var postImage = document.getElementById('postImage').value;
 
-    console.log('Selected Categories:', selectedCategories);
-    console.log('Post Text:', postText);
-    console.log('Post Image:', postImage);
+//     console.log('Selected Categories:', selectedCategories);
+//     console.log('Post Text:', postText);
+//     console.log('Post Image:', postImage);
 
-    // Clear the form or perform additional actions as needed
-}
+//     // Clear the form or perform additional actions as needed
+// }
 // ---------------------select----------
