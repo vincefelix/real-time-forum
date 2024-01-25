@@ -33,12 +33,18 @@ export class MainContentSection {
 
         const postTitle = document.createElement('h2');
         postTitle.textContent = 'Post';
+        addPostContainer.appendChild(postTitle);
+
+        const postTitleInput = document.createElement('input');
+        postTitleInput.type = 'text';
+        postTitleInput.id = 'postTitleInput';
+        postTitleInput.placeholder = 'Enter post title...';
 
         const addPostForm = document.createElement('form');
         addPostForm.id = 'addPostForm';
 
-        // ... (Add your form content creation here)
 
+        // ... (Add your form content creation here)
         addPostContainer.appendChild(postTitle);
         addPostContainer.appendChild(addPostForm);
         createPost.appendChild(addPostContainer);
@@ -241,9 +247,9 @@ export class MainContentSection {
         postImageInput.accept = 'image/*';
         postImageInput.addEventListener('change', previewImage);
 
-        // Create div for image preview
-        const imagePreviewDiv = document.createElement('div');
-        imagePreviewDiv.id = 'imagePreview';
+        // // Create div for image preview
+        // const imagePreviewDiv = document.createElement('div');
+        // imagePreviewDiv.id = 'imagePreview';
 
         // Create button for posting
         const postButton = document.createElement('button');
@@ -259,7 +265,7 @@ export class MainContentSection {
         addPostForm.appendChild(postTextArea);
         addPostForm.appendChild(postCategoriesSelect);
         addPostForm.appendChild(postImageInput);
-        addPostForm.appendChild(imagePreviewDiv);
+        // addPostForm.appendChild(imagePreviewDiv);
         validationPostDiv.appendChild(postButton);
         addPostForm.appendChild(validationPostDiv);
 

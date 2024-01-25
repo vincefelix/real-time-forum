@@ -170,6 +170,7 @@ function previewImage() {
     var postImage = document.getElementById('postImage').files[0];
     var previewImage = document.createElement('img');
 
+
     previewContainer.innerHTML = '';
 
     if (postImage) {
