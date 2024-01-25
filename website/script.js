@@ -45,49 +45,51 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // --------------------Message----------------------
 
-// function openMessagePopup() {
-//     var messagePopup = document.getElementById('messagePopup');
-//     messagePopup.style.display = 'block';
-// }
+function openMessagePopup() {
+    var messagePopup = document.getElementById('messagePopup');
+    messagePopup.style.display = 'block';
+}
 
-// function closeMessagePopup() {
-//     var messagePopup = document.getElementById('messagePopup');
-//     messagePopup.style.display = 'none';
-// }
+function closeMessagePopup() {
+    var messagePopup = document.getElementById('messagePopup');
+    messagePopup.style.display = 'none';
+}
 
-// function sendMessage() {
-//     var newMessageInput = document.getElementById('newMessageInput');
-//     var messagePopupBody = document.getElementById('messagePopupBody');
+function sendMessage() {
+    var newMessageInput = document.getElementById('newMessageInput');
+    var messagePopupBody = document.getElementById('messagePopupBody');
 
-//     // Récupérez le contenu du champ de saisie et ajoutez-le à l'historique des messages
-//     var messageText = newMessageInput.value;
-//     if (messageText.trim() !== '') {
-//         var newMessage = document.createElement('div');
-//         newMessage.className = 'message';
-//         newMessage.textContent = messageText;
-//         messagePopupBody.appendChild(newMessage);
+    // Récupérez le contenu du champ de saisie et ajoutez-le à l'historique des messages
+    var messageText = newMessageInput.value;
+    if (messageText.trim() !== '') {
+        var newMessage = document.createElement('div');
+        newMessage.className = 'message';
+        newMessage.textContent = messageText;
+        messagePopupBody.appendChild(newMessage);
 
-//         // Effacez le champ de saisie après l'envoi du message
-//         newMessageInput.value = '';
-//     }
-// }
-document.addEventListener('DOMContentLoaded', function () {
-    // Sélectionnez tous les boutons de fermeture
-    var closeButtonList = document.querySelectorAll('.close-button');
+        // Effacez le champ de saisie après l'envoi du message
+        newMessageInput.value = '';
+    }
+}
 
-    // Ajoutez un écouteur d'événement à chaque bouton
-    closeButtonList.forEach(function (closeButton) {
-        closeButton.addEventListener('click', function () {
-            // Trouvez l'élément parent avec la classe 'allinfo-msg'
-            var parentAllinfoMsg = closeButton.closest('.allinfo-msg');
 
-            // Masquez l'élément parent
-            if (parentAllinfoMsg) {
-                parentAllinfoMsg.style.display = 'none';
-            }
-        });
-    });
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//     // Sélectionnez tous les boutons de fermeture
+//     var closeButtonList = document.querySelectorAll('.close-button');
+
+//     // Ajoutez un écouteur d'événement à chaque bouton
+//     closeButtonList.forEach(function (closeButton) {
+//         closeButton.addEventListener('click', function () {
+//             // Trouvez l'élément parent avec la classe 'allinfo-msg'
+//             var parentAllinfoMsg = closeButton.closest('.allinfo-msg');
+
+//             // Masquez l'élément parent
+//             if (parentAllinfoMsg) {
+//                 parentAllinfoMsg.style.display = 'none';
+//             }
+//         });
+//     });
+// });
 
 
 function addComment() {

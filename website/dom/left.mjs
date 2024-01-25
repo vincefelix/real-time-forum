@@ -11,7 +11,7 @@ export class LeftsideSection {
         leftSidebar.className = 'left-sidebar';
 
         const ulElement = document.createElement('ul');
-        
+
         // Create Categories
         const categoriesItem = document.createElement('li');
         const categoriesLink = document.createElement('a');
