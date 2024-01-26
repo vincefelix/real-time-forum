@@ -274,3 +274,64 @@ document.addEventListener('DOMContentLoaded', function () {
 //     // Clear the form or perform additional actions as needed
 // }
 // ---------------------select----------
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    function handleLikesAndDislikes(postContainer) {
+        const likeCounter = postContainer.querySelector('.like-counter');
+        const dislikeCounter = postContainer.querySelector('.dislike-counter');
+
+        // Initialiser les compteurs
+        let likeCount = parseInt(likeCounter.textContent);
+        let dislikeCount = parseInt(dislikeCounter.textContent);
+
+        // Fonction pour mettre à jour les compteurs
+        const updateCounters = () => {
+            likeCounter.textContent = likeCount.toString();
+            dislikeCounter.textContent = dislikeCount.toString();
+        };
+
+        // Ajouter un gestionnaire de clics à la section de like
+        postContainer.querySelector('.like-reaction').addEventListener('click', () => {
+            let count = 1
+            
+            if (count % 2 === 0) {
+                // Si le nombre de likes est pair, incrémenter le compteur de likes
+                count++
+                likeCount++;
+            } else  if (count % 2 !== 0){
+                // Si le nombre de likes est impair, décrémenter le compteur de likes
+                likeCount--;
+            }
+            // Si le compteur de dislikes est supérieur à 0, décrémenter le compteur de dislikes
+            if (dislikeCount > 0) {
+                dislikeCount--;
+            }
+            updateCounters();
+        });
+
+        // Ajouter un gestionnaire de clics à la section de dislike
+        postContainer.querySelector('.dislike-reaction').addEventListener('click', () => {
+            if (dislikeCount % 2 === 0) {
+                // Si le nombre de dislikes est pair, incrémenter le compteur de dislikes
+                dislikeCount++;
+            } else {
+                // Si le nombre de dislikes est impair, décrémenter le compteur de dislikes
+                dislikeCount--;
+            }
+            // Si le compteur de likes est supérieur à 0, décrémenter le compteur de likes
+            if (likeCount > 0) {
+                likeCount--;
+            }
+            updateCounters();
+        });
+    }
+
+    // Appeler la fonction pour chaque post individuellement
+    const feedPosts = document.querySelectorAll('.feedpost');
+    feedPosts.forEach(postContainer => {
+        handleLikesAndDislikes(postContainer);
+    });
+
+});
+
