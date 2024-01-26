@@ -86,7 +86,7 @@ export class RightSidebarSection {
         const connectionIndicator = document.createElement('span');
         connectionIndicator.className = 'connection-indicator';
 
-        
+
 
         // Message popup
         const messagePopupContainer = document.createElement('div');
@@ -95,55 +95,55 @@ export class RightSidebarSection {
         const messagePopup = document.createElement('div');
         messagePopup.className = 'message-popup';
         messagePopup.id = messagePopupId;
-        
+
         // Message popup content
-const messagePopupContent = document.createElement('div');
-messagePopupContent.className = 'message-popup-content';
+        const messagePopupContent = document.createElement('div');
+        messagePopupContent.className = 'message-popup-content';
 
-const messagePopupHeader = document.createElement('div');
-messagePopupHeader.className = 'message-popup-header';
+        const messagePopupHeader = document.createElement('div');
+        messagePopupHeader.className = 'message-popup-header';
 
-const closeButton = document.createElement('span');
-closeButton.className = 'close-button';
-closeButton.innerHTML = '&times;';
-closeButton.onclick = function() {
-    messagePopup.style.display = 'none';
-};
+        const closeButton = document.createElement('span');
+        closeButton.className = 'close-button';
+        closeButton.innerHTML = '&times;';
+        closeButton.onclick = function () {
+            messagePopup.style.display = 'none';
+        };
 
-const popupTitle = document.createElement('h3');
-popupTitle.textContent = userName;
+        const popupTitle = document.createElement('h3');
+        popupTitle.textContent = userName;
 
-const messagePopupBody = document.createElement('div');
-messagePopupBody.className = 'message-popup-body';
-messagePopupBody.id = `messagePopupBody-${userName}`;
+        const messagePopupBody = document.createElement('div');
+        messagePopupBody.className = 'message-popup-body';
+        messagePopupBody.id = `messagePopupBody-${userName}`;
 
-// ... (Ajoutez ici le code pour générer l'historique des messages précédents)
+        // ... (Ajoutez ici le code pour générer l'historique des messages précédents)
 
-const messagePopupFooter = document.createElement('div');
-messagePopupFooter.className = 'message-popup-footer';
+        const messagePopupFooter = document.createElement('div');
+        messagePopupFooter.className = 'message-popup-footer';
 
-const messageInput = document.createElement('textarea');
-messageInput.id = `newMessageInput-${userName}`;
-messageInput.placeholder = 'Saisissez votre message';
+        const messageInput = document.createElement('textarea');
+        messageInput.id = `newMessageInput-${userName}`;
+        messageInput.placeholder = 'Saisissez votre message';
 
-const sendButton = document.createElement('button');
-sendButton.textContent = 'Envoyer';
-sendButton.onclick = function() {
-    sendMessage(userName);
-};
+        const sendButton = document.createElement('button');
+        sendButton.textContent = 'Envoyer';
+        sendButton.onclick = function () {
+            sendMessage(userName);
+        };
 
-messagePopupHeader.appendChild(closeButton);
-messagePopupHeader.appendChild(popupTitle);
+        messagePopupHeader.appendChild(closeButton);
+        messagePopupHeader.appendChild(popupTitle);
 
-messagePopupFooter.appendChild(messageInput);
-messagePopupFooter.appendChild(sendButton);
+        messagePopupFooter.appendChild(messageInput);
+        messagePopupFooter.appendChild(sendButton);
 
-messagePopupContent.appendChild(messagePopupHeader);
-messagePopupContent.appendChild(messagePopupBody);
-messagePopupContent.appendChild(messagePopupFooter);
+        messagePopupContent.appendChild(messagePopupHeader);
+        messagePopupContent.appendChild(messagePopupBody);
+        messagePopupContent.appendChild(messagePopupFooter);
 
-messagePopup.appendChild(messagePopupContent);
-messagePopupContainer.appendChild(messagePopup);
+        messagePopup.appendChild(messagePopupContent);
+        messagePopupContainer.appendChild(messagePopup);
 
         // ... (Add your message popup content creation here)
 

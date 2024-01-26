@@ -254,25 +254,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// function addPost() {
-//     var selectedCategories = [];
-//     var categoriesSelect = document.getElementById('postCategories');
+function addPost() {
+    var selectedCategories = [];
+    var categoriesSelect = document.getElementById('postCategories');
 
-//     for (var i = 0; i < categoriesSelect.options.length; i++) {
-//         if (categoriesSelect.options[i].selected) {
-//             selectedCategories.push(categoriesSelect.options[i].value);
-//         }
-//     }
+    for (var i = 0; i < categoriesSelect.options.length; i++) {
+        if (categoriesSelect.options[i].selected) {
+            selectedCategories.push(categoriesSelect.options[i].value);
+        }
+    }
 
-//     var postText = document.getElementById('postText').value;
-//     var postImage = document.getElementById('postImage').value;
+    var postText = document.getElementById('postText').value;
+    var postImage = document.getElementById('postImage').value;
 
-//     console.log('Selected Categories:', selectedCategories);
-//     console.log('Post Text:', postText);
-//     console.log('Post Image:', postImage);
+    console.log('Selected Categories:', selectedCategories);
+    console.log('Post Text:', postText);
+    console.log('Post Image:', postImage);
 
-//     // Clear the form or perform additional actions as needed
-// }
+    // Clear the form or perform additional actions as needed
+}
 // ---------------------select----------
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -291,38 +291,34 @@ document.addEventListener('DOMContentLoaded', function () {
             dislikeCounter.textContent = dislikeCount.toString();
         };
 
-        // Ajouter un gestionnaire de clics à la section de like
+        let count = 0
+
         postContainer.querySelector('.like-reaction').addEventListener('click', () => {
-            let count = 1
-            
-            if (count % 2 === 0) {
-                // Si le nombre de likes est pair, incrémenter le compteur de likes
-                count++
+            count++
+            if (count % 2 !== 0) {
                 likeCount++;
-            } else  if (count % 2 !== 0){
-                // Si le nombre de likes est impair, décrémenter le compteur de likes
+            } else {
                 likeCount--;
             }
-            // Si le compteur de dislikes est supérieur à 0, décrémenter le compteur de dislikes
-            if (dislikeCount > 0) {
+            if (discounting > 0 && discounting % 2 !== 0) {
                 dislikeCount--;
+                discounting--
             }
             updateCounters();
         });
-
+        let discounting = 0
         // Ajouter un gestionnaire de clics à la section de dislike
         postContainer.querySelector('.dislike-reaction').addEventListener('click', () => {
-            if (dislikeCount % 2 === 0) {
-                // Si le nombre de dislikes est pair, incrémenter le compteur de dislikes
+            discounting++
+            if (discounting % 2 !== 0) {
                 dislikeCount++;
             } else {
-                // Si le nombre de dislikes est impair, décrémenter le compteur de dislikes
                 dislikeCount--;
             }
-            // Si le compteur de likes est supérieur à 0, décrémenter le compteur de likes
-            if (likeCount > 0) {
-                likeCount--;
-            }
+             if (count > 0 && count % 2 !== 0) {
+                 likeCount--;
+                 count++
+             }
             updateCounters();
         });
     }
@@ -334,4 +330,5 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+
 

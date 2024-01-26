@@ -616,6 +616,9 @@ nav .user_nav-img {
     .feedpost .a-post img {
         height: 33vh;
     }
+    .leftside{
+        display: block;
+    }
 }
 
 @media only screen and (max-width: 768px) {
@@ -637,6 +640,10 @@ nav .user_nav-img {
     }
 
     .connected-name {
+        display: none;
+    }
+
+    .leftside{
         display: none;
     }
 
@@ -666,9 +673,6 @@ nav .user_nav-img {
         margin: 16px 0 0 6px;
     }
 
-    .leftside {
-        display: none;
-    }
 
     nav .logo h1 {
         margin-top: 15%;
