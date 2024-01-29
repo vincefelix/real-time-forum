@@ -65,4 +65,3 @@ export class LeftsideSection {
     }
 }
 
-const leftsection = new LeftsideSection()

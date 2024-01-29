@@ -214,7 +214,9 @@ nav .user_nav-img {
 }
 
 .feedpost .a-post img {
+    max-width: 100%;
     width: 90%;
+    min-width: 70%;
     margin-left: 5%;
     margin-top: -1%;
     height: 45vh;
@@ -454,17 +456,23 @@ nav .user_nav-img {
     margin-top: 25%;
 }
 .post-text {
-    width: 70%;
+    width: 100%;
     height: auto;
     word-wrap: break-word;
     margin-bottom: 35px;
+    margin: 15px 0 15px 25px ;
+    
 }
 
 .post-text pre {
-    width: 70%;
+    width: 88%;
+    max-height: 100px;
     height: auto;
     overflow-y: scroll;
     word-wrap: break-word;
+    position: relative;
+    left: 3%;
+    font-size: 0.8rem;
 }
 
 .toogle-allelement {
@@ -627,7 +635,9 @@ nav .user_nav-img {
     }
 
     .feedpost .a-post img {
-        height: 33vh;
+        max-height: 33vh;
+        min-height: 25vh;
+        height: auto;
     }
     .leftside{
         display: block;
@@ -1065,3 +1075,6 @@ nav .logo .tooglerleftimg {
 .new-comment-form.active {
     display: block;
 }
+
+
+

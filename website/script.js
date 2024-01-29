@@ -125,7 +125,6 @@ function showDisconnectedMessages(userName) {
         popup.style.display = 'none';
     });
 
-    // Afficher la boîte de dialogue des messages pour l'utilisateur spécifique
     var popupId = 'messagePopup-' + userName;
     var popup = document.getElementById(popupId);
     if (popup) {
@@ -228,6 +227,11 @@ function toggleComments() {
     // Toggle the 'active' class to show/hide comments section and new comment form
     commentsSection.classList.toggle('active');
     newCommentForm.classList.toggle('active');
+        // Appeler la fonction pour chaque post individuellement
+    const feedPosts = document.querySelectorAll('.feedpost');
+    feedPosts.forEach(postContainer => {
+        handleLikesAndDislikes(postContainer);
+    });
 }
 
 // --------------------------------categoriesadded---------
@@ -271,9 +275,7 @@ function addPost() {
     console.log('Post Text:', postText);
     console.log('Post Image:', postImage);
 
-    // Clear the form or perform additional actions as needed
 }
-// ---------------------select----------
 
 document.addEventListener('DOMContentLoaded', function () {
 

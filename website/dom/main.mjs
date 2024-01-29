@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     rightSidebar.createUser(
         rightSidebar.disconnectedUsers,
         'jane_doe',
-        './assets/user-connection/profile2.png',
+        './assets/user-connection/profile3.png',
         'messagePopup-jane_doe',
         false
     );
