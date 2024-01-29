@@ -453,6 +453,19 @@ nav .user_nav-img {
     height: 25%;
     margin-top: 25%;
 }
+.post-text {
+    width: 70%;
+    height: auto;
+    word-wrap: break-word;
+    margin-bottom: 35px;
+}
+
+.post-text pre {
+    width: 70%;
+    height: auto;
+    overflow-y: scroll;
+    word-wrap: break-word;
+}
 
 .toogle-allelement {
     min-width: 200px;
