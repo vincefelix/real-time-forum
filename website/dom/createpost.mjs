@@ -3,6 +3,16 @@ export class MainContentSection {
         this.createMainContent();
     }
 
+    addCommentsToPost(postContainer, comments) {
+        const commentsSection = postContainer.querySelector('.comments-section');
+        if (commentsSection) {
+            comments.forEach(comment => {
+                const commentElement = this.createComment(comment.username, comment.userImageSrc, comment.commentText);
+                commentsSection.appendChild(commentElement);
+            });
+        }
+    }
+
     createMainContent() {
         const mainContentSection = document.createElement('section');
         mainContentSection.className = 'main-content';
@@ -50,6 +60,15 @@ export class MainContentSection {
         createPost.appendChild(addPostContainer);
 
         return createPost;
+    }
+    addCommentsToPost(postContainer, comments) {
+        const commentsSection = postContainer.querySelector('.comments-section');
+        if (commentsSection) {
+            comments.forEach(comment => {
+                const commentElement = this.createComment(comment.username, comment.userImageSrc, comment.commentText);
+                commentsSection.appendChild(commentElement);
+            });
+        }
     }
     createComment(username, userImageSrc, commentText) {
         // Créez un élément de commentaire

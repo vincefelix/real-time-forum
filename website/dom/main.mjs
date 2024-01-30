@@ -64,7 +64,19 @@ const postDetails = [
     9
 ];
 
+const postDetailes = [
+    'thetest',
+    './assets/user-connection/profile1.png',
+    'Johkzhvn Dozece',
+    './assets/feedtrying.jpg',
+    'Description du post',
+    5,
+    6,
+    9
+];
+
 mainContent.createAndAddPost(postDetails);
+mainContent.createAndAddPost(postDetailes);
 
 // Obtenez la section des commentaires du post créé
 const commentsSection = document.querySelector('.comments-section'); // Assurez-vous d'ajuster le sélecteur en fonction de votre structure HTML
@@ -75,3 +87,24 @@ const comment2 = mainContent.createComment('Vince', './path/to/image2.png', 'tex
 
 commentsSection.appendChild(comment1);
 commentsSection.appendChild(comment2);
+
+// Utilisation de la nouvelle fonction pour ajouter des commentaires à un post
+const postofDetail = [
+    'thetest',
+    './assets/user-connection/profile1.png',
+    'Johnathan Doe',
+    './assets/feedtrying.jpg',
+    'Description du post',
+    5,
+    6,
+    9
+];
+
+const postContainer = mainContent.createAndAddPost(postofDetail);
+
+const comments = [
+    { username: 'Massljf', userImageSrc: './path/to/image1.png', commentText: 'Lorem Ipsum is simply dummy text...' },
+    { username: 'Vincenteece', userImageSrc: './path/to/image2.png', commentText: 'text ever since the 1500s...' }
+];
+
+mainContent.addCommentsToPost(postContainer, comments);

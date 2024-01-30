@@ -14,6 +14,8 @@ body {
     /*     overflow: hidden; */
 }
 
+/* -----------------------nav----------------- */
+
 nav {
     padding-left: 10px;
     padding-right: 20px;
@@ -94,7 +96,12 @@ nav .others-page ul {
     }
 }
 
-
+nav .logo .tooglerleftimg {
+    width: 15px;
+    height: 15px;
+    margin-top: 20px;
+    cursor: pointer;
+}
 
 .user-nav .user-nav-info .username {
     width: 100%;
@@ -122,6 +129,25 @@ nav .user_nav-img {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
         rgba(0, 0, 0, 0.3) 0px 4px 13px -1px;
 }
+.leftside .left-sidebar ul li:hover {
+    list-style: none;
+    margin-left: 10%;
+    font-size: 1rem;
+    width: 50%;
+    margin-left: 1vw;
+    height: 10vh;
+    background-color: #333;
+    padding: 15px 20px;
+    /* Ajustez la marge intérieure selon vos besoins */
+    color: #ffffff;
+    /* Couleur du texte */
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    a {
+        color: white;
+        justify-content: center;
+    }
+}
 
 .leftside .left-sidebar ul li {
     margin-top: 4%;
@@ -136,6 +162,177 @@ nav .user_nav-img {
 .leftside .left-sidebar ul {
     margin-top: 10%;
 }
+
+.leftside {
+    display: none;
+    
+}
+
+.leftside .left-sidebar ul li {
+    position: relative;
+}
+
+.leftside .left-sidebar ul li .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+
+}
+
+.leftside .left-sidebar ul li .dropdown-content a {
+    color: #fff;
+    padding: 12px 16px 14px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.leftside .left-sidebar ul li .dropdown-content a:hover {
+    background-color: #555;
+}
+
+.leftside .left-sidebar ul li:hover .dropdown-content {
+    display: block;
+}
+
+/* ---------------maincontent------------------ */
+/* ----------------commenthandling--------- */
+
+.comment {
+    display: flex;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    /* Ajoute une ligne de séparation entre les commentaires */
+    padding-bottom: 10px;
+}
+
+.comment img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-content {
+    flex: 1;
+}
+
+.comment-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+    /* Couleur du nom de l'auteur du commentaire */
+}
+
+.comment p {
+    margin: 0;
+    color: #555;
+    /* Couleur du texte du commentaire */
+}
+
+
+
+.comment-reaction .comments-section {
+    display: none;
+    max-height: 200px;
+    /* Set a maximum height for the comment section */
+    overflow-y: scroll;
+    margin-top: 10px;
+}
+
+.comment-reaction .comment {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.comment-reaction .comment img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-reaction .comment-content {
+    flex: 1;
+}
+
+.comment-reaction .comment-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comment-reaction .new-comment-form {
+    display: none;
+    margin-top: 10px;
+}
+
+.post-publish-button {
+    max-height: 20px;
+}
+
+#postImage {
+    margin-left: -2px;
+}
+
+.collapsible-select {
+    height: 60px;
+    overflow-y: scroll;
+    margin-top: 4px;
+    padding-right: 60px
+}
+
+
+.comment {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.comment img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-content {
+    flex: 1;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.new-comment-form textarea {
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    /* Ajout de la marge à gauche */
+    resize: vertical;
+}
+
+.new-comment-form button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+
+.comments-section,
+.new-comment-form {
+    display: none;
+}
+
+.comments-section.active,
+.new-comment-form.active {
+    display: block;
+}
+
+/* ----------------------------------------- */
 
 .main-content {
     position: fixed;
@@ -164,6 +361,7 @@ nav .user_nav-img {
 .main-content:hover::-webkit-scrollbar-thumb {
     background-color: #555;
 }
+
 
 .main-content .create-post {
     display: flex;
@@ -429,25 +627,7 @@ nav .user_nav-img {
     background-color: #ff9900;
 }
 
-.leftside .left-sidebar ul li:hover {
-    list-style: none;
-    margin-left: 10%;
-    font-size: 1rem;
-    width: 50%;
-    margin-left: 1vw;
-    height: 10vh;
-    background-color: #333;
-    padding: 15px 20px;
-    /* Ajustez la marge intérieure selon vos besoins */
-    color: #ffffff;
-    /* Couleur du texte */
-    transition: background-color 0.3s ease, color 0.3s ease;
 
-    a {
-        color: white;
-        justify-content: center;
-    }
-}
 
 .disconnection-element {
     position: absolute;
@@ -539,10 +719,7 @@ nav .user_nav-img {
          transform: translateY(20%);
      }
  }
-.leftside {
-    display: none;
-    /* Masquer la barre latérale gauche sur les petits écrans */
-}
+
 @keyframes scrollLeftSide {
     from{
         width: 1%;
@@ -883,12 +1060,7 @@ button {
     }
 }
 
-nav .logo .tooglerleftimg {
-    width: 15px;
-    height: 15px;
-    margin-top: 20px;
-    cursor: pointer;
-}
+
 
 /* .leftside {
     display: flex;
@@ -910,171 +1082,8 @@ nav .logo .tooglerleftimg {
     color: #fff; 
 } */
 
-/*-------------------------------------*/
 
 
-.leftside .left-sidebar ul li {
-    position: relative;
-}
-
-.leftside .left-sidebar ul li .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #333;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-
-}
-
-.leftside .left-sidebar ul li .dropdown-content a {
-    color: #fff;
-    padding: 12px 16px 14px;
-    text-decoration: none;
-    display: block;
-    transition: background-color 0.3s;
-}
-
-.leftside .left-sidebar ul li .dropdown-content a:hover {
-    background-color: #555;
-}
-
-.leftside .left-sidebar ul li:hover .dropdown-content {
-    display: block;
-}
-
-/* ----------------commenthandling--------- */
-
-.comment {
-    display: flex;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-    /* Ajoute une ligne de séparation entre les commentaires */
-    padding-bottom: 10px;
-}
-
-.comment img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.comment-content {
-    flex: 1;
-}
-
-.comment-author {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
-    /* Couleur du nom de l'auteur du commentaire */
-}
-
-.comment p {
-    margin: 0;
-    color: #555;
-    /* Couleur du texte du commentaire */
-}
-
-
-
-.comment-reaction .comments-section {
-    display: none;
-    max-height: 200px;
-    /* Set a maximum height for the comment section */
-    overflow-y: scroll;
-    margin-top: 10px;
-}
-
-.comment-reaction .comment {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-.comment-reaction .comment img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.comment-reaction .comment-content {
-    flex: 1;
-}
-
-.comment-reaction .comment-author {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.comment-reaction .new-comment-form {
-    display: none;
-    margin-top: 10px;
-}
-
-.post-publish-button {
-    max-height: 20px;
-}
-
-#postImage {
-    margin-left: -2px;
-}
-
-.collapsible-select {
-    height: 60px;
-    overflow-y: scroll;
-    margin-top: 4px;
-    padding-right: 60px
-}
-
-
-.comment {
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-}
-
-.comment img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.comment-content {
-    flex: 1;
-}
-
-.comment-author {
-    font-weight: bold;
-}
-
-.new-comment-form textarea {
-    width: calc(100% - 20px);
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    /* Ajout de la marge à gauche */
-    resize: vertical;
-}
-
-.new-comment-form button {
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-
-.comments-section,
-.new-comment-form {
-    display: none;
-}
-
-.comments-section.active,
-.new-comment-form.active {
-    display: block;
-}
 
 
 

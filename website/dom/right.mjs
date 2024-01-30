@@ -39,6 +39,8 @@ export class RightSidebarSection {
         document.body.appendChild(rightSidebarSection);
     }
 
+    
+
     createConnectedUser(parentElement, userName, profileImageSrc, messagePopupId) {
         this.createUser(parentElement, userName, profileImageSrc, messagePopupId, true);
     }
@@ -103,6 +105,7 @@ export class RightSidebarSection {
         const messagePopupBody = document.createElement('div');
         messagePopupBody.className = 'message-popup-body';
         messagePopupBody.id = `messagePopupBody-${userName}`;
+
     
         // ... (Ajoutez ici le code pour générer l'historique des messages précédents)
     
@@ -147,8 +150,7 @@ export class RightSidebarSection {
         modified.appendChild(userContainer)
         // Append user container to the specified parent element
         parentElement.appendChild(modified);
-    }
-    
+    } 
 }
 function sendMessage(userName) {
     // Récupérer le contenu du champ de saisie

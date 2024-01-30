@@ -119,49 +119,53 @@ function showAllInfoMsg() {
     });
 }
 
-function showDisconnectedMessages(userName) {
-    // Masquer toutes les boîtes de dialogue des messages
-    document.querySelectorAll('.message-popup').forEach(function (popup) {
-        popup.style.display = 'none';
-    });
+// function showDisconnectedMessages(userName) {
+//     // Masquer toutes les boîtes de dialogue des messages
+//     // document.querySelectorAll('.message-popup').forEach(function (popup) {
+//     //     popup.style.display = 'none';
+//     // });
 
-    var popupId = 'messagePopup-' + userName;
-    var popup = document.getElementById(popupId);
-    if (popup) {
-        popup.style.display = 'block';
-    }
-}
+//     var popupId = 'messagePopup-' + userName;
+//     var popup = document.getElementById(popupId);
+//     if (popup) {
+//         popup.style.display = 'block';
+//     }
+// }
 
-document.querySelectorAll('.connection-info').forEach(function (connectionInfo) {
-    connectionInfo.addEventListener('click', function () {
-        var userName = connectionInfo.querySelector('.connected-name').textContent;
-        showConnectedMessages(userName);
-    });
-});
+
+// document.querySelectorAll('.connection-info').forEach(function (connectionInfo) {
+//     connectionInfo.addEventListener('click', function () {
+//         var userName = connectionInfo.querySelector('.connected-name').textContent;
+//         console.log(userName);
+//         showConnectedMessages(userName);
+//         let test= `messagePopup-${userName}`
+//     });
+// });
+
 
 // Associer la fonction showDisconnectedMessages à chaque utilisateur déconnecté
-document.querySelectorAll('.isnotconnected-info').forEach(function (disconnectedInfo) {
-    disconnectedInfo.addEventListener('click', function () {
-        var userName = disconnectedInfo.querySelector('.isnotconnected-name').textContent;
-        showDisconnectedMessages(userName);
-    });
-});
+// document.querySelectorAll('.isnotconnected-info').forEach(function (disconnectedInfo) {
+//     disconnectedInfo.addEventListener('click', function () {
+//         var userName = disconnectedInfo.querySelector('.isnotconnected-name').textContent;
+//         showDisconnectedMessages(userName);
+//     });
+// });
 
 
 
-function showConnectedMessages(userName) {
-    // Masquer toutes les boîtes de dialogue des messages
-    document.querySelectorAll('.message-popup').forEach(function (popup) {
-        popup.style.display = 'none';
-    });
+// function showConnectedMessages(userName) {
+//     // Masquer toutes les boîtes de dialogue des messages
+//     // document.querySelectorAll('.message-popup').forEach(function (popup) {
+//     //     popup.style.display = 'none';
+//     // });
 
-    // Afficher la boîte de dialogue des messages pour l'utilisateur spécifique
-    var popupId = 'messagePopup-' + userName;
-    var popup = document.getElementById(popupId);
-    if (popup) {
-        popup.style.display = 'block';
-    }
-}
+//     // Afficher la boîte de dialogue des messages pour l'utilisateur spécifique
+//     var popupId = 'messagePopup-' + userName;
+//     var popup = document.getElementById(popupId);
+//     if (popup) {
+//         popup.style.display = 'block';
+//     }
+// }
 
 // ----------------------------------------------
 function previewImage() {
@@ -180,44 +184,44 @@ function previewImage() {
     }
 }
 
-function addPost() {
-    var postText = document.getElementById('postText').value;
-    var postImage = document.getElementById('postImage').files[0];
+// function addPost() {
+//     var postText = document.getElementById('postText').value;
+//     var postImage = document.getElementById('postImage').files[0];
 
-    // Vérifiez si le texte du post ou l'image est vide
-    if (postText.trim() === '' && !postImage) {
-        alert('Veuillez saisir du texte ou ajouter une image pour le post.');
-        return;
-    }
+//     // Vérifiez si le texte du post ou l'image est vide
+//     if (postText.trim() === '' && !postImage) {
+//         alert('Veuillez saisir du texte ou ajouter une image pour le post.');
+//         return;
+//     }
 
-    // Créez un nouvel élément de post
-    var newPost = document.createElement('div');
-    newPost.className = 'post';
+//     // Créez un nouvel élément de post
+//     var newPost = document.createElement('div');
+//     newPost.className = 'post';
 
-    // Ajoutez le texte du post s'il existe
-    if (postText.trim() !== '') {
-        var postTextElement = document.createElement('p');
-        postTextElement.textContent = postText;
-        newPost.appendChild(postTextElement);
-    }
+//     // Ajoutez le texte du post s'il existe
+//     if (postText.trim() !== '') {
+//         var postTextElement = document.createElement('p');
+//         postTextElement.textContent = postText;
+//         newPost.appendChild(postTextElement);
+//     }
 
-    // Ajoutez l'image du post s'il existe
-    if (postImage) {
-        var postImageElement = document.createElement('img');
-        postImageElement.src = URL.createObjectURL(postImage);
-        postImageElement.alt = 'Post Image';
-        newPost.appendChild(postImageElement);
-    }
+//     // Ajoutez l'image du post s'il existe
+//     if (postImage) {
+//         var postImageElement = document.createElement('img');
+//         postImageElement.src = URL.createObjectURL(postImage);
+//         postImageElement.alt = 'Post Image';
+//         newPost.appendChild(postImageElement);
+//     }
 
-    // Ajoutez le nouvel élément de post à la liste des posts (à personnaliser selon votre structure)
-    var postsContainer = document.getElementById('postsContainer');
-    postsContainer.appendChild(newPost);
+//     // Ajoutez le nouvel élément de post à la liste des posts (à personnaliser selon votre structure)
+//     var postsContainer = document.getElementById('postsContainer');
+//     postsContainer.appendChild(newPost);
 
-    // Effacez le texte du post et réinitialisez l'input de l'image et la zone de prévisualisation
-    document.getElementById('postText').value = '';
-    document.getElementById('postImage').value = '';
-    document.getElementById('imagePreview').innerHTML = '';
-}
+//     // Effacez le texte du post et réinitialisez l'input de l'image et la zone de prévisualisation
+//     document.getElementById('postText').value = '';
+//     document.getElementById('postImage').value = '';
+//     document.getElementById('imagePreview').innerHTML = '';
+// }
 
 
 function toggleComments() {
@@ -249,7 +253,9 @@ document.addEventListener('DOMContentLoaded', function () {
     categorySelect.addEventListener('mousemove', function (event) {
         if (isMouseDown) {
             event.target.selected = !event.target.selected;
-            event.preventDefault();
+            event
+            
+            .preventDefault();
         }
     });
 
