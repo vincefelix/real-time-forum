@@ -1,0 +1,146 @@
+:root {
+  --raisin-black: hsla(264, 27%, 11%, 0.4);
+  --raisin-black-heavy: hsla(264, 27%, 11%, 01);
+  --english-violet: hsla(269, 20%, 24%, 1);
+  --eggplant: hsla(333, 19%, 34%, 1);
+  --chamoisee: hsla(21, 24%, 47%, 1);
+}
+
+#container {
+  box-shadow: 25px 15px 85px 35px rgb(248, 205, 144),
+    25px 5px 35px 25px rgb(250, 249, 249),
+    -25px -5px 85px 25px rgba(164, 117, 212, 0.61);
+  border: 3px groove var(--chamoisee);
+  filter: contrast(120%) brightness(100%) blur(0px);
+}
+
+#text-info {
+  /* background-color: var(--eggplant); */
+  background: linear-gradient(
+    173deg,
+    rgba(42, 15, 27, 1) 0%,
+    rgba(144, 118, 130, 1) 100%
+  );
+  color: white;
+  border: 5px ridge var(--raisin-black);
+  hr {
+    border: 4px ridge var(--raisin-black);
+    filter: brightness(250%) contrast(110%);
+    mix-blend-mode: multiply;
+  }
+}
+#log-info {
+  #submit-btn {
+    background-color: var(--chamoisee);
+    border: 4px groove var(--raisin-black);
+    filter: brightness(150%) contrast(110%);
+    &:hover {
+      cursor: pointer;
+      filter: hue-rotate(250deg);
+      border: 2px ridge;
+      button {
+        cursor: pointer;
+        color: whitesmoke;
+      }
+      img {
+        filter: invert();
+      }
+    }
+  }
+}
+#loginLink {
+  color: black;
+  &:hover {
+    color: var(--chamoisee);
+    background: var(--english-violet);
+    text-decoration: 1px underline var(--chamoisee);
+    filter: brightness(180%);
+  }
+}
+
+#createAccountLink {
+  color: black;
+  &:hover {
+    color: var(--chamoisee);
+    text-decoration: 1px underline var(--chamoisee);
+    filter: brightness(180%);
+    background-color: var(--english-violet);
+  }
+}
+
+label {
+  text-shadow: 0px 1px 8px var(--chamoisee);
+  color: black;
+  filter: brightness(150%);
+}
+
+#ageLabel {
+  #age-holder {
+    box-shadow: 0px 0px 25px 2px chocolate;
+    background-color: var(--raisin-black-heavy);
+    filter: contrast(50%);
+    input {
+      color: white;
+      filter: contrast(100%) brightness(100%);
+    }
+    img {
+      filter: invert();
+    }
+  }
+}
+
+#genderLabel {
+  #gender {
+    box-shadow: 0px 0px 25px 2px chocolate;
+    background-color: var(--raisin-black-heavy);
+    filter: contrast(50%);
+    color: white;
+  }
+}
+
+.holder {
+  box-shadow: 0px 0px 25px 2px chocolate;
+  background-color: var(--raisin-black-heavy);
+  filter: contrast(50%);
+  input {
+    color: white;
+  }
+  img {
+    filter: invert();
+  }
+}
+#separator {
+  background-color: black;
+}
+
+#email-holder {
+  border: 2px solid rgba(0, 0, 0, 0.212);
+  box-shadow: 0px 0px 25px 2px chocolate;
+  background-color: var(--raisin-black-heavy);
+  filter: contrast(50%);
+  input {
+    color: white;
+  }
+  img {
+    filter: invert();
+  }
+}
+
+.Password {
+  background-color: var(--raisin-black-heavy);
+  border: 2px solid rgba(0, 0, 0, 0.212);
+  box-shadow: 0px 0px 25px 2px chocolate;
+  filter: contrast(50%);
+  input {
+    color: white;
+  }
+  img {
+    filter: invert();
+  }
+  .hideP,
+  .hidePConf {
+    border-radius: 55%;
+    filter: contrast(150%);
+  }
+}
+

@@ -1,0 +1,68 @@
+@keyframes switchTextInfo {
+  from {
+    transform: translateX(0%);
+    height: auto;
+    border-top-left-radius: 42px;
+    border-bottom-left-radius: 42px;
+  }
+  to {
+    transform: translateX(135%);
+    height: auto;
+    border-top-right-radius: 42px;
+    border-bottom-right-radius: 42px;
+  }
+}
+@keyframes switchTextInfoBack {
+  from {
+    transform: translateX(135%);
+    height: auto;
+    border-top-right-radius: 42px;
+    border-bottom-right-radius: 42px;
+  }
+  to {
+    transform: translateX(0%);
+    height: auto;
+    border-top-left-radius: 42px;
+    border-bottom-left-radius: 42px;
+  }
+}
+
+@keyframes switchFormDiv {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-75%);
+  }
+}
+
+@keyframes switchFormDivBack {
+  from {
+    transform: translateX(-75%);
+  }
+  to {
+    transform: translateX(0%);
+    height: 82vh;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    /* transform: perspective(1000px) rotateX('angle'); */
+    transform: perspective(1000px) rotateX(-40deg) translateY(35%);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0deg) translateY(0%);
+  }
+}
+
+@keyframes fade1 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,60 @@
+:root {
+    --raisin-black: hsla(264, 27%, 11%, 0.4);
+    --raisin-black-heavy: hsla(264, 27%, 11%, 01);
+    --english-violet: hsla(269, 20%, 24%, 1);
+    --eggplant: hsla(333, 19%, 34%, 1);
+    --chamoisee: hsla(21, 24%, 47%, 1);
+  }
+  
+  #profil-content {
+    background-color: whitesmoke;
+    /* box-shadow: 0px 0px 5px 1px rgb(170, 170, 170); */
+    box-shadow: 0px 0px 5px 5px rgba(31, 29, 26, 0.288);
+    filter: contrast(130%);
+  }
+  #profil-top-container {
+    /* background: linear-gradient(129deg, rgba(128, 44, 255, 0.438) 0%, rgba(0, 201, 241, 0.493) 100%); */
+    background: linear-gradient(129deg, var(--eggplant) 0%, var(--chamoisee) 100%);
+    border-bottom: 5px ridge white;
+  }
+  
+  #name-container {
+    border-radius: 50px;
+    #pp-username {
+      color: var(--english-violet);
+    }
+    #pp-fullname {
+      color: var(--chamoisee);
+      font-weight: 500;
+      text-shadow: 0px 0px 2px brown;
+    }
+  }
+  
+  #pp {
+      border: 5px solid whitesmoke;
+  }
+  
+  #info-container {
+    ul {
+      /* background: linear-gradient(130deg, rgba(98, 43, 226, 0.747) 16%, rgba(0, 201, 241, 0.24) 100%); */
+      background: linear-gradient(150deg, var(--eggplant) 0%, var(--chamoisee) 100%);
+      border-bottom: 7px double white;
+      border-top: 7px double white;
+      display: flex;
+      flex-direction: column;
+      li {
+        /* background-color: rgba(15, 15, 15, 0.5); */
+        background-color: rgba(255, 255, 255, 0.808);
+        color: white;
+        text-shadow: 0px 0px 5px black;
+        box-shadow: 5px 0px 15px 1px white;
+        mix-blend-mode: lighten;
+        i {
+          text-shadow: none;
+          color: black;
+          padding-left: 5vw;
+        }
+      }
+    }
+
+  }
