@@ -6,7 +6,7 @@ import (
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	file, err := template.ParseFiles("templates/test.html")
+	file, err := template.ParseFiles("templates/form.html")
 	file.Execute(w, nil)
 	if err != nil {
 		http.Error(w, "index file missing", 500)
