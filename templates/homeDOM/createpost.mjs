@@ -1,6 +1,7 @@
+import * as com  from "./communication.mjs";
+
 export class MainContentSection {
     constructor() {
-        this.createMainContent();
     }
 
     addCommentsToPost(postContainer, comments) {
@@ -13,7 +14,7 @@ export class MainContentSection {
         }
     }
 
-    createMainContent() {
+    init() {
         const mainContentSection = document.createElement('section');
         mainContentSection.className = 'main-content';
 
@@ -222,7 +223,7 @@ export class MainContentSection {
         // Create comment-reaction section
         const commentReaction = document.createElement('div');
         commentReaction.className = 'comment-reaction';
-        commentReaction.onclick = toggleComments;
+        commentReaction.onclick = com.toggleComments;
     
         const commentImg = document.createElement('img');
         commentImg.src = '/static/./assets/comment.png';
@@ -257,7 +258,7 @@ export class MainContentSection {
     
         const postButton = document.createElement('button');
         postButton.textContent = 'Post';
-        postButton.onclick = addComment;
+        postButton.onclick = com.addComment;
     
         newCommentForm.appendChild(commentTextarea);
         newCommentForm.appendChild(postButton);
@@ -330,7 +331,7 @@ export class MainContentSection {
         const postButton = document.createElement('button');
         postButton.type = 'button';
         postButton.textContent = 'Post';
-        postButton.addEventListener('click', addPost);
+        postButton.addEventListener('click', com.GetPostValue);
 
         // Create div for the validation post section
         const validationPostDiv = document.createElement('div');

@@ -1,77 +1,85 @@
 
-document.addEventListener('DOMContentLoaded', function () {
-    var userNavImg = document.querySelector('.tooglerleftimg');
-    var leftSidebar = document.querySelector('.leftside');
-    var mainspace = document.querySelector('.main-content');
-    var sidebarVisible = true;
+//  function hamToggle() {
+//     var userNavImg = document.querySelector('.tooglerleftimg');
+//     var leftSidebar = document.querySelector('.leftside');
+//     var mainspace = document.querySelector('.main-content');
+//     var sidebarVisible = true;
 
-    if (userNavImg && leftSidebar) {
-        userNavImg.addEventListener('click', function () {
-            if (sidebarVisible) {
-                leftSidebar.style.display = 'block';
-                mainspace.style.cssText = "width: 52%; left: 21%";
-            } else {
-                leftSidebar.style.display = 'none';
-                mainspace.style.cssText = "width: 75%; left: 0";
-            }
-            sidebarVisible = !sidebarVisible;
-        });
-    } else {
-        console.error("Élément non trouvé.");
-    }
-});
+//     if (userNavImg && leftSidebar) {
+//         userNavImg.addEventListener('click', function () {
+//             if (sidebarVisible) {
+//                 leftSidebar.style.display = 'block';
+//                 mainspace.style.cssText = "width: 52%; left: 21%";
+//             } else {
+//                 leftSidebar.style.display = 'none';
+//                 mainspace.style.cssText = "width: 75%; left: 0";
+//             }
+//             sidebarVisible = !sidebarVisible;
+//         });
+//     } else {
+//         console.error("Élément non trouvé.");
+//     }
+// };
 
-document.addEventListener('DOMContentLoaded', function () {
-    var profilemenutoogler = document.querySelector('.options-menu-img');
-    var menutotoogle = document.querySelector('.profile-toogle');
+// function profilHover() {
+//     var profilemenutoogler = document.querySelector('.options-menu-img');
+//     var menutotoogle = document.querySelector('.profile-toogle');
 
-    profilemenutoogler.addEventListener('mouseenter', function () {
-        menutotoogle.style.display = 'block';
-    });
+//     profilemenutoogler.addEventListener('mouseenter', function () {
+//         menutotoogle.style.display = 'block';
+//     });
 
-    profilemenutoogler.addEventListener('mouseleave', function () {
-        setTimeout(function () {
-            if (!menutotoogle.matches(':hover')) {
-                menutotoogle.style.display = 'none';
-            }
-        }, 100);
-    });
+//     profilemenutoogler.addEventListener('mouseleave', function () {
+//         setTimeout(function () {
+//             if (!menutotoogle.matches(':hover')) {
+//                 menutotoogle.style.display = 'none';
+//             }
+//         }, 100);
+//     });
 
-    menutotoogle.addEventListener('mouseleave', function () {
-        menutotoogle.style.display = 'none';
-    });
-});
+//     menutotoogle.addEventListener('mouseleave', function () {
+//         menutotoogle.style.display = 'none';
+//     });
+// };
 
 
 // --------------------Message----------------------
 
-function openMessagePopup() {
+export function openMessagePopup() {
     var messagePopup = document.getElementById('messagePopup');
     messagePopup.style.display = 'block';
 }
 
-function closeMessagePopup() {
+export function closeMessagePopup() {
     var messagePopup = document.getElementById('messagePopup');
     messagePopup.style.display = 'none';
 }
 
-function sendMessage() {
-    var newMessageInput = document.getElementById('newMessageInput');
-    var messagePopupBody = document.getElementById('messagePopupBody');
+export function sendMessage(userName) {
+    // Récupérer le contenu du champ de saisie
+    const messageInput = document.getElementById(`newMessageInput-${userName}`);
+    const messageText = messageInput.value;
 
-    // Récupérez le contenu du champ de saisie et ajoutez-le à l'historique des messages
-    var messageText = newMessageInput.value;
-    if (messageText.trim() !== '') {
-        var newMessage = document.createElement('div');
-        newMessage.className = 'message';
-        newMessage.textContent = messageText;
-        messagePopupBody.appendChild(newMessage);
+    // Créer un nouvel élément de message
+    const messageItem = document.createElement('div');
+    messageItem.className = 'message-item';
 
-        // Effacez le champ de saisie après l'envoi du message
-        newMessageInput.value = '';
-    }
+    const senderName = document.createElement('span');
+    senderName.textContent = 'Moi'; // Vous pouvez utiliser le nom de l'utilisateur actuel
+
+    const messageTextElement = document.createElement('div');
+    messageTextElement.textContent = messageText;
+
+    messageItem.appendChild(senderName);
+    messageItem.appendChild(messageTextElement);
+
+    // Ajouter le nouveau message à l'historique des messages
+    const messageHistoryContainer = document.getElementById(`messagePopupBody-${userName}`);
+    messageHistoryContainer.appendChild(messageItem);
+
+    // Effacer le champ de saisie après l'envoi
+    messageInput.value = '';
 }
-
 
 // document.addEventListener('DOMContentLoaded', function () {
 //     // Sélectionnez tous les boutons de fermeture
@@ -92,12 +100,12 @@ function sendMessage() {
 // });
 
 
-function addComment() {
+export function addComment() {
     // Ajoutez le code nécessaire pour gérer l'ajout d'un commentaire ici
     console.log('Comment added!');
 }
 
-function showConnectedMessages(userName) {
+export function showConnectedMessages(userName) {
     // Masquer toutes les boîtes de dialogue des messages
     document.querySelectorAll('.message-popup').forEach(function (popup) {
         popup.style.display = 'none';
@@ -112,7 +120,7 @@ function showConnectedMessages(userName) {
     }
 }
 
-function showAllInfoMsg() {
+export function showAllInfoMsg() {
     console.log('dokhna');
     document.querySelectorAll('.allinfo-msg').forEach(function (allinfoMsg) {
         allinfoMsg.style.display = 'block';
@@ -167,22 +175,22 @@ function showAllInfoMsg() {
 //     }
 // }
 
-// ----------------------------------------------
-function previewImage() {
-    var previewContainer = document.getElementById('imagePreview');
-    var postImage = document.getElementById('postImage').files[0];
-    var previewImage = document.createElement('img');
+// // ----------------------------------------------
+// function previewImage() {
+//     var previewContainer = document.getElementById('imagePreview');
+//     var postImage = document.getElementById('postImage').files[0];
+//     var previewImage = document.createElement('img');
 
 
-    previewContainer.innerHTML = '';
+//     previewContainer.innerHTML = '';
 
-    if (postImage) {
-        var imageURL = URL.createObjectURL(postImage);
-        previewImage.src = imageURL;
+//     if (postImage) {
+//         var imageURL = URL.createObjectURL(postImage);
+//         previewImage.src = imageURL;
 
-        previewContainer.appendChild(previewImage);
-    }
-}
+//         previewContainer.appendChild(previewImage);
+//     }
+// }
 
 // function addPost() {
 //     var postText = document.getElementById('postText').value;
@@ -224,7 +232,7 @@ function previewImage() {
 // }
 
 
-function toggleComments() {
+export function toggleComments() {
     const commentsSection = document.getElementById('commentsSection');
     const newCommentForm = document.getElementById('newCommentForm');
 
@@ -232,15 +240,15 @@ function toggleComments() {
     commentsSection.classList.toggle('active');
     newCommentForm.classList.toggle('active');
         // Appeler la fonction pour chaque post individuellement
-    const feedPosts = document.querySelectorAll('.feedpost');
-    feedPosts.forEach(postContainer => {
-        handleLikesAndDislikes(postContainer);
-    });
+    //const feedPosts = document.querySelectorAll('.feedpost');
+    //feedPosts.forEach(postContainer => {
+     //   handleLikesAndDislikes(postContainer);
+   // });
 }
 
 // --------------------------------categoriesadded---------
 
-document.addEventListener('DOMContentLoaded', function () {
+export function categoryToggle() {
     var categorySelect = document.getElementById('postCategories');
     var isMouseDown = false;
 
@@ -262,9 +270,9 @@ document.addEventListener('DOMContentLoaded', function () {
     categorySelect.addEventListener('mouseup', function () {
         isMouseDown = false;
     });
-});
-
-function addPost() {
+};
+//!----------------------------------------!
+export function GetPostValue() {
     var selectedCategories = [];
     var categoriesSelect = document.getElementById('postCategories');
 
