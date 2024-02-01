@@ -43,11 +43,11 @@ func Profil(w http.ResponseWriter, r *http.Request, database db.Db) {
 
 	GetAll_fromDB(w)
 	UploadImageUser(w, r, Id_user)
-	StatusCode := ProcessData(w, r, "/myprofil/"+choice)
-	if StatusCode != 200 {
-		auth.Snippets(w, StatusCode)
-		return
-	}
+	// StatusCode := ProcessData(w, r, "/myprofil/"+choice)
+	// if StatusCode != 200 {
+	// 	auth.Snippets(w, StatusCode)
+	// 	return
+	// }
 	var newtab Com.Posts
 	for _, v := range postab {
 		if v.UserId == Id_user {
