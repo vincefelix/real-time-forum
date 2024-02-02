@@ -1,12 +1,12 @@
 package Route
 
 import (
-	"fmt"
-	com "forum/Communication"
-	db "forum/Database"
-	Struct "forum/data-structs"
-	tools "forum/tools"
-	"strings"
+	// "fmt"
+	// com "forum/Communication"
+	// db "forum/Database"
+	// Struct "forum/data-structs"
+	// tools "forum/tools"
+	// "strings"
 )
 
 // func ProcessData(w http.ResponseWriter, r *http.Request, redirect string) int {
@@ -178,58 +178,3 @@ import (
 // 	return 200
 // }
 
-func InserPost(user string, data Struct.DataPost, database db.Db) (com.Post, Struct.Errormessage) {
-
-	//checking Id_user validity
-	if tools.IsnotExist_user(user, database) {
-		return com.Post{}, Struct.Errormessage{}
-	}
-	//checking Title's validity
-	if data.Title == "" {
-		fmt.Printf("⚠ ERROR ⚠ : Couldn't create post from user %s due to empty title ❌\n", Id_user)
-		return com.Post{},
-			Struct.Errormessage{
-				Type:       tools.BdType,
-				Msg:        "Couldn't create post due to empty title",
-				StatusCode: tools.BdStatus,
-			}
-	}
-	//checking content's validity
-	if strings.TrimSpace(data.Content) == "" && data.Image == "" {
-		fmt.Printf("⚠ ERROR ⚠ : Couldn't create post from user %s due to empty content ❌\n", Id_user)
-		return com.Post{},
-			Struct.Errormessage{
-				Type:       tools.BdType,
-				Msg:        "Couldn't create post due to empty content",
-				StatusCode: tools.BdStatus,
-			}
-	}
-	//checking categore's validity
-	if len(data.Categorie) < 1 { //user did not select a categorie
-		fmt.Printf("⚠ ERROR ⚠ : Couldn't create post from user %s due to missing category❌\n", Id_user)
-		return com.Post{},
-			Struct.Errormessage{
-				Type:       tools.BdType,
-				Msg:        "Couldn't create post due to missing category",
-				StatusCode: tools.BdStatus,
-			}
-	}
-
-	if len(data.Content) > 1500 || tools.IsInvalid(data.Title) || len(data.Title) > 25 { //found only spaces,newlines in the input or chars number limit exceeded
-		fmt.Printf("⚠ ERROR ⚠ : Couldn't create post from user %s due to invalid input ❌\n", Id_user)
-		return com.Post{},
-			Struct.Errormessage{
-				Type:       tools.BdType,
-				Msg:        "Couldn't create post due to empty content",
-				StatusCode: tools.BdStatus,
-			}
-	}
-	//!---------- alert modif --------!
-	CreateP_mngmnt(user, data.Categorie, data.Content, data.Title, data.Image)
-	return com.Post{},
-			Struct.Errormessage{
-				Type:       tools.BdType,
-				Msg:        "Couldn't create post due to empty content",
-				StatusCode: tools.BdStatus,
-			}
-}
