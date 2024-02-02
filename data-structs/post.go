@@ -1,8 +1,9 @@
 package Struct
 
 type DataPost struct {
-	Title     string
-	Content   string
-	Image     string
-	Categorie []string
+	User       string
+	Title      string
+	Content    string
+	Image      string
+	Categories []string
 }
