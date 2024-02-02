@@ -2,25 +2,26 @@ package Route
 
 import (
 	"fmt"
-	Err "forum/Authentication"
 	com "forum/Communication"
+	db "forum/Database"
+
 	//db "forum/Database"
 	Struct "forum/data-structs"
 	tools "forum/tools"
-	"net/http"
 	"strings"
 )
 
 // CreateP_mngmnt handles user's post activity
-func CreateP_mngmnt(user string, categorie []string, title string, content string, image string) (com.Post, Struct.Errormessage) {
-
+func CreateP_mngmnt(user string, categorie []string, title string, content string, image string) (com.Post, bool, Struct.Errormessage) {
+	post := com.Post{}
 	idPost_toReplace, errpost := postab.Create_post(database, user, categorie, title, content, image)
 	if errpost != nil {
-		fmt.Printf("⚠ ERROR ⚠ : Couldn't create post from user %s ❌\n", Id_user)
+		fmt.Printf("⚠ ERROR ⚠ : Couldn't create post from user %s ❌\n", user)
 		return com.Post{},
+			false,
 			Struct.Errormessage{
 				Type:       tools.BdType,
-				Msg:        "Unknown user",
+				Msg:        "Error while creating post",
 				StatusCode: tools.BdStatus,
 			}
 	}
@@ -34,26 +35,104 @@ func CreateP_mngmnt(user string, categorie []string, title string, content strin
 		content = strings.ReplaceAll(content, "'", "2@c86cb3")
 		content = strings.ReplaceAll(content, "`", "2#c86cb3")
 	}
-
-	//---fetching id post in database
-	//condition := fmt.Sprintf("WHERE %s = '%s'", db.Description, content)
-	// Idpost, err1 := database.GetData(db.Id_post, db.Post, condition)
-	// Idpost_got, err2 := db.Getelement(Idpost)
-//!--------- alert update -----------!
-	return com.Post{},
+	request := fmt.Sprintf("%s, %s, %s, %s, %s, %s, %s", db.Id_post, db.User_id, db.Title, db.Description, db.Image, db.Time, db.Date)
+	condition := fmt.Sprintf("WHERE %s = '%s'", db.Description, content)
+	rows_value, errow := database.GetData(request, db.Post, condition) //retrieving datas
+	if errow != nil {
+		return com.Post{},
+			false,
 			Struct.Errormessage{
-				Type:       tools.BdType,
-				Msg:        "Couldn't create post due to empty content",
-				StatusCode: tools.BdStatus,
+				Type:       tools.IseType,
+				Msg:        tools.InternalServorError,
+				StatusCode: tools.IseStatus,
 			}
+	}
+	defer rows_value.Close()
+	fmt.Println("✔ posts to send to front fetched from database")
+
+	//storing retrieved datas in local structure
+	for rows_value.Next() {
+		errscan := rows_value.Scan(&post.PostId, &post.UserId, &post.Title, &post.Content, &post.ImageLink, &post.Time, &post.Date)
+		if errscan != nil {
+			fmt.Println("⚠ GetPost_data scan err in createPost mngmnt ⚠ :", errscan)
+			return com.Post{},
+				false,
+				Struct.Errormessage{
+					Type:       tools.IseType,
+					Msg:        tools.InternalServorError,
+					StatusCode: tools.IseStatus,
+				}
+		}
+		//--formatting content's special chars
+		post.Content = strings.ReplaceAll(post.Content, "2@c86cb3", "'")
+		post.Content = strings.ReplaceAll(post.Content, "2#c86cb3", "`")
+
+		//--formatting title's special chars
+		post.Title = strings.ReplaceAll(post.Title, "2@c86cb3", "'")
+		post.Title = strings.ReplaceAll(post.Title, "2#c86cb3", "`")
+
+		//--formatting image link special chars
+		post.ImageLink = strings.ReplaceAll(post.ImageLink, "2@c86cb3", "'")
+		post.ImageLink = strings.ReplaceAll(post.ImageLink, "2#c86cb3", "`")
+	}
+	//---fetching post in database
+	// Idpost_got, err2 := db.Getelement(Idpost)\\
+	return post,
+		true,
+		Struct.Errormessage{}
 }
 
 // CreateC_mngmnt handles user's comment activity
-func CreateC_mngmnt(w http.ResponseWriter, r *http.Request, Id_post string, newcomment string) {
-	errcomm := commtab.Create_comment(database, Id_user, Id_post, newcomment)
+func CreateC_mngmnt(user string, Id_post string, newcomment string) (com.Comment, bool, Struct.Errormessage) {
+	errcomm := commtab.Create_comment(database, user, Id_post, newcomment)
 	if errcomm != nil {
-		fmt.Printf("⚠ ERROR ⚠ : Couldn't create comment in post %s from user %s ❌\n", Id_post, Id_user)
-		Err.Snippets(w, 500)
-		return
+		fmt.Printf("⚠ ERROR ⚠ : Couldn't create comment in post %s from user %s ❌\n", Id_post, user)
+		return com.Comment{},
+			false,
+			Struct.Errormessage{
+				Type:       tools.BdType,
+				Msg:        "Error while creating comment",
+				StatusCode: tools.BdStatus,
+			}
 	}
+	newcomment = strings.ReplaceAll(newcomment, "'", "2@c86cb3")
+	newcomment = strings.ReplaceAll(newcomment, "`", "2#c86cb3")
+
+	request := fmt.Sprintf("%s, %s, %s, %s, %s, %s", db.Post_id, db.User_id, db.Id_comment, db.Content, db.Time, db.Date)
+	condition := fmt.Sprintf("WHERE %s = '%s'", db.Content, newcomment)
+	rows_value, errow := database.GetData(request, db.Comment, condition) //retrieving datas
+	if errow != nil {
+		fmt.Println("⚠ ERROR ⚠ : Couldn't get comment values from database ❌")
+		fmt.Printf("⚠ : %v\n", errow)
+		return com.Comment{},
+			false,
+			Struct.Errormessage{
+				Type:       tools.IseType,
+				Msg:        tools.InternalServorError,
+				StatusCode: tools.IseStatus,
+			}
+	}
+	fmt.Println("✔ comments fetched from database")
+
+	var cmt com.Comment
+	//storing retrieved datas in local structure
+	for rows_value.Next() {
+		errscan := rows_value.Scan(&cmt.PostId, &cmt.UserId, &cmt.CommentId, &cmt.Content, &cmt.Time, &cmt.Date)
+		if errscan != nil {
+			fmt.Println("⚠ ERROR ⚠ : Couldn't scan comments values ❌")
+			fmt.Printf("⚠ : %v\n", errscan)
+			return com.Comment{},
+				false,
+				Struct.Errormessage{
+					Type:       tools.IseType,
+					Msg:        tools.InternalServorError,
+					StatusCode: tools.IseStatus,
+				}
+		}
+		cmt.Content = strings.ReplaceAll(cmt.Content, "2@c86cb3", "'")
+		cmt.Content = strings.ReplaceAll(cmt.Content, "2#c86cb3", "`")
+	}
+	return cmt,
+		true,
+		Struct.Errormessage{}
 }
