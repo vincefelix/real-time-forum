@@ -85,11 +85,11 @@ func ValidMailAddress(address string) (string, bool) {
 	return address, match
 }
 
-func CheckCookie(value string, tab db.Db) (bool, Structs.Errormessage) {
+func CheckCookie(value string, tab db.Db) (bool, string, Structs.Errormessage) {
 	idviasession, err, _ := HelpersBA("sessions", tab, "user_id", "WHERE id_session='"+value+"'", "")
 	if err != nil {
 		log.Println("❌ error while checking cookie in database", err)
-		return false,
+		return false, "",
 			Structs.Errormessage{Type: tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
@@ -97,14 +97,14 @@ func CheckCookie(value string, tab db.Db) (bool, Structs.Errormessage) {
 	}
 	if idviasession == "" {
 		log.Println("❌ cookie is not valid", idviasession)
-		return false,
+		return false, "",
 			Structs.Errormessage{Type: "socket-open-invalid-session",
 				Msg:        "Invalid cookie",
 				StatusCode: 400,
 			}
 	}
 	log.Println("✔ cookie is valid", idviasession)
-	return true,
+	return true, value,
 		Structs.Errormessage{Type: "socket-open-with-session",
 			Msg:        "valid cookie",
 			StatusCode: 200,

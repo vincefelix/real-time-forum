@@ -19,7 +19,7 @@ func (c *SocketReader) HandleConnection(w http.ResponseWriter, r *http.Request, 
 		defer func() {
 			err := recover()
 			if err != nil {
-				log.Println(err)
+				log.Println("last recover => ", err)
 			}
 			log.Println("thread socketreader finish")
 		}()

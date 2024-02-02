@@ -30,5 +30,7 @@ func HandleLogin(requestPayload map[string]interface{}, database db.Db) (map[str
 	Response["status"] = "200"
 	Response["Payload"] = token
 	Response["cookie"] = userCookie
+	Response["session"] = userCookie.Value
+
 	return Response, true, Struct.Errormessage{}
 }

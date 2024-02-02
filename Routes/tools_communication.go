@@ -2,8 +2,10 @@ package Route
 
 import (
 	"fmt"
+	auth "forum/Authentication"
 	com "forum/Communication"
 	db "forum/Database"
+	"log"
 
 	//db "forum/Database"
 	Struct "forum/data-structs"
@@ -12,7 +14,8 @@ import (
 )
 
 // CreateP_mngmnt handles user's post activity
-func CreateP_mngmnt(user string, categorie []string, title string, content string, image string) (com.Post, bool, Struct.Errormessage) {
+func CreateP_mngmnt(user string, categorie []string, title string, content string, image string, database db.Db) (com.Post, bool, Struct.Errormessage) {
+	log.Println("In createP M")
 	post := com.Post{}
 	idPost_toReplace, errpost := postab.Create_post(database, user, categorie, title, content, image)
 	if errpost != nil {
@@ -29,14 +32,14 @@ func CreateP_mngmnt(user string, categorie []string, title string, content strin
 
 	//*Getting the id post according to the content for html relative link
 	//---formatting content to escape special chars
-	if content == "" {
-		content = idPost_toReplace
-	} else {
-		content = strings.ReplaceAll(content, "'", "2@c86cb3")
-		content = strings.ReplaceAll(content, "`", "2#c86cb3")
-	}
+	// if content == "" {
+	// 	content = idPost_toReplace
+	// } else {
+	// 	content = strings.ReplaceAll(content, "'", "2@c86cb3")
+	// 	content = strings.ReplaceAll(content, "`", "2#c86cb3")
+	// }
 	request := fmt.Sprintf("%s, %s, %s, %s, %s, %s, %s", db.Id_post, db.User_id, db.Title, db.Description, db.Image, db.Time, db.Date)
-	condition := fmt.Sprintf("WHERE %s = '%s'", db.Description, content)
+	condition := fmt.Sprintf("WHERE %s = '%s'", db.Id_post, idPost_toReplace)
 	rows_value, errow := database.GetData(request, db.Post, condition) //retrieving datas
 	if errow != nil {
 		return com.Post{},
@@ -75,6 +78,19 @@ func CreateP_mngmnt(user string, categorie []string, title string, content strin
 		post.ImageLink = strings.ReplaceAll(post.ImageLink, "2@c86cb3", "'")
 		post.ImageLink = strings.ReplaceAll(post.ImageLink, "2#c86cb3", "`")
 	}
+	current_pp, _, errpp := auth.HelpersBA("users", database, "pp", " WHERE id_user='"+user+"'", "")
+	if errpp {
+		return com.Post{},
+			false,
+			Struct.Errormessage{
+				Type:       tools.IseType,
+				Msg:        tools.InternalServorError,
+				StatusCode: tools.IseStatus,
+			}
+	}
+	post.Categorie = categorie
+	post.Profil = current_pp
+	fmt.Println("after fetch ", post)
 	//---fetching post in database
 	// Idpost_got, err2 := db.Getelement(Idpost)\\
 	return post,

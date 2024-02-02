@@ -65,7 +65,7 @@ func InserPost(user string, data Struct.DataPost, database db.Db) (com.Post, boo
 				StatusCode: tools.BdStatus,
 			}
 	}
-	post, ok, errMess := CreateP_mngmnt(user, data.Categories, data.Content, data.Title, data.Image)
+	post, ok, errMess := CreateP_mngmnt(user, data.Categories, data.Content, data.Title, data.Image, database)
 	if !ok {
 		return post, false, errMess
 	}

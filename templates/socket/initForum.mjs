@@ -49,7 +49,7 @@ socket.mysocket.onmessage = (e) => {
   switch (dataObject.Type) {
     case "socket-open-with-session":
       console.log("in  the open with session");
-      launchHome();
+      launchHome(dataObject.posts);
       break;
     //--------------------------------------------------
     //! invalid session from cookies or session expired
@@ -80,19 +80,19 @@ socket.mysocket.onmessage = (e) => {
     //------------------
     case "addPost":
       console.log("in addpost");
-      console.log("like =>", dataObject.payload.Like);
-      console.log("like type =>", typeof dataObject.payload.Like);
+      console.log("received => ", dataObject.Payload);
+      // console.log("like =>", dataObject.payload.Like);
       const postDetails = [
-        dataObject.payload.PostId,
-        dataObject.payload.Profil,
-        dataObject.payload.Username,
-        dataObject.payload.ImageLink,
-        dataObject.payload.Content,
+        dataObject.Payload.PostId,
+        dataObject.Payload.Profil,
+        dataObject.Payload.Username,
+        dataObject.Payload.ImageLink,
+        dataObject.Payload.Content,
         8,
         9,
         11,
       ];
-      mainContent.createAndAddPost(postDetails);
+      mainContent.createAndAddPost(postDetails, true);
       break;
     case "addComment":
       console.log("adding comm");

@@ -71,13 +71,13 @@ func RegisterUser(data Struct.Register, tab db.Db) (bool, Struct.Errormessage) {
 			return false, Struct.Errormessage{Type: "Internal servor error", Msg: "oops servor didn't reacted as expected", StatusCode: 500}
 		}
 		pp := "/static/./assets/boy.gif"
-         if gender == "female" {
+		if gender == "female" {
 			pp = "/static/./assets/boy.gif"
-		 }
+		}
 		creds := &Struct.Credentials{Name: name, Username: username, Age: age, Gender: gender, Email: email, Password: hashpassword, Id: newid.String(), Surname: surname}
 		//save user in database
 		// fmt.Println("creds", creds)
-		values := "('" + creds.Id + "','" + creds.Email + "','" + creds.Name + "','" + creds.Username + "','" + creds.Age + "','" + creds.Gender + "','" + creds.Surname + "','" + creds.Password + "','../static/front-tools/images/profil.jpeg'"+pp+",'/static/./assets//mur.gif')"
+		values := "('" + creds.Id + "','" + creds.Email + "','" + creds.Name + "','" + creds.Username + "','" + creds.Age + "','" + creds.Gender + "','" + creds.Surname + "','" + creds.Password + "','" + pp + ",'/static/./assets//mur.gif')"
 		attributes := "(id_user,email,name,username,age,gender,surname, password,pp,pc)"
 		errorIns := tab.INSERT(db.User, attributes, values)
 		if errorIns != nil { //!

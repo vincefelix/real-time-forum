@@ -291,11 +291,11 @@ export function GetPostValue() {
       content: postText,
       image: "/static/./assets/user-connection/profile1.png",
       categories: selectedCategories,
+      data: document.cookie,
     },
   };
   console.log("post inf", JSON.stringify(post));
-  socket.mysocket.send(JSON.stringify(post)
-  );
+  socket.mysocket.send(JSON.stringify(post));
 }
 
 document.addEventListener("DOMContentLoaded", function () {

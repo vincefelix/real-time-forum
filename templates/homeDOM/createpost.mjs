@@ -111,13 +111,18 @@ export class MainContentSection {
     }
   }
   //postid, profil src, author, img src, content, likecount, dislikecount, comment count
-  createAndAddPost(postDetails) {
+  createAndAddPost(postDetails, option = false) {
+    console.log("in post create");
     const feed = document.querySelector(".feed"); // Sélectionnez la section de feed
 
     const post = this.createPost(...postDetails); // Utilisez votre méthode createPost pour créer un post
 
     // Ajoutez le post à la section de feed
-    feed.appendChild(post);
+    if (!option) {
+      feed.appendChild(post);
+    } else {
+      feed.insertBefore(post, feed.children[0]);
+    }
   }
 
   createPost(
@@ -182,7 +187,7 @@ export class MainContentSection {
     userImgFeed.className = "user-img-feed";
 
     const userImgFeedImage = document.createElement("img");
-    userImgFeedImage.src = "/static/./assets/profil-img.png";
+    userImgFeedImage.src = profileImageSrc;
     userImgFeedImage.alt = "";
 
     userImgFeed.appendChild(userImgFeedImage);

@@ -3,7 +3,9 @@ package Route
 import (
 	"database/sql"
 	"fmt"
+	auth "forum/Authentication"
 	Com "forum/Communication"
+	db "forum/Database"
 	Struct "forum/data-structs"
 	tools "forum/tools"
 )
@@ -12,7 +14,39 @@ import (
 ?GetAll_fromDB connects to database, retrieves from it informations
 ?and returns an array of posts
 */
-func GetAll_fromDB(user string) (Com.Posts, bool, Struct.Errormessage) {
+func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
+	database, err := db.Init_db()
+	if err != nil {
+		fmt.Println(err)
+		return nil,
+			false,
+			Struct.Errormessage{
+				Type:       tools.IseType,
+				Msg:        tools.InternalServorError,
+				StatusCode: tools.IseStatus,
+			}
+	}
+	user, err, _ := auth.HelpersBA("sessions", database, "user_id", "WHERE id_session='"+session+"'", "")
+	// fmt.Println("here", s, "error", err)
+	if err != nil {
+		fmt.Println("erreur du serveur", err)
+		return nil,
+			false,
+			Struct.Errormessage{
+				Type:       tools.IseType,
+				Msg:        tools.InternalServorError,
+				StatusCode: tools.IseStatus,
+			}
+	}
+	if user == "" {
+		return nil,
+			false,
+			Struct.Errormessage{
+				Type:       tools.BdType,
+				Msg:        "Invalid cookie",
+				StatusCode: tools.BdStatus,
+			}
+	}
 	// connecting to database.
 	var (
 		postab  Com.Posts
@@ -21,7 +55,8 @@ func GetAll_fromDB(user string) (Com.Posts, bool, Struct.Errormessage) {
 
 	database.Doc, errd = sql.Open("sqlite3", "forum.db")
 	if errd != nil {
-		return nil, false,
+		return nil,
+			false,
 			Struct.Errormessage{
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,

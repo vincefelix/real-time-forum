@@ -2,7 +2,7 @@ import { initHome } from "../homeDOM/main.mjs";
 import { decode } from "./JWT.mjs";
 import { setHomeStyle, removeHomeStyle } from "./setStyle.mjs";
 
-export const launchHome = () => {
+export const launchHome = (posts) => {
   let userInfo = localStorage.getItem("jwtToken");
   try {
     userInfo = decode(userInfo);
@@ -28,6 +28,6 @@ export const launchHome = () => {
     // `;
     removeHomeStyle();
     setHomeStyle();
-    initHome(userInfo);
+    initHome(userInfo, posts);
   }, 500);
 };
