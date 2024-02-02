@@ -3,63 +3,96 @@ package Route
 import (
 	"database/sql"
 	"fmt"
-	Err "forum/Authentication"
 	Com "forum/Communication"
+	Struct "forum/data-structs"
 	tools "forum/tools"
-	"net/http"
 )
 
 /*
-GetAll_fromDB connects to database, retrieves from it informations
-that will be display in the hime and index page
+?GetAll_fromDB connects to database, retrieves from it informations
+?and returns an array of posts
 */
-func GetAll_fromDB(w http.ResponseWriter) {
-	// connecting to database
+func GetAll_fromDB(user string) (Com.Posts, bool, Struct.Errormessage) {
+	// connecting to database.
+	var (
+		postab  Com.Posts
+		commtab Com.Comments
+	)
+
 	database.Doc, errd = sql.Open("sqlite3", "forum.db")
 	if errd != nil {
-		Err.Snippets(w, 500)
-		return
+		return nil, false,
+			Struct.Errormessage{
+				Type:       tools.IseType,
+				Msg:        tools.InternalServorError,
+				StatusCode: tools.IseStatus,
+			}
 	}
 	//-------------- retrieving datas ---------------//
 	//--1
 	errGetPost := postab.GetPost_data(database)
 	if errGetPost != nil {
-		Err.Snippets(w, 500)
-		return
+		return nil,
+			false,
+			Struct.Errormessage{
+				Type:       tools.IseType,
+				Msg:        tools.InternalServorError,
+				StatusCode: tools.IseStatus,
+			}
 	}
 	//--2
 	errGetComm := commtab.GetComment_data(database)
 	if errGetComm != nil {
-		Err.Snippets(w, 500)
-		return
+		return nil,
+			false,
+			Struct.Errormessage{
+				Type:       tools.IseType,
+				Msg:        tools.InternalServorError,
+				StatusCode: tools.IseStatus,
+			}
 	}
 	//--3
 	errectabcomm := reactab_com.GetReact_comdata(database)
 	if errectabcomm != nil {
-		Err.Snippets(w, 500)
-		return
+		return nil,
+			false,
+			Struct.Errormessage{
+				Type:       tools.IseType,
+				Msg:        tools.InternalServorError,
+				StatusCode: tools.IseStatus,
+			}
 	}
 	//--4
 	categos, err := Com.GetPost_categories(database)
 	if err != nil {
 		fmt.Printf("⚠ ERROR ⚠ : Couldn't get categories data from database\n")
-		Err.Snippets(w, 500)
-		return
+		return nil,
+			false,
+			Struct.Errormessage{
+				Type:       tools.IseType,
+				Msg:        tools.InternalServorError,
+				StatusCode: tools.IseStatus,
+			}
 	}
 	//--5
 	errectab := reactab.Get_reacPosts_data(database)
 	if errectab != nil {
 		fmt.Printf("⚠ ERROR ⚠ : Couldn't get reaction for display a from database\n")
-		Err.Snippets(w, 500)
-		return
+		return nil,
+			false,
+			Struct.Errormessage{
+				Type:       tools.IseType,
+				Msg:        tools.InternalServorError,
+				StatusCode: tools.IseStatus,
+			}
 	}
 	//--------------------------------------------------------------------//
 	// storing the session's id
 	for i := range postab {
-		postab[i].SessionId = Id_user
+		postab[i].SessionId = user
 	}
 	for i := range commtab {
-		commtab[i].SessionId = Id_user
+		commtab[i].SessionId = user
 	}
 
 	//storing user's name and profil image in structures
@@ -69,8 +102,13 @@ func GetAll_fromDB(w http.ResponseWriter) {
 
 		if errprof != nil || errGN != nil {
 			//sending metadata about the error to the servor
-			Err.Snippets(w, 500)
-			return
+			return nil,
+				false,
+				Struct.Errormessage{
+					Type:       tools.IseType,
+					Msg:        tools.InternalServorError,
+					StatusCode: tools.IseStatus,
+				}
 		}
 		postab[i].Profil = Profil
 		postab[i].Username = username
@@ -84,8 +122,13 @@ func GetAll_fromDB(w http.ResponseWriter) {
 
 		if errprof != nil || errGN != nil {
 			//sending metadata about the error to the servor
-			Err.Snippets(w, 500)
-			return
+			return nil,
+				false,
+				Struct.Errormessage{
+					Type:       tools.IseType,
+					Msg:        tools.InternalServorError,
+					StatusCode: tools.IseStatus,
+				}
 		}
 		commtab[i].Profil = Profil
 		commtab[i].Username = username
@@ -152,5 +195,7 @@ func GetAll_fromDB(w http.ResponseWriter) {
 			}
 		}
 	}
-
+	return postab,
+		true,
+		Struct.Errormessage{}
 }

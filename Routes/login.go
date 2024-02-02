@@ -7,10 +7,9 @@ import (
 	db "forum/Database"
 	Struct "forum/data-structs"
 	"log"
-	"net/http"
 )
 
-func LoginUser(w http.ResponseWriter, user Struct.Login, tab db.Db) (Struct.UserInfo, Struct.Cookie, bool, Struct.Errormessage) {
+func LoginUser(user Struct.Login, tab db.Db) (Struct.UserInfo, Struct.Cookie, bool, Struct.Errormessage) {
 	// check if the user is not already logged in to be able to access this page
 	//auth.CheckCookie(w, r, tab)
 	// method verification
@@ -73,7 +72,7 @@ func LoginUser(w http.ResponseWriter, user Struct.Login, tab db.Db) (Struct.User
 			return Struct.UserInfo{}, cookie, false, Struct.Errormessage{Type: "Bad request", Msg: "Invalid credentials", StatusCode: 400}
 		}
 		iduser, _, _ := auth.HelpersBA("users", tab, "id_user", "WHERE username='"+creds.Username+"'", "")
-		UserSession, errMsg, err := auth.CreateSession(w, iduser, tab)
+		UserSession, errMsg, err := auth.CreateSession(iduser, tab)
 		if err != nil {
 			log.Println("❌ error while creating session")
 			return Struct.UserInfo{}, cookie, false, errMsg

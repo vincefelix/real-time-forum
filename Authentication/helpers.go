@@ -31,7 +31,7 @@ func CheckPasswordHash(password, hash string) bool {
 }
 
 // CreateSession allows you to create a session for the current user
-func CreateSession(w http.ResponseWriter, iduser string, tab db.Db) (Structs.Cookie, Structs.Errormessage, error) {
+func CreateSession(iduser string, tab db.Db) (Structs.Cookie, Structs.Errormessage, error) {
 	token, err := uuid.NewV4()
 	if err != nil {
 		fmt.Println("❌ error in uuid while creating session")
@@ -85,7 +85,7 @@ func ValidMailAddress(address string) (string, bool) {
 	return address, match
 }
 
-func CheckCookie(w http.ResponseWriter, value string, tab db.Db) (bool, Structs.Errormessage) {
+func CheckCookie(value string, tab db.Db) (bool, Structs.Errormessage) {
 	idviasession, err, _ := HelpersBA("sessions", tab, "user_id", "WHERE id_session='"+value+"'", "")
 	if err != nil {
 		log.Println("❌ error while checking cookie in database", err)
