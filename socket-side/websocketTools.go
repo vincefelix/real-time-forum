@@ -1,10 +1,6 @@
 package Socket
 
-import (
-	"github.com/gorilla/websocket"
-)
-
-func (c *SocketReader) Broadcast(str string) {
+func (c *SocketReader) Broadcast(message map[string]interface{}) {
 	for _, socket := range savedsocketreader {
 
 		if socket == c {
@@ -12,14 +8,14 @@ func (c *SocketReader) Broadcast(str string) {
 			continue
 		}
 
-		if socket.Mode == 1 {
-			// no send message to connected user before user write his name
+		if !socket.Connected {
+			// no send message to offline users
 			continue
 		}
-		socket.SendMessage(str)
+		socket.SendMessage(message)
 	}
 }
 
-func (i *SocketReader) SendMessage(str string) {
-	i.Con.WriteMessage(websocket.TextMessage, []byte(str))
+func (c *SocketReader) SendMessage(message map[string]interface{}) {
+	c.Con.WriteJSON(message)
 }

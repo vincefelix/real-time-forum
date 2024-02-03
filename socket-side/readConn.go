@@ -7,7 +7,6 @@ import (
 	Struct "forum/data-structs"
 	hdle "forum/handlers"
 	"log"
-	"net/http"
 
 	"github.com/gorilla/websocket"
 )
@@ -15,14 +14,13 @@ import (
 // socketReader struct
 type SocketReader struct {
 	Con       *websocket.Conn
-	Mode      int
 	Connected bool
 	Name      string
 	Id        string
 }
 
 // the credentials structure stores the data of the logged in user
-func (c *SocketReader) Read(w http.ResponseWriter, database db.Db) {
+func (c *SocketReader) Read(database db.Db) {
 	log.Println("reading...")
 	var request Struct.Request
 	er := c.Con.ReadJSON(&request)
@@ -58,11 +56,13 @@ func (c *SocketReader) Read(w http.ResponseWriter, database db.Db) {
 			return
 		}
 		posTab, ok, err := com.GetAll_fromDB(serverResponse["session"].(string))
+		fmt.Println("postab to send => ", posTab)
 		if !ok {
 			c.Con.WriteJSON(err)
 			return
 		}
 		serverResponse["posts"] = posTab
+		c.Connected = true
 		c.Con.WriteJSON(serverResponse)
 
 	case "checkCookie":
@@ -97,7 +97,7 @@ func (c *SocketReader) Read(w http.ResponseWriter, database db.Db) {
 			c.Con.WriteJSON(Msg)
 		}
 
-	case "addComment":
+	case "CreateComment":
 		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
 		if ok {
 			serverResponse, check, err := hdle.HandleComment(requestPayload, database)
