@@ -13,29 +13,28 @@ export const profileToggle = new ProfileToggleSection();
 export const initHome = (props = {}, posts) => {
   console.log("posts to display ", posts);
   console.log("typeof posts to display ", typeof posts);
-  console.log("index posts to display ", posts[0]);
+ // console.log("index posts to display ", posts[0]);
   navigation.init(props.payload.NickName);
   profileToggle.init();
   leftsection.init();
   mainContent.init();
   rightSidebar.init();
-  for (const post of posts) {
-    let likeCount = post.Like == null ? 0 : post.Like.length,
-      dislikeCount = post.Dislike == null ? 0 : post.Dislike.length,
-      commentCount = post.Comment_tab == null ? 0 : post.Comment_tab.length;
-    console.log("likes: ", likeCount);
-    console.log("dislikes: ", dislikeCount);
-    console.log("comment: ", commentCount);
-    mainContent.createAndAddPost([
-      post.PostId,
-      post.Profil,
-      post.Username,
-      post.ImageLink,
-      post.Content,
-      likeCount,
-      dislikeCount,
-      commentCount,
-    ]);
+  if (posts != null) {
+    for (const post of posts) {
+      let likeCount = post.Like == null ? 0 : post.Like.length,
+        dislikeCount = post.Dislike == null ? 0 : post.Dislike.length,
+        commentCount = post.Comment_tab == null ? 0 : post.Comment_tab.length;
+      mainContent.createAndAddPost([
+        post.PostId,
+        post.Profil,
+        post.Username,
+        post.ImageLink,
+        post.Content,
+        likeCount,
+        dislikeCount,
+        commentCount,
+      ]);
+    }
   }
   // Utilisateurs connectés
   rightSidebar.createUser(
