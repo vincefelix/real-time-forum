@@ -1,6 +1,6 @@
 //import { forumForm } from "../form/formScript.mjs";
 import { moveToLogin } from "../form/loginGen.mjs";
-import { setJWT } from "../utils/JWT.mjs";
+import { setJWT } from "../utils/token.mjs";
 import { launchHome } from "../utils/launchHome.mjs";
 import { setCookies } from "../utils/setCookies.mjs";
 import { vmSocket } from "./vmsocket.mjs";
@@ -72,7 +72,7 @@ socket.mysocket.onmessage = (e) => {
       if (dataObject.Authorization == "granted" && dataObject.status == "200") {
         setCookies(dataObject.cookie);
         setJWT(dataObject.Payload);
-        launchHome();
+        launchHome(dataObject.posts);
         console.log("user is logged");
         console.log("retrieved: ", dataObject.Payload);
       }

@@ -1,5 +1,5 @@
 import { initHome } from "../homeDOM/main.mjs";
-import { decode } from "./JWT.mjs";
+import { decode } from "./token.mjs";
 import { setHomeStyle, removeHomeStyle } from "./setStyle.mjs";
 
 export const launchHome = (posts) => {

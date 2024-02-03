@@ -1,4 +1,4 @@
-import { decode } from "./JWT.mjs";
+import { decode } from "./token.mjs";
 
 export const getUserId = () => {
   let userInfo = localStorage.getItem("jwtToken");
