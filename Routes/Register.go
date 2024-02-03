@@ -5,6 +5,7 @@ import (
 	auth "forum/Authentication"
 	db "forum/Database"
 	Struct "forum/data-structs"
+	"strconv"
 	"strings"
 
 	"github.com/gofrs/uuid"
@@ -35,6 +36,12 @@ func RegisterUser(data Struct.Register, tab db.Db) (bool, Struct.Errormessage) {
 		if gender == "" {
 			fmt.Println("❌ gender is null")
 			return false, Struct.Errormessage{Type: "bad request", Msg: "choose a gender", StatusCode: 400}
+		}
+
+		if nbr, err := strconv.Atoi(age); nbr < 12 || nbr > 99 || err != nil {
+			fmt.Println("❌ Age is invalid")
+			return false, Struct.Errormessage{Type: "bad request", Msg: "age must be between 12 and 99", StatusCode: 400}
+
 		}
 		//check that the email and username have not already been used
 		validemail, right := auth.ValidMailAddress(email)
@@ -77,11 +84,21 @@ func RegisterUser(data Struct.Register, tab db.Db) (bool, Struct.Errormessage) {
 		creds := &Struct.Credentials{Name: name, Username: username, Age: age, Gender: gender, Email: email, Password: hashpassword, Id: newid.String(), Surname: surname}
 		//save user in database
 		// fmt.Println("creds", creds)
-		values := "('" + creds.Id + "','" + creds.Email + "','" + creds.Name + "','" + creds.Username + "','" + creds.Age + "','" + creds.Gender + "','" + creds.Surname + "','" + creds.Password + "','" + pp + ",'/static/./assets//mur.gif')"
+		values := "('" + creds.Id + "','" + creds.Email + "','" + creds.Name + "','" + creds.Username + "','" + creds.Age + "','" + creds.Gender + "','" + creds.Surname + "','" + creds.Password + "','" + pp + "','/static/./assets//mur.gif')"
 		attributes := "(id_user,email,name,username,age,gender,surname, password,pp,pc)"
+		fmt.Println("values register ", values)
 		errorIns := tab.INSERT(db.User, attributes, values)
 		if errorIns != nil { //!
-			fmt.Printf("❌ error while inserting into database %s\n", errorIns)
+			fmt.Printf("❌ error while inserting into r database %s\n", errorIns)
+			return false, Struct.Errormessage{Type: "Internal servor error", Msg: "oops servor didn't reacted as expected", StatusCode: 500}
+		}
+
+		attributes2 := fmt.Sprintf("(%s, %s, %s)", db.User_id, "id_session", "expireat")
+		values2 := fmt.Sprintf("('%s','%s', '%s')", creds.Id, "none", "none")
+		//errorUp := tab.INSERT("sessions", "id_session='"+sessionToken+"',expireat='"+expiresAt.String()+"'", "WHERE user_id="+"'"+iduser+"'")
+		errorInSess := tab.INSERT("sessions", attributes2, values2)
+		if errorInSess != nil {
+			fmt.Println("in session")
 			return false, Struct.Errormessage{Type: "Internal servor error", Msg: "oops servor didn't reacted as expected", StatusCode: 500}
 		}
 
