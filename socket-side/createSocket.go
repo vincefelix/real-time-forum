@@ -4,10 +4,8 @@ import (
 	db "forum/Database"
 	"log"
 	"net/http"
-
 	"github.com/gorilla/websocket"
 )
-
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -17,7 +15,7 @@ var upgrader = websocket.Upgrader{
 var savedsocketreader []*SocketReader
 
 func SocketReaderCreate(w http.ResponseWriter, r *http.Request, database db.Db) {
-	
+
 	log.Printf("socket request from %s", r.RemoteAddr)
 	if savedsocketreader == nil {
 		savedsocketreader = make([]*SocketReader, 0)
@@ -39,5 +37,5 @@ func SocketReaderCreate(w http.ResponseWriter, r *http.Request, database db.Db) 
 
 	savedsocketreader = append(savedsocketreader, ptrSocketReader)
 
-	ptrSocketReader.HandleConnection(w, r, database)
+	ptrSocketReader.HandleConnection(database)
 }

@@ -46,12 +46,8 @@ func CreateSession(iduser string, tab db.Db) (Structs.Cookie, Structs.Errormessa
 	expiresAt := time.Now().Add(1800 * time.Second)
 	fmt.Println("expire a", expiresAt.String())
 	//update session dans la base de données
-	attributes := fmt.Sprintf("(%s, %s, %s)", db.User_id, "id_session", "expireat")
-	values := fmt.Sprintf("('%s','%s', '%s')", iduser, sessionToken, expiresAt)
-	//errorUp := tab.INSERT("sessions", "id_session='"+sessionToken+"',expireat='"+expiresAt.String()+"'", "WHERE user_id="+"'"+iduser+"'")
-	errorUp := tab.INSERT("sessions", attributes, values)
+	errorUp := tab.UPDATE("sessions", "id_session='"+sessionToken+"',expireat='"+expiresAt.String()+"'", "WHERE user_id="+"'"+iduser+"'")
 	if errorUp != nil {
-		log.Println("❌ error while inserting session", errorUp)
 		return Structs.Cookie{},
 			Structs.Errormessage{Type: tools.IseType,
 				Msg:        tools.InternalServorError,
