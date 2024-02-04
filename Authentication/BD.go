@@ -64,6 +64,53 @@ func GetElementOfOneUser(db *sql.DB, username string) (user User, response bool)
 	return user, true
 }
 
+func GetAllUSers(db *sql.DB) ([]User, bool) {
+	rows, err := db.Query("SELECT id_user, username, pp FROM users;")
+	if err != nil {
+		fmt.Println(err, " 1")
+		return nil, false
+	}
+	defer rows.Close()
+	var Users []User
+	for rows.Next() {
+		var temp User
+		err = rows.Scan(&temp.Id, &temp.Username, &temp.Pp)
+		if err != nil {
+			fmt.Println(err, "2")
+			return nil, false
+		}
+		Users = append(Users, temp)
+	}
+	return Users, true
+
+}
+func GetCOnnInf(database db.Db, session string) []string {
+	rows, err := database.Doc.Query("SELECT user_id FROM sessions WHERE id_session = '" + session + "';")
+	if err != nil {
+		fmt.Println(err, " 1")
+		return nil
+	}
+	defer rows.Close()
+	Id, err := db.Getelement(rows)
+	if err != nil {
+		fmt.Println(err, " 2")
+		return nil
+	}
+	rows2, err := database.Doc.Query("SELECT username, pp FROM users WHERE id_user = '" + Id + "';")
+	if err != nil {
+		fmt.Println(err, " 3")
+		return nil
+	}
+	var username, pp string
+	for rows2.Next() {
+		err = rows2.Scan(&username, &pp)
+		if err != nil {
+			fmt.Println(err, " 4")
+			return nil
+		}
+	}
+	return []string{Id, username, pp}
+}
 func HelpersBA(from string, tab db.Db, attribute, condition, compare string) (string, error, bool) {
 	result := ""
 	response := false

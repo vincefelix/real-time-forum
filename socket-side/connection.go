@@ -13,18 +13,6 @@ func (c *SocketReader) HandleConnection(database db.Db) {
 	// } else {
 	// 	i.SendMessage("System", "Please write your name")
 	//c.Mode = 1 //mode 1 get user name
-	// go func() {
-	// 	defer func() {
-	// 		err := recover()
-	// 		if err != nil {
-	// 			log.Println("last recover in connex tab => ", err)
-	// 		}
-	// 		log.Println("thread socketreader finish")
-	// 	}()
-	// 	for {
-	// 		println("gere")
-	// 	}
-	// }()
 
 	go func() {
 		defer func() {
@@ -40,6 +28,6 @@ func (c *SocketReader) HandleConnection(database db.Db) {
 		}
 
 	}()
-
+	go HandleOnlineUser()
 	//}
 }

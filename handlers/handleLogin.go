@@ -8,7 +8,7 @@ import (
 	"log"
 )
 
-func HandleLogin(requestPayload map[string]interface{}, database db.Db) (map[string]interface{}, bool, Struct.Errormessage) {
+func HandleLogin(requestPayload map[string]interface{}, database db.Db) ([]string, map[string]interface{}, bool, Struct.Errormessage) {
 	user := Struct.Login{
 		EmailLogin:    requestPayload["emailLogin"].(string),
 		PassWordLogin: requestPayload["passwordLogin"].(string),
@@ -16,13 +16,13 @@ func HandleLogin(requestPayload map[string]interface{}, database db.Db) (map[str
 	payload, userCookie, ok, err := auth.LoginUser(user, database)
 	if !ok {
 		log.Println("❌ error while login user", err)
-		return nil, false, err
+		return nil, nil, false, err
 	}
 
 	token, errToken, errMess := tools.GenerateToken(payload)
 	if errToken != nil {
 		log.Printf("❌ error while generating token %s\n", errToken)
-		return nil, false, errMess
+		return nil, nil, false, errMess
 	}
 	Response := make(map[string]interface{}, 0)
 	Response["Type"] = "login"
@@ -32,5 +32,12 @@ func HandleLogin(requestPayload map[string]interface{}, database db.Db) (map[str
 	Response["cookie"] = userCookie
 	Response["session"] = userCookie.Value
 
-	return Response, true, Struct.Errormessage{}
+	return []string{
+			payload.Id,
+			payload.NickName,
+			payload.Profil,
+		},
+		Response,
+		true,
+		Struct.Errormessage{}
 }
