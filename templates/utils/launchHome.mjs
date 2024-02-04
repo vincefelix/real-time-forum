@@ -2,7 +2,7 @@ import { initHome } from "../homeDOM/main.mjs";
 import { decode } from "./token.mjs";
 import { setHomeStyle, removeHomeStyle } from "./setStyle.mjs";
 
-export const launchHome = (posts) => {
+export const launchHome = (posts, userList) => {
   let userInfo = localStorage.getItem("jwtToken");
   try {
     userInfo = decode(userInfo);
@@ -17,17 +17,9 @@ export const launchHome = (posts) => {
   console.log("after decoding jwt =>", userInfo);
   document.body.innerHTML = "";
   setTimeout(() => {
-    // container.innerHTML = `
-    // <p id="succeedeed">HOME REACHED</p>
-    // <p id="succeedeed">${userInfo.payload.Id}</p>
-    // <p id="succeedeed">${userInfo.payload.FirstName}</p>
-    // <p id="succeedeed">${userInfo.payload.LastName}</p>
-    // <p id="succeedeed">${userInfo.payload.Age}</p>
-    // <p id="succeedeed">${userInfo.payload.Gender}</p>
-    // <p id="succeedeed">${userInfo.payload.Email}</p>
-    // `;
+
     removeHomeStyle();
     setHomeStyle();
-    initHome(userInfo, posts);
+    initHome(userInfo, posts, userList);
   }, 500);
 };

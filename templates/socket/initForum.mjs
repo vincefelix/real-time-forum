@@ -7,7 +7,7 @@ import { vmSocket } from "./vmsocket.mjs";
 import { form } from "../form/formElement.mjs";
 import { error } from "../error/error.mjs";
 import { alertError } from "../error/alert.mjs";
-import { mainContent } from "../homeDOM/main.mjs";
+import { mainContent, rightSidebar } from "../homeDOM/main.mjs";
 
 export const socket = new vmSocket();
 socket.connectSocket(); //connecting to socket one tab is opened
@@ -49,7 +49,8 @@ socket.mysocket.onmessage = (e) => {
   switch (dataObject.Type) {
     case "socket-open-with-session":
       console.log("in  the open with session");
-      launchHome(dataObject.posts);
+      console.log("received user list =>", dataObject.userList);
+      launchHome(dataObject.posts, dataObject.userList);
       break;
     //--------------------------------------------------
     //! invalid session from cookies or session expired
@@ -62,9 +63,16 @@ socket.mysocket.onmessage = (e) => {
     //! regsiter request response from server
     case "register":
       if (dataObject.Authorization == "granted" && dataObject.status == "200") {
+        let forumForm = new form();
         moveToLogin(forumForm);
         console.log("user is registered");
       }
+      break;
+
+    //-------------------------------------
+    //! online request
+    case "online":
+      console.log("is online => ", dataObject.Payload);
       break;
     //-------------------------------------
     //! login request response from server
@@ -72,7 +80,7 @@ socket.mysocket.onmessage = (e) => {
       if (dataObject.Authorization == "granted" && dataObject.status == "200") {
         setCookies(dataObject.cookie);
         setJWT(dataObject.Payload);
-        launchHome(dataObject.posts);
+        launchHome(dataObject.posts, dataObject.userList);
         console.log("user is logged");
         console.log("retrieved: ", dataObject.Payload);
       }

@@ -10,15 +10,16 @@ export const mainContent = new MainContentSection();
 export const rightSidebar = new RightSidebarSection();
 export const profileToggle = new ProfileToggleSection();
 
-export const initHome = (props = {}, posts) => {
+export const initHome = (props = {}, posts, userList) => {
   console.log("posts to display ", posts);
+  console.log("users in database => ", userList);
   console.log("typeof posts to display ", typeof posts);
- // console.log("index posts to display ", posts[0]);
   navigation.init(props.payload.NickName);
   profileToggle.init();
   leftsection.init();
   mainContent.init();
   rightSidebar.init();
+
   if (posts != null) {
     for (const post of posts) {
       let likeCount = post.Like == null ? 0 : post.Like.length,
@@ -36,23 +37,24 @@ export const initHome = (props = {}, posts) => {
       ]);
     }
   }
-  // Utilisateurs connectés
-  rightSidebar.createUser(
-    rightSidebar.connectedUsers,
-    "john_doe",
-    "/static/./assets/user-connection/profile1.png",
-    "messagePopup-john_doe",
-    true
-  );
 
-  // Utilisateurs déconnectés
-  rightSidebar.createUser(
-    rightSidebar.disconnectedUsers,
-    "jane_doe",
-    "/static/./assets/user-connection/profile3.png",
-    "messagePopup-jane_doe",
-    false
-  );
+  if (userList != null) {
+    for (const user of userList) {
+      let side =
+        user.Online == true
+          ? rightSidebar.connectedUsers
+          : rightSidebar.disconnectedUsers;
+      let state = user.Online == true ? true : false;
+      //------------------------------
+      rightSidebar.createUser(
+        side,
+        user.Username,
+        user.Profil,
+        "messagePopup-john_doe",
+        state
+      );
+    }
+  }
 
   // // Créez un post et ajoutez-le à la section principale
   // const postDetails = [
