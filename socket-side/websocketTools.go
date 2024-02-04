@@ -1,7 +1,10 @@
 package Socket
 
+import "log"
+
 func (c *SocketReader) Broadcast(message map[string]interface{}) {
-	for _, socket := range savedsocketreader {
+	log.Println("broadcasting...📡")
+	for _, socket := range UserTab {
 
 		if socket == c {
 			// no send message to himself
