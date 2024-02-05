@@ -29,14 +29,18 @@ func GetUsers_State(database db.Db) ([]UserConn, bool, Struct.Errormessage) {
 			if connectedUser.Id == user.Id {
 				Clients = append(Clients, UserConn{Username: user.Username, Profil: user.Pp, Online: true})
 				break
-			} else {
-				if !ConnectedUser(user, Clients) {
-					Clients = append(Clients, UserConn{Username: user.Username, Profil: user.Pp, Online: false})
-				}
 			}
 		}
 	}
-	Clients = removeDuplicateUser(Clients)
+	var Clients2 []UserConn
+	for _, user := range Users {
+		if !ConnectedUser(user, Clients) {
+			Clients2 = append(Clients2, UserConn{Username: user.Username, Profil: user.Pp, Online: false})
+		}
+	}
+
+	//Clients = removeDuplicateUser(Clients)
+	Clients = append(Clients, Clients2...)
 	fmt.Println("-------- user  list -------")
 	for i := range UserTab {
 		fmt.Println(UserTab[i])
@@ -58,26 +62,13 @@ func ConnectedUser(client auth.User, clientList []UserConn) bool {
 	return false
 }
 
-func removeDuplicateUser(input []UserConn) []UserConn {
-	seen := make(map[UserConn]struct{})
-	result := []UserConn{}
-
-	for _, num := range input {
-		if _, exists := seen[num]; !exists {
-			seen[num] = struct{}{}
-			result = append(result, num)
-		}
-	}
-	return result
-}
-
 func removeDuplicate_Conn(input []*SocketReader) []*SocketReader {
-	seen := make(map[*SocketReader]struct{})
+	seen := make(map[string]struct{})
 	result := []*SocketReader{}
 
 	for _, num := range input {
-		if _, exists := seen[num]; !exists {
-			seen[num] = struct{}{}
+		if _, exists := seen[num.Username]; !exists {
+			seen[num.Username] = struct{}{}
 			result = append(result, num)
 		}
 	}
