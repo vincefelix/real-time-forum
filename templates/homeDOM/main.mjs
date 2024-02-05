@@ -3,6 +3,7 @@ import { RightSidebarSection } from "./right.mjs";
 import { Navigation } from "./nav.mjs";
 import { MainContentSection } from "./createpost.mjs";
 import { ProfileToggleSection } from "./profiletoogler.mjs";
+import { sort } from "../utils/sort.mjs";
 
 export const navigation = new Navigation();
 export const leftsection = new LeftsideSection();
@@ -37,7 +38,7 @@ export const initHome = (props = {}, posts, userList) => {
       ]);
     }
   }
-
+  userList = sort(userList);
   if (userList != null) {
     for (const user of userList) {
       let side =

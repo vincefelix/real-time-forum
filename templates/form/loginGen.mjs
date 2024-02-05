@@ -1,4 +1,3 @@
-//import { updateFormContent } from "./formScript.mjs";
 export const generateLoginForm = (This) => {
   This.innerHTML = `
     <form method="post">
@@ -32,7 +31,7 @@ export const moveToLogin = (This) => {
     This.formDiv.innerHTML = "";
     This.loginForm();
     This.redirect = document.getElementsByClassName("redirectLink")[0];
-    This.redirect.addEventListener("click", updateFormContent);
+    This.redirect.addEventListener("click", This.updateFormContent);
     This.formDiv.style.opacity = "1";
     This.sideMessageHeader.style.opacity = "1";
     This.logInfo.style.opacity = "1";
