@@ -83,10 +83,11 @@ socket.mysocket.onmessage = (e) => {
       console.log("received => ", dataObject.Payload);
       // console.log("like =>", dataObject.payload.Like);
       const postDetails = [
+        dataObject.Payload.Title,
         dataObject.Payload.PostId,
         dataObject.Payload.Profil,
         dataObject.Payload.Username,
-        dataObject.Payload.ImageLink,
+        "",
         dataObject.Payload.Content,
         8,
         9,

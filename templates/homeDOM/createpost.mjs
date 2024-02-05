@@ -119,7 +119,7 @@ export class MainContentSection {
   }
 
   createPost(
-    postTitleInput='title of post',
+    postTitleInput = "title of post",
     idofpost,
     profileImageSrc,
     publisherName,
@@ -150,19 +150,17 @@ export class MainContentSection {
 
     // Create a-post section
     const postTitleContent = document.createElement("pre");
-    postTitleContent.className="postTitle-Content"
-    // postTitleContent.textContent = "title of post";
+    postTitleContent.className = "postTitle-Content";
+    postTitleContent.textContent = postTitleInput;
 
     const aPost = document.createElement("div");
     aPost.className = "a-post";
-
 
     // Ajoutez une section pour le texte du post avant l'image
     const postTextSection = document.createElement("div");
     postTextSection.className = "post-text";
 
-    aPost
-    .appendChild(postTitleContent)
+    aPost.appendChild(postTitleContent);
 
     // Créez un élément <pre> pour afficher le texte du post
     const postTextContent = document.createElement("pre");
@@ -272,10 +270,10 @@ export class MainContentSection {
     newCommentForm.id = "newCommentForm";
 
     const commentTextarea = document.createElement("textarea");
-    commentTextarea.required = true
-    commentTextarea.maxLength = 250
-    commentTextarea.minLength = 2
-    commentTextarea.required = true
+    commentTextarea.required = true;
+    commentTextarea.maxLength = 250;
+    commentTextarea.minLength = 2;
+    commentTextarea.required = true;
     commentTextarea.placeholder = "Add a comment";
 
     const postButton = document.createElement("button");
@@ -313,7 +311,7 @@ export class MainContentSection {
 
     const postTitleInput = document.createElement("input");
     postTitleInput.type = "text";
-    postTitleInput.minLength = 2
+    postTitleInput.minLength = 2;
     postTitleInput.id = "postTitleInput";
     postTitleInput.placeholder = "Enter post title...";
 
@@ -322,9 +320,9 @@ export class MainContentSection {
 
     // Create textarea for post text
     const postTextArea = document.createElement("textarea");
-    postTextArea.maxLength = 250
-    postTextArea.minLength = 2
-    postTextArea.required = true
+    postTextArea.maxLength = 250;
+    postTextArea.minLength = 2;
+    postTextArea.required = true;
     postTextArea.id = "postText";
     postTextArea.placeholder = "Saisissez votre message";
 
@@ -367,7 +365,7 @@ export class MainContentSection {
 
     // Append elements to the form
     addPostContainer.appendChild(postTitle);
-    addPostForm.appendChild(postTitleInput)
+    addPostForm.appendChild(postTitleInput);
     addPostForm.appendChild(postTextArea);
     addPostForm.appendChild(postCategoriesSelect);
     addPostForm.appendChild(postImageInput);
