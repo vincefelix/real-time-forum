@@ -15,7 +15,7 @@ func HandleOnlineUser() {
 				Profil:   user.Profil,
 				Online:   true,
 			}
-			user.Broadcast(serverResponse)
+			user.NotifyOthers(serverResponse)
 
 		case disconnect := <-IsDisconnected:
 			log.Printf("user: %v is disconnected\n", disconnect)
@@ -26,7 +26,7 @@ func HandleOnlineUser() {
 				Profil:   disconnect.Profil,
 				Online:   false,
 			}
-			disconnect.Broadcast(serverResponse)
+			disconnect.NotifyOthers(serverResponse)
 			//!removing disconnected user from user Tab
 			for i, user := range UserTab {
 				if user == disconnect {
