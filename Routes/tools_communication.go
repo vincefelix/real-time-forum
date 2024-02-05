@@ -88,7 +88,19 @@ func CreateP_mngmnt(user string, categorie []string, title string, content strin
 				StatusCode: tools.IseStatus,
 			}
 	}
+	Username, _, _, err := tools.GetName_byID(database, user)
+	if err != nil {
+		log.Println("error while getting nickname while creating posts")
+		return com.Post{},
+			false,
+			Struct.Errormessage{
+				Type:       tools.IseType,
+				Msg:        tools.InternalServorError,
+				StatusCode: tools.IseStatus,
+			}
+	}
 	post.Categorie = categorie
+	post.Username = Username
 	post.Profil = current_pp
 	fmt.Println("after fetch ", post)
 	//---fetching post in database
