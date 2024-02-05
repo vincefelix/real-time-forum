@@ -3,6 +3,8 @@ import * as com from "./communication.mjs";
 export class MainContentSection {
   constructor() {}
 
+//adding comment to post
+  
   addCommentsToPost(postContainer, comments) {
     const commentsSection = postContainer.querySelector(".comments-section");
     if (commentsSection) {
