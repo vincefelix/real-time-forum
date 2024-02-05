@@ -7,10 +7,9 @@ import (
 	db "forum/Database"
 	Struct "forum/data-structs"
 	"log"
-	"net/http"
 )
 
-func LoginUser(w http.ResponseWriter, user Struct.Login, tab db.Db) (Struct.UserInfo, Struct.Cookie, bool, Struct.Errormessage) {
+func LoginUser(user Struct.Login, tab db.Db) (Struct.UserInfo, Struct.Cookie, bool, Struct.Errormessage) {
 	// check if the user is not already logged in to be able to access this page
 	//auth.CheckCookie(w, r, tab)
 	// method verification
@@ -73,14 +72,14 @@ func LoginUser(w http.ResponseWriter, user Struct.Login, tab db.Db) (Struct.User
 			return Struct.UserInfo{}, cookie, false, Struct.Errormessage{Type: "Bad request", Msg: "Invalid credentials", StatusCode: 400}
 		}
 		iduser, _, _ := auth.HelpersBA("users", tab, "id_user", "WHERE username='"+creds.Username+"'", "")
-		UserSession, errMsg, err := auth.CreateSession(w, iduser, tab)
+		UserSession, errMsg, err := auth.CreateSession(iduser, tab)
 		if err != nil {
 			log.Println("❌ error while creating session")
 			return Struct.UserInfo{}, cookie, false, errMsg
 		}
 		cookie = UserSession
 		fmt.Println("in attributes")
-		attributes := fmt.Sprintf("%s, %s, %s, %s, %s, %s, %s", db.Id_user, db.Surname, db.Name, db.Username, db.Age, db.Gender, db.Email)
+		attributes := fmt.Sprintf("%s, %s, %s, %s, %s, %s, %s,%s, %s", db.Id_user, db.Surname, db.Name, db.Username, db.Age, db.Gender, db.Email, db.Pp, db.Pc)
 		condition := fmt.Sprintf("WHERE id_user = '%s'", iduser)
 		log.Println("💥 ", condition)
 		fmt.Println("in rows")
@@ -91,7 +90,7 @@ func LoginUser(w http.ResponseWriter, user Struct.Login, tab db.Db) (Struct.User
 		}
 		fmt.Println("before creds")
 		for rows.Next() {
-			errscan := rows.Scan(&userCreds.Id, &userCreds.FirstName, &userCreds.LastName, &userCreds.NickName, &userCreds.Age, &userCreds.Gender, &userCreds.Email)
+			errscan := rows.Scan(&userCreds.Id, &userCreds.FirstName, &userCreds.LastName, &userCreds.NickName, &userCreds.Age, &userCreds.Gender, &userCreds.Email, &userCreds.Profil, &userCreds.Cover)
 			if errscan != nil {
 				fmt.Println("❌ error while scanning user data in login")
 				return Struct.UserInfo{}, cookie, false, Struct.Errormessage{Type: "Internal Servor Error", Msg: "Oops! server didn't react as expected", StatusCode: 500}

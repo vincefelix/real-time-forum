@@ -2,13 +2,12 @@ package Socket
 
 import (
 	"fmt"
-	authTools "forum/Authentication"
 	db "forum/Database"
-	auth "forum/Routes"
+	com "forum/Routes"
 	Struct "forum/data-structs"
+	hdle "forum/handlers"
 	"log"
 	"net/http"
-	"strings"
 
 	"github.com/gorilla/websocket"
 )
@@ -41,64 +40,75 @@ func (c *SocketReader) Read(w http.ResponseWriter, database db.Db) {
 	requestPayload := request.Payload
 
 	log.Println("payload is here", requestPayload)
-	serverResponse := make(map[string]interface{}, 0)
 	switch requestType {
 	case "register":
-		user := Struct.Register{
-			FirstName:            requestPayload["firstName"].(string),
-			LastName:             requestPayload["lastName"].(string),
-			NickName:             requestPayload["nickName"].(string),
-			Age:                  requestPayload["age"].(string),
-			Gender:               requestPayload["gender"].(string),
-			EmailRegister:        requestPayload["emailRegister"].(string),
-			PasswordRegister:     requestPayload["passwordRegister"].(string),
-			ConfPasswordRegister: requestPayload["confPasswordRegister"].(string),
-		}
-		fmt.Printf("✨ user wants to register with %s\n", user)
-		ok, err := auth.RegisterUser(user, database)
+		log.Println("In register")
+		serverResponse, ok, err := hdle.HandleRegister(requestPayload, database)
 		if !ok {
-			log.Printf("❌ error while registering user %s\n", c.Con.LocalAddr())
 			c.Con.WriteJSON(err)
 			return
 		}
-		serverResponse["Type"] = "register"
-		serverResponse["Authorization"] = "granted"
-		serverResponse["status"] = "200"
 		c.Con.WriteJSON(serverResponse)
+
 	case "login":
 		fmt.Println("in login")
-		user := Struct.Login{
-			EmailLogin:    requestPayload["emailLogin"].(string),
-			PassWordLogin: requestPayload["passwordLogin"].(string),
-		}
-		payload, userCookie, ok, err := auth.LoginUser(w, user, database)
+		serverResponse, ok, err := hdle.HandleLogin(requestPayload, database)
 		if !ok {
-			log.Println("❌ error while login user", err)
 			c.Con.WriteJSON(err)
 			return
 		}
-		token, errToken, errMess := GenerateToken(payload)
-		if errToken != nil {
-			log.Printf("❌ error while generating token %s\n", errToken)
-			c.Con.WriteJSON(errMess)
+		posTab, ok, err := com.GetAll_fromDB(serverResponse["session"].(string))
+		if !ok {
+			c.Con.WriteJSON(err)
 			return
 		}
-		serverResponse["Type"] = "login"
-		serverResponse["Authorization"] = "granted"
-		serverResponse["status"] = "200"
-		serverResponse["Payload"] = token
-		serverResponse["cookie"] = userCookie
+		serverResponse["posts"] = posTab
 		c.Con.WriteJSON(serverResponse)
+
 	case "checkCookie":
-		// check if the cookie is present in database
-		cookie := strings.Split(requestPayload["data"].(string), "=")[1]
-		ok, Msg := authTools.CheckCookie(w, cookie, database)
+		ok, session, Msg := hdle.HandleCookie(requestPayload, database)
 		if !ok {
-			log.Println("❌ cookie not found in db")
 			c.Con.WriteJSON(Msg)
 			return
 		}
-		c.Con.WriteJSON(Msg)
+		posTab, ok, err := com.GetAll_fromDB(session)
+		if !ok {
+			c.Con.WriteJSON(err)
+			return
+		}
+		serverResponse := make(map[string]interface{}, 0)
+		serverResponse["Type"] = Msg.Type
+		serverResponse["Msg"] = "valid cookie"
+		serverResponse["Status"] = "200"
+		serverResponse["posts"] = posTab
+		c.Con.WriteJSON(serverResponse)
+
+	case "createPost":
+		log.Println("In createPost")
+		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
+		if ok {
+			serverResponse, check, err := hdle.HandlePost(requestPayload, database)
+			if !check {
+				c.Con.WriteJSON(err)
+				return
+			}
+			c.Con.WriteJSON(serverResponse)
+		} else {
+			c.Con.WriteJSON(Msg)
+		}
+
+	case "addComment":
+		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
+		if ok {
+			serverResponse, check, err := hdle.HandleComment(requestPayload, database)
+			if !check {
+				c.Con.WriteJSON(err)
+				return
+			}
+			c.Con.WriteJSON(serverResponse)
+		} else {
+			c.Con.WriteJSON(Msg)
+		}
 	}
 
 	log.Println("done reading!!!")
