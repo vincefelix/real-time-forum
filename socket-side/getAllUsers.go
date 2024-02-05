@@ -22,6 +22,7 @@ func GetUsers_State(database db.Db) ([]UserConn, bool, Struct.Errormessage) {
 			false,
 			Struct.Errormessage{Type: tools.IseType, Msg: tools.InternalServorError, StatusCode: 500}
 	}
+	UserTab = removeDuplicate_Conn(UserTab)
 	var Clients []UserConn
 	for _, user := range Users {
 		for _, connectedUser := range UserTab {
@@ -32,7 +33,7 @@ func GetUsers_State(database db.Db) ([]UserConn, bool, Struct.Errormessage) {
 			}
 		}
 	}
-	Clients = removeDuplicates(Clients)
+	Clients = removeDuplicateUser(Clients)
 	fmt.Println("-------- user  list -------")
 	for i := range UserTab {
 		fmt.Println(UserTab[i])
@@ -45,9 +46,23 @@ func GetUsers_State(database db.Db) ([]UserConn, bool, Struct.Errormessage) {
 	return Clients, true, Struct.Errormessage{}
 }
 
-func removeDuplicates(input []UserConn) []UserConn {
+func removeDuplicateUser(input []UserConn) []UserConn {
 	seen := make(map[UserConn]struct{})
 	result := []UserConn{}
+
+	for _, num := range input {
+		if _, exists := seen[num]; !exists {
+			seen[num] = struct{}{}
+			result = append(result, num)
+		}
+	}
+
+	return result
+}
+
+func removeDuplicate_Conn(input []*SocketReader) []*SocketReader {
+	seen := make(map[*SocketReader]struct{})
+	result := []*SocketReader{}
 
 	for _, num := range input {
 		if _, exists := seen[num]; !exists {
