@@ -88,6 +88,7 @@ func (c *SocketReader) Read(database db.Db) {
 		c.Id = connInf[0]
 		c.Username = connInf[1]
 		c.Profil = connInf[2]
+		c.Connected = true
 		Isconnected <- c
 		posTab, ok, err := com.GetAll_fromDB(session)
 		if !ok {
