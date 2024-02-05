@@ -45,6 +45,8 @@ export class form {
     this.formDiv = document.createElement("div");
     this.submitDiv = document.createElement("div");
     //-------------------
+    this.sideMessageHeader.id = "top";
+    this.sideMessageFooter.id = "bottom";
     this.textInfo.id = "text-info";
     this.logInfo.id = "log-info";
     this.submitDiv.id = "submit-btn";

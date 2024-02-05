@@ -43,6 +43,7 @@ socket.mysocket.onopen = () => {
 /*****************************************************************
  *******************************************************************/
 
+let forumForm = new form();
 socket.mysocket.onmessage = (e) => {
   console.log("💥 in onmessage", e.data);
   const dataObject = JSON.parse(e.data);
@@ -52,18 +53,16 @@ socket.mysocket.onmessage = (e) => {
       console.log("received user list =>", dataObject.userList);
       launchHome(dataObject.posts, dataObject.userList);
       break;
-    //--------------------------------------------------
-    //! invalid session from cookies or session expired
-    case "socket-open-invalid-session":
-      localStorage.removeItem("jwtToken");
-      let forumForm = new form();
-      forumForm.loginForm();
+      //--------------------------------------------------
+      //! invalid session from cookies or session expired
+      case "socket-open-invalid-session":
+        localStorage.removeItem("jwtToken");
+        forumForm.loginForm();
       break;
     //---------------------------------------
     //! regsiter request response from server
     case "register":
       if (dataObject.Authorization == "granted" && dataObject.status == "200") {
-        let forumForm = new form();
         moveToLogin(forumForm);
         console.log("user is registered");
       }

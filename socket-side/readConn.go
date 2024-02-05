@@ -35,12 +35,16 @@ func (c *SocketReader) Read(database db.Db) {
 	switch requestType {
 	case "register":
 		log.Println("In register")
-		serverResponse, ok, err := hdle.HandleRegister(requestPayload, database)
-		if !ok {
-			c.Con.WriteJSON(err)
-			return
-		}
-		c.Con.WriteJSON(serverResponse)
+		// serverResponse, ok, err := hdle.HandleRegister(requestPayload, database)
+		// if !ok {
+		// 	c.Con.WriteJSON(err)
+		// 	return
+		// }
+		Response := make(map[string]interface{}, 0)
+		Response["Type"] = "register"
+		Response["Authorization"] = "granted"
+		Response["status"] = "200"
+		c.Con.WriteJSON(Response)
 
 	case "login":
 		fmt.Println("in login")
