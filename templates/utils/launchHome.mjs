@@ -1,7 +1,8 @@
-import { decode } from "./JWT.mjs";
+import { initHome } from "../homeDOM/main.mjs";
+import { decode } from "./jwtoken.mjs";
+import { setHomeStyle, removeHomeStyle } from "./setStyle.mjs";
 
-export const launchHome = () => {
-  const container = document.getElementById("container");
+export const launchHome = (posts) => {
   let userInfo = localStorage.getItem("jwtToken");
   try {
     userInfo = decode(userInfo);
@@ -14,16 +15,19 @@ export const launchHome = () => {
     return;
   }
   console.log("after decoding jwt =>", userInfo);
-  container.innerHTML = "";
+  document.body.innerHTML = "";
   setTimeout(() => {
-    container.innerHTML = `
-    <p id="succeedeed">HOME REACHED</p>
-    <p id="succeedeed">${userInfo.payload.Id}</p>
-    <p id="succeedeed">${userInfo.payload.FirstName}</p>
-    <p id="succeedeed">${userInfo.payload.LastName}</p>
-    <p id="succeedeed">${userInfo.payload.Age}</p>
-    <p id="succeedeed">${userInfo.payload.Gender}</p>
-    <p id="succeedeed">${userInfo.payload.Email}</p>
-    `;
+    // container.innerHTML = `
+    // <p id="succeedeed">HOME REACHED</p>
+    // <p id="succeedeed">${userInfo.payload.Id}</p>
+    // <p id="succeedeed">${userInfo.payload.FirstName}</p>
+    // <p id="succeedeed">${userInfo.payload.LastName}</p>
+    // <p id="succeedeed">${userInfo.payload.Age}</p>
+    // <p id="succeedeed">${userInfo.payload.Gender}</p>
+    // <p id="succeedeed">${userInfo.payload.Email}</p>
+    // `;
+    removeHomeStyle();
+    setHomeStyle();
+    initHome(userInfo, posts);
   }, 500);
 };

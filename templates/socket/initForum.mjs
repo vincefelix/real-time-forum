@@ -1,12 +1,13 @@
 //import { forumForm } from "../form/formScript.mjs";
 import { moveToLogin } from "../form/loginGen.mjs";
-import { setJWT } from "../utils/JWT.mjs";
+import { setJWT } from "../utils/jwtoken.mjs";
 import { launchHome } from "../utils/launchHome.mjs";
 import { setCookies } from "../utils/setCookies.mjs";
 import { vmSocket } from "./vmsocket.mjs";
 import { form } from "../form/formElement.mjs";
 import { error } from "../error/error.mjs";
 import { alertError } from "../error/alert.mjs";
+import { mainContent } from "../homeDOM/main.mjs";
 
 export const socket = new vmSocket();
 socket.connectSocket(); //connecting to socket one tab is opened
@@ -48,7 +49,7 @@ socket.mysocket.onmessage = (e) => {
   switch (dataObject.Type) {
     case "socket-open-with-session":
       console.log("in  the open with session");
-      launchHome();
+      launchHome(dataObject.posts);
       break;
     //--------------------------------------------------
     //! invalid session from cookies or session expired
@@ -77,6 +78,25 @@ socket.mysocket.onmessage = (e) => {
       }
       break;
     //------------------
+    case "addPost":
+      console.log("in addpost");
+      console.log("received => ", dataObject.Payload);
+      // console.log("like =>", dataObject.payload.Like);
+      const postDetails = [
+        dataObject.Payload.PostId,
+        dataObject.Payload.Profil,
+        dataObject.Payload.Username,
+        dataObject.Payload.ImageLink,
+        dataObject.Payload.Content,
+        8,
+        9,
+        11,
+      ];
+      mainContent.createAndAddPost(postDetails, true);
+      break;
+    case "addComment":
+      console.log("adding comm");
+      break;
     //! an error occured
     default:
       if (dataObject.Status == "404" || dataObject.Status == "500") {
@@ -86,7 +106,7 @@ socket.mysocket.onmessage = (e) => {
       } else {
         alertError(dataObject);
       }
-     // alert(dataObject.Msg);
+    // alert(dataObject.Msg);
   }
 };
 /*****************************************************************

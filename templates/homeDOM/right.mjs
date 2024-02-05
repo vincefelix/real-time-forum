@@ -1,11 +1,13 @@
+import * as com from "./communication.mjs";
+
 export class RightSidebarSection {
     constructor() {
         this.connectedUsers = document.createElement('div');
         this.disconnectedUsers = document.createElement('div');
-        this.createRightSidebar();
+        //this.createRightSidebar();
     }
 
-    createRightSidebar() {
+    init() {
         const rightSidebarSection = document.createElement('section');
         rightSidebarSection.className = 'right-sidebar';
 
@@ -119,7 +121,7 @@ export class RightSidebarSection {
         const sendButton = document.createElement('button');
         sendButton.textContent = 'Envoyer';
         sendButton.onclick = function () {
-            sendMessage(userName);
+            com.sendMessage(userName);
         };
     
         messagePopupHeader.appendChild(closeButton);
@@ -151,29 +153,4 @@ export class RightSidebarSection {
         // Append user container to the specified parent element
         parentElement.appendChild(modified);
     } 
-}
-function sendMessage(userName) {
-    // Récupérer le contenu du champ de saisie
-    const messageInput = document.getElementById(`newMessageInput-${userName}`);
-    const messageText = messageInput.value;
-
-    // Créer un nouvel élément de message
-    const messageItem = document.createElement('div');
-    messageItem.className = 'message-item';
-
-    const senderName = document.createElement('span');
-    senderName.textContent = 'Moi'; // Vous pouvez utiliser le nom de l'utilisateur actuel
-
-    const messageTextElement = document.createElement('div');
-    messageTextElement.textContent = messageText;
-
-    messageItem.appendChild(senderName);
-    messageItem.appendChild(messageTextElement);
-
-    // Ajouter le nouveau message à l'historique des messages
-    const messageHistoryContainer = document.getElementById(`messagePopupBody-${userName}`);
-    messageHistoryContainer.appendChild(messageItem);
-
-    // Effacer le champ de saisie après l'envoi
-    messageInput.value = '';
 }

@@ -1,9 +1,24 @@
+//import { decode } from "../utils/JWT.mjs";
+
 export class Navigation {
     constructor() {
-        this.createNavigation();
+    //     let userInfo = localStorage.getItem("jwtToken");
+    //     try {
+    //       userInfo = decode(userInfo);
+    //     } catch (error) {
+    //       console.log(`Error decoding token: ${error}`);
+    //       container.innerHTML = "";
+    //       container.innerHTML = `
+    //       <p id="succeedeed">error JWT</p>
+    //       `;
+    //       return;
+    //     }
+    //     console.log("after decoding jwt =>", userInfo);
+    //     this.nickName = userInfo.payload.NickName
+    //    // this.profilLink = userInfo.payload.profilLink
     }
 
-    createNavigation() {
+    init(username) {
         // Create nav element
         const navElement = document.createElement('nav');
 
@@ -92,7 +107,7 @@ export class Navigation {
         // User name
         const userName = document.createElement('span');
         userName.className = 'username';
-        userName.textContent = 'Masseck';
+        userName.textContent = username;
 
         // Append elements to user nav info section
         userNavInfoSection.appendChild(presenceStatus);

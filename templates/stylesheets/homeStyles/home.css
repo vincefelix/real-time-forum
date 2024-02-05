@@ -402,22 +402,23 @@ nav .user_nav-img {
     margin-bottom: 8%;
     width: 100%;
     height: auto;
-    max-height: 800px;
+    max-height: 600px;
     background-color: #edeef0;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
         rgba(0, 0, 0, 0.3) 0px 4px 13px -1px;
     border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    overflow-y: scroll;
+    overflow: hidden;
 }
 
 .feedpost .a-post img {
     max-width: 100%;
     width: 90%;
+    height: auto;
     min-width: 70%;
     margin-left: 5%;
     margin-top: -1%;
-    height: 45vh;
+    max-height: 45vh;
     border-radius: 20px;
     background-size: contain;
     background-position: center;
@@ -604,6 +605,7 @@ nav .user_nav-img {
 
 .right-sidebar .connection-info:hover {
     background-color: #ff9900;
+    width: 100%;
 }
 
 .right-sidebar .connected-users a:hover {
@@ -646,13 +648,12 @@ nav .user_nav-img {
 
 .post-text pre {
     width: 88%;
-    max-height: 100px;
+    max-height: 350px;
     height: auto;
-    overflow-y: scroll;
     word-wrap: break-word;
     position: relative;
     left: 3%;
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 
 .toogle-allelement {
@@ -737,6 +738,23 @@ nav .user_nav-img {
     border-radius: 14px;
 }
 
+
+.postTitle-Content{
+    width: 30%;
+    left: 35%;
+    position: relative;
+    left: 35%;
+    display: inline-block;
+    text-align: center;
+    font-size: xx-large;
+    border-radius: 8px;
+    border: black 2px solid;
+}
+.postTitleInput{
+    width: 15%;
+    margin-top: 10%;
+}
+
 .toogle-allelement {
     min-width: 200px;
     min-height: 120px;
@@ -770,7 +788,6 @@ nav .user_nav-img {
 
     .responsive-toggle {
         display: block;
-        /* Ajoutez le style CSS souhaité pour la petite div ici */
     }
 
     /* .leftside {
@@ -791,7 +808,9 @@ nav .user_nav-img {
     }
 
     .toogle-allelement {
-        left: 76%;
+        left: 2%;
+        width: 20%;
+        height: 10%;
     }
 
 }
@@ -808,12 +827,13 @@ nav .user_nav-img {
     }
 
     .feedpost {
-        height: 80%;
+        max-height: 600px;
+        height: auto;
+        overflow: hidden;
     }
 
     .feedpost .a-post img {
         max-height: 33vh;
-        min-height: 25vh;
         height: auto;
     }
 }
@@ -916,6 +936,10 @@ nav .user_nav-img {
         margin-top: -28%;
     }
 
+    .feedpost {
+        overflow: hidden;
+    }
+
     .post-creation-img img {
         width: 6%;
         height: 7%;
@@ -960,8 +984,15 @@ nav .user_nav-img {
         height: 25%;
     }
 
+    .right-sidebar .isnotconnected-name{
+        display: none;
+      }
+    
+
     .feedpost {
-        height: 61%;
+        height: auto;
+        max-height: 500px;
+        overflow: hidden;
     }
 }
 

@@ -273,11 +273,12 @@ function addPost() {
             selectedCategories.push(categoriesSelect.options[i].value);
         }
     }
-
+    var postTitleContent =  document.getElementById("title").value;
     var postText = document.getElementById('postText').value;
     var postImage = document.getElementById('postImage').value;
 
     console.log('Selected Categories:', selectedCategories);
+    console.log('Post Title:', postTitleContent);
     console.log('Post Text:', postText);
     console.log('Post Image:', postImage);
 
