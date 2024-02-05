@@ -39,7 +39,7 @@ export class Navigation {
         // Hamburger icon
         const tooglerLeftImg = document.createElement('img');
         tooglerLeftImg.className = 'tooglerleftimg';
-        tooglerLeftImg.src = '/static/./assets/hamburger.png';
+        tooglerLeftImg.src = '';
         tooglerLeftImg.alt = '';
 
         // Append elements to logo section
@@ -70,7 +70,7 @@ export class Navigation {
 
         const profileLink = document.createElement('a');
         profileLink.href = '#';
-        profileLink.textContent = 'Profil';
+        profileLink.textContent = '';
 
         // Append links to li elements
         homeTab.appendChild(homeLink);

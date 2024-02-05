@@ -1,4 +1,5 @@
 import * as com from "./communication.mjs";
+import { deletePostValues } from "../utils/script.js";
 
 export class MainContentSection {
   constructor() {}
@@ -66,12 +67,11 @@ export class MainContentSection {
   //         });
   //     }
   // }
-  createComment(username, userImageSrc, commentText) {
+    createComment(postId, username, userImageSrc, commentText) {
     // Créez un élément de commentaire
     const commentContainer = document.createElement("div");
     commentContainer.className = "comment";
 
-    // Créez la section de l'utilisateur
     const userSection = document.createElement("div");
     userSection.className = "user-section";
 
@@ -94,8 +94,18 @@ export class MainContentSection {
     commentContainer.appendChild(userSection);
     commentContainer.appendChild(commentTextSection);
 
+    // Trouvez le post correspondant à l'ID
+    const post = document.getElementById(postId);
+    if (post) {
+        // Trouvez la section des commentaires du post
+        const commentsSection = post.querySelector('.comments-section');
+        if (commentsSection) {
+            commentsSection.appendChild(commentContainer);
+        }
+    }
+
     return commentContainer;
-  }
+}
 
   generatePosts(feedContainer, numberOfPosts) {
     for (let i = 0; i < numberOfPosts; i++) {
@@ -125,6 +135,7 @@ export class MainContentSection {
     publisherName,
     postImageSrc,
     postText,
+    Categories,
     likeCount,
     dislikeCount,
     commentCount
@@ -156,15 +167,37 @@ export class MainContentSection {
     const aPost = document.createElement("div");
     aPost.className = "a-post";
 
+    var selectedCategories = [];
+  var categoriesSelect = document.getElementById("postCategories");
+
+  for (var i = 0; i < categoriesSelect.options.length; i++) {
+    if (categoriesSelect.options[i].selected) {
+      selectedCategories.push(categoriesSelect.options[i].value);
+    }
+  }
+  Categories=selectedCategories
     // Ajoutez une section pour le texte du post avant l'image
     const postTextSection = document.createElement("div");
     postTextSection.className = "post-text";
 
+    // Ajouter les catégories
+    const categoriesSection = document.createElement("div");
+    categoriesSection.className = "post-categories";
+
+    Categories.forEach((category) => {
+        const categoryParagraph = document.createElement("p");
+        categoryParagraph.textContent = category;
+        categoriesSection.appendChild(categoryParagraph);
+    });
+
+    postTextSection.appendChild(categoriesSection);
     aPost.appendChild(postTitleContent);
 
     // Créez un élément <pre> pour afficher le texte du post
     const postTextContent = document.createElement("pre");
     postTextContent.textContent = postText;
+
+
 
     postTextSection.appendChild(postTextContent);
 
@@ -177,6 +210,9 @@ export class MainContentSection {
     postImageElement.alt = "";
 
     aPost.appendChild(postImageElement);
+
+    //Ajouter les cathegories
+
 
     // Create reaction-table section
     const reactionTable = document.createElement("div");
@@ -296,7 +332,9 @@ export class MainContentSection {
     postContainer.appendChild(commentsSection);
     postContainer.appendChild(newCommentForm);
 
+    deletePostValues()
     return postContainer;
+ 
   }
 
   createPostSection() {
@@ -326,27 +364,62 @@ export class MainContentSection {
     postTextArea.id = "postText";
     postTextArea.placeholder = "Saisissez votre message";
 
-    // Create select for post categories
-    const postCategoriesSelect = document.createElement("select");
-    postCategoriesSelect.id = "postCategories";
-    postCategoriesSelect.multiple = true;
-    postCategoriesSelect.className = "collapsible-select";
+    function enableCtrlClickSelection(selectElement) {
+      selectElement.addEventListener('mousedown', function (event) {
+          event.preventDefault();
+          const isCtrlPressed = event.metaKey || event.ctrlKey; // Vérifier si la touche Ctrl est déjà enfoncée
+  
+          if (!isCtrlPressed) {
+              // Si Ctrl n'est pas enfoncé, ajouter la classe pour simuler le comportement Ctrl
+              const selectedOption = event.target;
+              selectedOption.classList.toggle('ctrl-selected');
+          }
+      });
+  }
+  
+  function enableCtrlClickSelection(selectElement) {
+    selectElement.addEventListener('mousedown', function (event) {
+        const isCtrlPressed = event.metaKey || event.ctrlKey; // Vérifier si la touche Ctrl est déjà enfoncée
 
-    // Add options to the select
-    const categories = ["Sport", "Art", "Cinéma", "Musique", "Informatique"];
-    categories.forEach((category) => {
-      const option = document.createElement("option");
-      option.value = category.toLowerCase();
-      option.textContent = category;
-      postCategoriesSelect.appendChild(option);
+        if (!isCtrlPressed) {
+            event.preventDefault();
+
+            const selectedOption = event.target;
+            const isSelected = selectedOption.selected;
+
+            // Inverser la sélection de l'option sans modifier la sélection d'autres options
+            selectedOption.selected = !isSelected;
+        }
     });
+}
+
+// Utilisation de la fonction avec votre élément select
+const postCategoriesSelect = document.createElement("select");
+postCategoriesSelect.id = "postCategories";
+postCategoriesSelect.multiple = true;
+postCategoriesSelect.className = "collapsible-select";
+
+const categories = ["Sport", "Art", "Cinéma", "Musique", "Informatique"];
+categories.forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category.toLowerCase();
+    option.textContent = category;
+    postCategoriesSelect.appendChild(option);
+});
+
+// Appel de la fonction pour activer le comportement Ctrl lors du clic sur les options
+enableCtrlClickSelection(postCategoriesSelect);
+
 
     // Create input for post image
     const postImageInput = document.createElement("input");
     postImageInput.type = "file";
     postImageInput.id = "postImage";
     postImageInput.placeholder = "Parcourir";
-    postImageInput.accept = "image/*"; //!
+    postImageInput.accept = "image/*"; 
+    postImageInput.style.display = "none"
+
+    //!
     //postImageInput.addEventListener('change', previewImage);
 
     // // Create div for image preview
@@ -398,3 +471,5 @@ export class MainContentSection {
 //     const postContainerDiv = document.getElementById('postContainer');
 //     postContainerDiv.appendChild(newPost);
 // });
+
+

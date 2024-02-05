@@ -1,11 +1,10 @@
-import { LeftsideSection } from "./left.mjs";
+
 import { RightSidebarSection } from "./right.mjs";
 import { Navigation } from "./nav.mjs";
 import { MainContentSection } from "./createpost.mjs";
 import { ProfileToggleSection } from "./profiletoogler.mjs";
 
 export const navigation = new Navigation();
-export const leftsection = new LeftsideSection();
 export const mainContent = new MainContentSection();
 export const rightSidebar = new RightSidebarSection();
 export const profileToggle = new ProfileToggleSection();
@@ -16,7 +15,7 @@ export const initHome = (props = {}, posts) => {
   console.log("index posts to display ", posts[0]);
   navigation.init(props.payload.NickName);
   profileToggle.init();
-  leftsection.init();
+  // leftsection.init();
   mainContent.init();
   rightSidebar.init();
   for (const post of posts) {
@@ -33,6 +32,7 @@ export const initHome = (props = {}, posts) => {
       post.Username,
       post.ImageLink,
       post.Content,
+      post.Categories,
       likeCount,
       dislikeCount,
       commentCount,

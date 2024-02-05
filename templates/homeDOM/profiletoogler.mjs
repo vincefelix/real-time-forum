@@ -4,7 +4,7 @@ export class ProfileToggleSection {
   init() {
     this.createProfileToggle();
     setTimeout(() => {
-      this.hamToggle();
+      // this.hamToggle();
       this.profilHover();
     }, 1000);
   }
@@ -63,23 +63,23 @@ export class ProfileToggleSection {
     return buttonContainer;
   }
 
-  hamToggle() {
-    var userNavImg = document.querySelector(".tooglerleftimg");
-    var leftSidebar = document.querySelector(".leftside");
-    var mainspace = document.querySelector(".main-content");
-    var sidebarVisible = true;
+  // hamToggle() {
+  //   var userNavImg = document.querySelector(".tooglerleftimg");
+  //   var leftSidebar = document.querySelector(".leftside");
+  //   var mainspace = document.querySelector(".main-content");
+  //   var sidebarVisible = true;
 
-    userNavImg.addEventListener("click", function () {
-      if (sidebarVisible) {
-        leftSidebar.style.display = "block";
-        mainspace.style.cssText = "width: 52%; left: 21%";
-      } else {
-        leftSidebar.style.display = "none";
-        mainspace.style.cssText = "width: 75%; left: 0";
-      }
-      sidebarVisible = !sidebarVisible;
-    });
-  }
+  //   userNavImg.addEventListener("click", function () {
+  //     if (sidebarVisible) {
+  //       leftSidebar.style.display = "block";
+  //       mainspace.style.cssText = "width: 52%; left: 21%";
+  //     } else {
+  //       leftSidebar.style.display = "none";
+  //       mainspace.style.cssText = "width: 75%; left: 0";
+  //     }
+  //     sidebarVisible = !sidebarVisible;
+  //   });
+  // }
   profilHover() {
     var profilemenutoogler = document.querySelector(".options-menu-img");
     var menutotoogle = document.querySelector(".profile-toogle");

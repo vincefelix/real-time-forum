@@ -654,6 +654,8 @@ nav .user_nav-img {
     position: relative;
     left: 3%;
     font-size: 1rem;
+    white-space: pre-wrap;
+    text-align: justify;
 }
 
 .toogle-allelement {
@@ -701,6 +703,10 @@ nav .user_nav-img {
     background-color: #111111;
 }
 
+#postTitleInput{
+    margin-bottom: 10px;
+}
+
 .profile-toogle {
     display: none;
     position: fixed;
@@ -710,6 +716,22 @@ nav .user_nav-img {
     top: 70px;
     z-index: 9;
     animation: scrollProfileToogle 300ms linear ;
+}
+
+
+.post-categories{
+  width: 70%;
+  display: flex;
+  margin-left: 12%;
+  justify-content: space-evenly;
+}
+
+.post-categories p{
+    border: 2px black solid;
+    margin: 10px 10px 10px 10px;
+    padding: 4px 15px 4px 15px;
+    font-size: 1.2rem;
+    border-radius: 12px;
 }
 
 @keyframes scrollProfileToogle{
@@ -740,15 +762,16 @@ nav .user_nav-img {
 
 
 .postTitle-Content{
-    width: 30%;
-    left: 35%;
+    width: auto;
+    left: 38%;
+    padding: 0 10px;
     position: relative;
-    left: 35%;
     display: inline-block;
     text-align: center;
-    font-size: xx-large;
+    font-size: 1.7rem;
     border-radius: 8px;
     border: black 2px solid;
+    box-shadow: 3px 3px rgba(100, 90, 78, 0.69), -1em 0 .4em rgb(201, 201, 202);
 }
 .postTitleInput{
     width: 15%;
@@ -794,6 +817,13 @@ nav .user_nav-img {
         width: 100%;
     } */
 
+
+    #postTitleInput{
+        width: 100%;
+        max-width: 150px;
+        margin-bottom: 12px;
+    }
+
     .main-content {
         left: 0;
         width: 75%
@@ -826,6 +856,10 @@ nav .user_nav-img {
         margin: 16px 0 0 30px;
     }
 
+    .postTitle-Content{
+        left: 30%;
+    }
+
     .feedpost {
         max-height: 600px;
         height: auto;
@@ -835,6 +869,10 @@ nav .user_nav-img {
     .feedpost .a-post img {
         max-height: 33vh;
         height: auto;
+    }
+
+    option{
+        width: 8vw;
     }
 }
 
@@ -850,6 +888,11 @@ nav .user_nav-img {
             height: 3vh;
             font-size: 12px;
         }
+    }
+
+    .postTitle-Content{
+        left: 26%;
+        font-size: initial;
     }
 
     nav .logo .tooglerleftimg {
@@ -870,7 +913,6 @@ nav .user_nav-img {
 
     .collapsible-select {
         width: 58%;
-        margin-left: -3%;
         padding-right: 78px;
     }
 
@@ -890,6 +932,9 @@ nav .user_nav-img {
         margin: 16px 0 0 6px;
     }
 
+    option{
+        width: 100vw;
+    }
 
     nav .logo h1 {
         margin-top: 15%;
@@ -1070,7 +1115,7 @@ button {
         margin-bottom: 10px;
         resize: vertical;
     }
-
+    
     input[type="file"] {
         margin: 0px -31px 0px -4px;
     }
@@ -1078,13 +1123,18 @@ button {
     button {
         padding: 0 20px;
         cursor: pointer;
-        margin-top: -2px 0 0 0;
+        margin-top: 15px;
     }
 
     h2 {
         height: auto;
         width: 70%;
         font-weight: 1vw;
+        margin-bottom: 10px;
+        background: linear-gradient(to right, #f2ebf4 0%, #72737b 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 }
 
