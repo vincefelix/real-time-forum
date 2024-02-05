@@ -28,8 +28,11 @@ func GetUsers_State(database db.Db) ([]UserConn, bool, Struct.Errormessage) {
 		for _, connectedUser := range UserTab {
 			if connectedUser.Id == user.Id {
 				Clients = append(Clients, UserConn{Username: user.Username, Profil: user.Pp, Online: true})
+				break
 			} else {
-				Clients = append(Clients, UserConn{Username: user.Username, Profil: user.Pp, Online: false})
+				if !ConnectedUser(user, Clients) {
+					Clients = append(Clients, UserConn{Username: user.Username, Profil: user.Pp, Online: false})
+				}
 			}
 		}
 	}
@@ -46,6 +49,15 @@ func GetUsers_State(database db.Db) ([]UserConn, bool, Struct.Errormessage) {
 	return Clients, true, Struct.Errormessage{}
 }
 
+func ConnectedUser(client auth.User, clientList []UserConn) bool {
+	for i := range clientList {
+		if clientList[i].Username == client.Username && clientList[i].Online {
+			return true
+		}
+	}
+	return false
+}
+
 func removeDuplicateUser(input []UserConn) []UserConn {
 	seen := make(map[UserConn]struct{})
 	result := []UserConn{}
@@ -56,7 +68,6 @@ func removeDuplicateUser(input []UserConn) []UserConn {
 			result = append(result, num)
 		}
 	}
-
 	return result
 }
 
