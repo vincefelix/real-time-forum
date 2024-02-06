@@ -7,7 +7,7 @@ func HandleOnlineUser() {
 		select {
 		case user := <-Isconnected:
 			log.Printf("🟢 user: %v is connected\n", user)
-			UserTab = append(UserTab, user)
+			UserTab = UpdateConn(user, UserTab)
 			serverResponse := make(map[string]interface{})
 			serverResponse["Type"] = "online"
 			serverResponse["Payload"] = UserConn{
@@ -38,7 +38,27 @@ func HandleOnlineUser() {
 					}
 				}
 			}
-
+			// case Update := <-UpdateUserConn:
+			// 	UserTab = UpdateConn(Update, UserTab)
 		}
 	}
+}
+
+func UpdateConn(user *SocketReader, tab []*SocketReader) []*SocketReader {
+	var (
+		found   bool
+		Initial = user.Con
+	)
+	for i := range tab {
+		if tab[i].Username == user.Username {
+			tab[i].Con = user.Con
+			found = true
+			log.Printf("connection '%v' updated to '%v'", Initial, tab[i].Con)
+			break
+		}
+	}
+	if !found {
+		tab = append(tab, user)
+	}
+	return tab
 }
