@@ -53,6 +53,8 @@ func GetUsers_State(database db.Db) ([]UserConn, bool, Struct.Errormessage) {
 	return Clients, true, Struct.Errormessage{}
 }
 
+// **********************  tools  ************************//
+
 func ConnectedUser(client auth.User, clientList []UserConn) bool {
 	for i := range clientList {
 		if clientList[i].Username == client.Username && clientList[i].Online {
