@@ -402,22 +402,23 @@ nav .user_nav-img {
     margin-bottom: 8%;
     width: 100%;
     height: auto;
-    max-height: 800px;
+    max-height: 600px;
     background-color: #edeef0;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
         rgba(0, 0, 0, 0.3) 0px 4px 13px -1px;
     border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
-    overflow-y: scroll;
+    overflow: hidden;
 }
 
 .feedpost .a-post img {
     max-width: 100%;
     width: 90%;
+    height: auto;
     min-width: 70%;
     margin-left: 5%;
     margin-top: -1%;
-    height: 45vh;
+    max-height: 45vh;
     border-radius: 20px;
     background-size: contain;
     background-position: center;
@@ -604,6 +605,7 @@ nav .user_nav-img {
 
 .right-sidebar .connection-info:hover {
     background-color: #ff9900;
+    width: 100%;
 }
 
 .right-sidebar .connected-users a:hover {
@@ -646,13 +648,14 @@ nav .user_nav-img {
 
 .post-text pre {
     width: 88%;
-    max-height: 100px;
+    max-height: 350px;
     height: auto;
-    overflow-y: scroll;
     word-wrap: break-word;
     position: relative;
     left: 3%;
-    font-size: 0.8rem;
+    font-size: 1rem;
+    white-space: pre-wrap;
+    text-align: justify;
 }
 
 .toogle-allelement {
@@ -700,6 +703,10 @@ nav .user_nav-img {
     background-color: #111111;
 }
 
+#postTitleInput{
+    margin-bottom: 10px;
+}
+
 .profile-toogle {
     display: none;
     position: fixed;
@@ -709,6 +716,22 @@ nav .user_nav-img {
     top: 70px;
     z-index: 9;
     animation: scrollProfileToogle 300ms linear ;
+}
+
+
+.post-categories{
+  width: 70%;
+  display: flex;
+  margin-left: 12%;
+  justify-content: space-evenly;
+}
+
+.post-categories p{
+    border: 2px black solid;
+    margin: 10px 10px 10px 10px;
+    padding: 4px 15px 4px 15px;
+    font-size: 1.2rem;
+    border-radius: 12px;
 }
 
 @keyframes scrollProfileToogle{
@@ -735,6 +758,24 @@ nav .user_nav-img {
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     border-radius: 14px;
+}
+
+
+.postTitle-Content{
+    width: auto;
+    left: 38%;
+    padding: 0 10px;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    font-size: 1.7rem;
+    border-radius: 8px;
+    border: black 2px solid;
+    box-shadow: 3px 3px rgba(100, 90, 78, 0.69), -1em 0 .4em rgb(201, 201, 202);
+}
+.postTitleInput{
+    width: 15%;
+    margin-top: 10%;
 }
 
 .toogle-allelement {
@@ -770,12 +811,18 @@ nav .user_nav-img {
 
     .responsive-toggle {
         display: block;
-        /* Ajoutez le style CSS souhaité pour la petite div ici */
     }
 
     /* .leftside {
         width: 100%;
     } */
+
+
+    #postTitleInput{
+        width: 100%;
+        max-width: 150px;
+        margin-bottom: 12px;
+    }
 
     .main-content {
         left: 0;
@@ -791,7 +838,9 @@ nav .user_nav-img {
     }
 
     .toogle-allelement {
-        left: 76%;
+        left: 2%;
+        width: 20%;
+        height: 10%;
     }
 
 }
@@ -807,14 +856,23 @@ nav .user_nav-img {
         margin: 16px 0 0 30px;
     }
 
+    .postTitle-Content{
+        left: 30%;
+    }
+
     .feedpost {
-        height: 80%;
+        max-height: 600px;
+        height: auto;
+        overflow: hidden;
     }
 
     .feedpost .a-post img {
         max-height: 33vh;
-        min-height: 25vh;
         height: auto;
+    }
+
+    option{
+        width: 8vw;
     }
 }
 
@@ -830,6 +888,11 @@ nav .user_nav-img {
             height: 3vh;
             font-size: 12px;
         }
+    }
+
+    .postTitle-Content{
+        left: 26%;
+        font-size: initial;
     }
 
     nav .logo .tooglerleftimg {
@@ -850,7 +913,6 @@ nav .user_nav-img {
 
     .collapsible-select {
         width: 58%;
-        margin-left: -3%;
         padding-right: 78px;
     }
 
@@ -870,6 +932,9 @@ nav .user_nav-img {
         margin: 16px 0 0 6px;
     }
 
+    option{
+        width: 100vw;
+    }
 
     nav .logo h1 {
         margin-top: 15%;
@@ -916,6 +981,10 @@ nav .user_nav-img {
         margin-top: -28%;
     }
 
+    .feedpost {
+        overflow: hidden;
+    }
+
     .post-creation-img img {
         width: 6%;
         height: 7%;
@@ -960,8 +1029,15 @@ nav .user_nav-img {
         height: 25%;
     }
 
+    .right-sidebar .isnotconnected-name{
+        display: none;
+      }
+    
+
     .feedpost {
-        height: 61%;
+        height: auto;
+        max-height: 500px;
+        overflow: hidden;
     }
 }
 
@@ -1039,7 +1115,7 @@ button {
         margin-bottom: 10px;
         resize: vertical;
     }
-
+    
     input[type="file"] {
         margin: 0px -31px 0px -4px;
     }
@@ -1047,13 +1123,18 @@ button {
     button {
         padding: 0 20px;
         cursor: pointer;
-        margin-top: -2px 0 0 0;
+        margin-top: 15px;
     }
 
     h2 {
         height: auto;
         width: 70%;
         font-weight: 1vw;
+        margin-bottom: 10px;
+        background: linear-gradient(to right, #f2ebf4 0%, #72737b 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 }
 

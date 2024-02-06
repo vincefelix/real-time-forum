@@ -1,4 +1,5 @@
 import * as com from "./communication.mjs";
+import { deletePostValues } from "../utils/script.js";
 
 export class MainContentSection {
   constructor() {}
@@ -49,16 +50,9 @@ export class MainContentSection {
     postTitle.textContent = "Post";
     addPostContainer.appendChild(postTitle);
 
-    const postTitleInput = document.createElement("input");
-    postTitleInput.type = "text";
-    postTitleInput.id = "postTitleInput";
-    postTitleInput.placeholder = "Enter post title...";
-
     const addPostForm = document.createElement("form");
     addPostForm.id = "addPostForm";
 
-    // ... (Add your form content creation here)
-    addPostContainer.appendChild(postTitle);
     addPostContainer.appendChild(addPostForm);
     createPost.appendChild(addPostContainer);
 
@@ -73,12 +67,11 @@ export class MainContentSection {
   //         });
   //     }
   // }
-  createComment(username, userImageSrc, commentText) {
+  createComment(postId, username, userImageSrc, commentText) {
     // Créez un élément de commentaire
     const commentContainer = document.createElement("div");
     commentContainer.className = "comment";
 
-    // Créez la section de l'utilisateur
     const userSection = document.createElement("div");
     userSection.className = "user-section";
 
@@ -101,7 +94,15 @@ export class MainContentSection {
     commentContainer.appendChild(userSection);
     commentContainer.appendChild(commentTextSection);
 
-    return commentContainer;
+    // Trouvez le post correspondant à l'ID
+    const post = document.getElementById(postId);
+    if (post) {
+      // Trouvez la section des commentaires du post
+      const commentsSection = post.querySelector(".comments-section");
+      if (commentsSection) {
+        commentsSection.appendChild(commentContainer);
+      }
+    }
   }
 
   generatePosts(feedContainer, numberOfPosts) {
@@ -126,11 +127,13 @@ export class MainContentSection {
   }
 
   createPost(
+    postTitleInput,
     idofpost,
     profileImageSrc,
     publisherName,
     postImageSrc,
     postText,
+    Categories,
     likeCount,
     dislikeCount,
     commentCount
@@ -155,12 +158,29 @@ export class MainContentSection {
     userPublish.appendChild(publisherNameElement);
 
     // Create a-post section
+    const postTitleContent = document.createElement("pre");
+    postTitleContent.className = "postTitle-Content";
+    postTitleContent.textContent = postTitleInput;
+
     const aPost = document.createElement("div");
     aPost.className = "a-post";
 
     // Ajoutez une section pour le texte du post avant l'image
     const postTextSection = document.createElement("div");
     postTextSection.className = "post-text";
+
+    // Ajouter les catégories
+    const categoriesSection = document.createElement("div");
+    categoriesSection.className = "post-categories";
+
+    Categories.forEach((category) => {
+      const categoryParagraph = document.createElement("p");
+      categoryParagraph.textContent = category;
+      categoriesSection.appendChild(categoryParagraph);
+    });
+
+    postTextSection.appendChild(categoriesSection);
+    aPost.appendChild(postTitleContent);
 
     // Créez un élément <pre> pour afficher le texte du post
     const postTextContent = document.createElement("pre");
@@ -177,6 +197,8 @@ export class MainContentSection {
     postImageElement.alt = "";
 
     aPost.appendChild(postImageElement);
+
+    //Ajouter les cathegories
 
     // Create reaction-table section
     const reactionTable = document.createElement("div");
@@ -270,6 +292,10 @@ export class MainContentSection {
     newCommentForm.id = "newCommentForm";
 
     const commentTextarea = document.createElement("textarea");
+    commentTextarea.required = true;
+    commentTextarea.maxLength = 250;
+    commentTextarea.minLength = 2;
+    commentTextarea.required = true;
     commentTextarea.placeholder = "Add a comment";
 
     const postButton = document.createElement("button");
@@ -292,6 +318,7 @@ export class MainContentSection {
     postContainer.appendChild(commentsSection);
     postContainer.appendChild(newCommentForm);
 
+    deletePostValues();
     return postContainer;
   }
 
@@ -305,21 +332,58 @@ export class MainContentSection {
     const postTitle = document.createElement("h2");
     postTitle.textContent = "Post";
 
+    const postTitleInput = document.createElement("input");
+    postTitleInput.type = "text";
+    postTitleInput.minLength = 2;
+    postTitleInput.id = "postTitleInput";
+    postTitleInput.placeholder = "Enter post title...";
+
     const addPostForm = document.createElement("form");
     addPostForm.id = "addPostForm";
 
     // Create textarea for post text
     const postTextArea = document.createElement("textarea");
+    postTextArea.maxLength = 250;
+    postTextArea.minLength = 2;
+    postTextArea.required = true;
     postTextArea.id = "postText";
     postTextArea.placeholder = "Saisissez votre message";
 
-    // Create select for post categories
+    function enableCtrlClickSelection(selectElement) {
+      selectElement.addEventListener("mousedown", function (event) {
+        event.preventDefault();
+        const isCtrlPressed = event.metaKey || event.ctrlKey; // Vérifier si la touche Ctrl est déjà enfoncée
+
+        if (!isCtrlPressed) {
+          // Si Ctrl n'est pas enfoncé, ajouter la classe pour simuler le comportement Ctrl
+          const selectedOption = event.target;
+          selectedOption.classList.toggle("ctrl-selected");
+        }
+      });
+    }
+
+    function enableCtrlClickSelection(selectElement) {
+      selectElement.addEventListener("mousedown", function (event) {
+        const isCtrlPressed = event.metaKey || event.ctrlKey; // Vérifier si la touche Ctrl est déjà enfoncée
+
+        if (!isCtrlPressed) {
+          event.preventDefault();
+
+          const selectedOption = event.target;
+          const isSelected = selectedOption.selected;
+
+          // Inverser la sélection de l'option sans modifier la sélection d'autres options
+          selectedOption.selected = !isSelected;
+        }
+      });
+    }
+
+    // Utilisation de la fonction avec votre élément select
     const postCategoriesSelect = document.createElement("select");
     postCategoriesSelect.id = "postCategories";
     postCategoriesSelect.multiple = true;
     postCategoriesSelect.className = "collapsible-select";
 
-    // Add options to the select
     const categories = ["Sport", "Art", "Cinéma", "Musique", "Informatique"];
     categories.forEach((category) => {
       const option = document.createElement("option");
@@ -328,12 +392,18 @@ export class MainContentSection {
       postCategoriesSelect.appendChild(option);
     });
 
+    // Appel de la fonction pour activer le comportement Ctrl lors du clic sur les options
+    enableCtrlClickSelection(postCategoriesSelect);
+
     // Create input for post image
     const postImageInput = document.createElement("input");
     postImageInput.type = "file";
     postImageInput.id = "postImage";
     postImageInput.placeholder = "Parcourir";
-    postImageInput.accept = "image/*"; //!
+    postImageInput.accept = "image/*";
+    postImageInput.style.display = "none";
+
+    //!
     //postImageInput.addEventListener('change', previewImage);
 
     // // Create div for image preview
@@ -351,6 +421,8 @@ export class MainContentSection {
     validationPostDiv.className = "validation-post";
 
     // Append elements to the form
+    addPostContainer.appendChild(postTitle);
+    addPostForm.appendChild(postTitleInput);
     addPostForm.appendChild(postTextArea);
     addPostForm.appendChild(postCategoriesSelect);
     addPostForm.appendChild(postImageInput);
@@ -368,18 +440,3 @@ export class MainContentSection {
     return createPost;
   }
 }
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     const newPost = MainContentSection.createPost(
-//         './assets/user-connection/profile4.png',
-//         'Nouvel Utilisateur',
-//         './assets/newpostimage.jpg',
-//         'Contenu du nouveau post...',
-//         0,
-//         0,
-//         0
-//     );
-
-//     const postContainerDiv = document.getElementById('postContainer');
-//     postContainerDiv.appendChild(newPost);
-// });

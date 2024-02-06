@@ -53,11 +53,11 @@ socket.mysocket.onmessage = (e) => {
       console.log("received user list =>", dataObject.userList);
       launchHome(dataObject.posts, dataObject.userList);
       break;
-      //--------------------------------------------------
-      //! invalid session from cookies or session expired
-      case "socket-open-invalid-session":
-        localStorage.removeItem("jwtToken");
-        forumForm.loginForm();
+    //--------------------------------------------------
+    //! invalid session from cookies or session expired
+    case "socket-open-invalid-session":
+      localStorage.removeItem("jwtToken");
+      forumForm.loginForm();
       break;
     //---------------------------------------
     //! regsiter request response from server
@@ -90,11 +90,13 @@ socket.mysocket.onmessage = (e) => {
       console.log("received => ", dataObject.Payload);
       // console.log("like =>", dataObject.payload.Like);
       const postDetails = [
+        dataObject.Payload.Title,
         dataObject.Payload.PostId,
         dataObject.Payload.Profil,
         dataObject.Payload.Username,
-        dataObject.Payload.ImageLink,
+        "",
         dataObject.Payload.Content,
+        dataObject.Payload.Categorie,
         8,
         9,
         11,
