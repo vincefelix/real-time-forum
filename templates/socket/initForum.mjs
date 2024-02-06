@@ -1,5 +1,4 @@
 //import { forumForm } from "../form/formScript.mjs";
-import { moveToLogin } from "../form/loginGen.mjs";
 import { setJWT } from "../utils/token.mjs";
 import { launchHome } from "../utils/launchHome.mjs";
 import { setCookies } from "../utils/setCookies.mjs";
@@ -9,6 +8,7 @@ import { error } from "../error/error.mjs";
 import { alertError } from "../error/alert.mjs";
 import { mainContent, rightSidebar } from "../homeDOM/main.mjs";
 
+const Form = {};
 export const socket = new vmSocket();
 socket.connectSocket(); //connecting to socket one tab is opened
 /*****************************************************************
@@ -22,7 +22,8 @@ socket.mysocket.onopen = () => {
     document.getElementById("container").innerHTML = "";
     localStorage.removeItem("jwtToken");
     let forumForm = new form();
-    forumForm.loginForm();
+    Form["value"] = forumForm;
+    forumForm.loginForm("newconn");
     forumForm.redirect.addEventListener("click", forumForm.updateFormContent);
   } else {
     // there is a cookie, check validity
@@ -43,7 +44,6 @@ socket.mysocket.onopen = () => {
 /*****************************************************************
  *******************************************************************/
 
-let forumForm = new form();
 socket.mysocket.onmessage = (e) => {
   console.log("💥 in onmessage", e.data);
   const dataObject = JSON.parse(e.data);
@@ -57,13 +57,15 @@ socket.mysocket.onmessage = (e) => {
     //! invalid session from cookies or session expired
     case "socket-open-invalid-session":
       localStorage.removeItem("jwtToken");
-      forumForm.loginForm();
+      let forumForm = new form();
+      Form["value"] = forumForm;
+      Form.value.loginForm("valid sess");
       break;
     //---------------------------------------
     //! regsiter request response from server
     case "register":
       if (dataObject.Authorization == "granted" && dataObject.status == "200") {
-        moveToLogin(forumForm);
+        Form.value.moveToLogin();
         console.log("user is registered");
       }
       break;

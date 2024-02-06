@@ -76,7 +76,8 @@ export class form {
     this.redirect = document.getElementsByClassName("redirectLink")[0];
   }
   //?***********************************************************?
-  loginForm() {
+  loginForm(inf) {
+    console.log("in login of ", inf);
     this.submitDiv.setAttribute("data-type", "login");
     setFormStyle("login");
     this.sideMessage("login");
@@ -137,7 +138,7 @@ export class form {
           // waiting for 400ms to generate login content
           this.submitDiv.innerHTML = "";
           this.formDiv.innerHTML = "";
-          this.loginForm();
+          this.loginForm("update");
           this.formDiv.style.opacity = "1";
           this.sideMessageHeader.style.opacity = "1";
           this.logInfo.style.opacity = "1";
@@ -190,5 +191,26 @@ export class form {
         }, 100);
         break;
     }
+  };
+  moveToLogin = () => {
+    this.formDiv.style.opacity = "0";
+    this.sideMessageHeader.style.opacity = "0";
+    this.logInfo.style.opacity = "0";
+    this.formDiv.innerHTML = "";
+    console.log(this.formDiv, this.submitDiv, this.sideMessageHeader);
+    // //*adding switch animation
+    this.textInfo.style.animation = "switchTextInfoBack 800ms ease-in-out";
+    this.textInfo.style.transform = "translateX(0%)";
+    this.formDiv.style.animation = "switchFormDivBack 800ms ease-in-out)";
+    this.formDiv.style.transform = "translateX(0%)";
+      this.submitDiv.innerHTML = "";
+      this.formDiv.innerHTML = "";
+      this.loginForm("move to");
+      this.formDiv.style.opacity = "1";
+      this.sideMessageHeader.style.opacity = "1";
+      this.logInfo.style.opacity = "1";
+      //*link redirection element
+      this.redirect = document.getElementsByClassName("redirectLink")[0];
+      this.redirect.addEventListener("click", this.updateFormContent);
   };
 }
