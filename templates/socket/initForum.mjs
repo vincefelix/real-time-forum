@@ -1,7 +1,7 @@
 //import { forumForm } from "../form/formScript.mjs";
 import { setJWT } from "../utils/token.mjs";
 import { launchHome } from "../utils/launchHome.mjs";
-import { setCookies } from "../utils/setCookies.mjs";
+import { deleteCookie, setCookies } from "../utils/setCookies.mjs";
 import { vmSocket } from "./vmsocket.mjs";
 import { form } from "../form/formElement.mjs";
 import { error } from "../error/error.mjs";
@@ -71,6 +71,22 @@ socket.mysocket.onmessage = (e) => {
       Form["value"] = forumForm;
       Form.value.loginForm("valid sess");
       break;
+
+    //--------------------------------------------------
+    //! log out case
+    case "disconnection":
+      console.log("disconnecting...");
+      localStorage.removeItem("jwtToken");
+      document.body.innerHTML = "";
+      document.head.removeChild(document.head.children[0]);
+      let container = document.createElement("div");
+      container.id = "container";
+      document.body.appendChild(container);
+      let forum_Form = new form();
+      Form["value"] = forum_Form;
+      Form.value.loginForm("after disconnect");
+      deleteCookie("vmSession");
+      break;
     //---------------------------------------
     //! regsiter request response from server
     case "register":
@@ -85,6 +101,13 @@ socket.mysocket.onmessage = (e) => {
     case "online":
       console.log("is online => ", dataObject.Payload);
       break;
+
+    //-------------------------------------
+    //! online request
+    case "offline":
+      console.log("is offline => ", dataObject.Payload.Username);
+      break;
+
     //-------------------------------------
     //! login request response from server
     case "login":

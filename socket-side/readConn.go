@@ -70,7 +70,28 @@ func (c *SocketReader) Read(database db.Db) {
 		serverResponse["posts"] = posTab
 		serverResponse["userList"] = connectedUserList
 		c.Con.WriteJSON(serverResponse)
-
+	case "disconnect":
+		log.Println("In disconnection process...")
+		connInf := auth.GetCOnnInf(database, requestPayload["data"].(string))
+		if len(connInf) == 0 {
+			c.Con.WriteJSON(
+				Struct.Errormessage{Type: tools.IseType,
+					Msg:        tools.InternalServorError,
+					StatusCode: tools.IseStatus,
+					Location:   "home",
+					Display:    true,
+				})
+		}
+		c.Id = connInf[0]
+		c.Username = connInf[1]
+		c.Profil = connInf[2]
+		c.Connected = false
+		IsDisconnected <- c
+		serverResponse := make(map[string]interface{}, 0)
+		serverResponse["Type"] = "disconnection"
+		serverResponse["Status"] = "200"
+		serverResponse["Msg"] = "user logOut"
+		c.Con.WriteJSON(serverResponse)
 	case "checkCookie":
 		ok, session, Msg := hdle.HandleCookie(requestPayload, database)
 		if !ok {

@@ -6,7 +6,7 @@ func HandleOnlineUser() {
 	for {
 		select {
 		case user := <-Isconnected:
-			log.Printf("🟢 user: %v is connected\n", user)
+			log.Printf("🟢 user: %v is connected\n", user.Username)
 			UserTab = UpdateConn(user, UserTab)
 			serverResponse := make(map[string]interface{})
 			serverResponse["Type"] = "online"
@@ -18,7 +18,7 @@ func HandleOnlineUser() {
 			user.NotifyOthers(serverResponse)
 
 		case disconnect := <-IsDisconnected:
-			log.Printf("user: %v is disconnected\n", disconnect)
+			log.Printf("user: %v is disconnected\n", disconnect.Username)
 			serverResponse := make(map[string]interface{})
 			serverResponse["Type"] = "offline"
 			serverResponse["Payload"] = UserConn{
@@ -36,6 +36,7 @@ func HandleOnlineUser() {
 					case false:
 						UserTab = UserTab[:len(UserTab)-1]
 					}
+					break
 				}
 			}
 			// case Update := <-UpdateUserConn:

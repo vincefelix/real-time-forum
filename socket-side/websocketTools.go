@@ -22,14 +22,16 @@ func (c *SocketReader) Broadcast(message map[string]interface{}) {
 }
 
 func (c *SocketReader) NotifyOthers(message map[string]interface{}) {
-	log.Println("broadcasting to...📡")
+	log.Println("notifying to...📡")
 	for i := range UserTab {
+		fmt.Println("----- user list ------")
 		fmt.Printf("%d => %v\n", i, UserTab[i])
+		fmt.Println("----------------------")
 	}
 
 	for _, socket := range UserTab {
 		fmt.Println("user found =>", socket, socket.Connected)
-		if socket == c {
+		if socket.Username == c.Username {
 			// no send message to himself
 			continue
 		}
