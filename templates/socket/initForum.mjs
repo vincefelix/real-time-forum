@@ -110,7 +110,11 @@ socket.mysocket.onmessage = (e) => {
       break;
     //! an error occured
     default:
-      if (dataObject.Status == "404" || dataObject.Status == "500") {
+      if (
+        dataObject.Status == "404" ||
+        dataObject.Status == "500" ||
+        dataObject.Display == true
+      ) {
         const hdleError = new error(dataObject.StatusCode, dataObject.Msg);
         hdleError.display();
         hdleError.redirect();

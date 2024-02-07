@@ -23,7 +23,8 @@ export class error {
   display() {
     const container = document.getElementById("container");
     container.innerHTML = "";
-    container.appendChild(this.errContainer);
+    container.style.visibility = "hidden";
+    document.body.appendChild(this.errContainer);
   }
 
   redirect() {
