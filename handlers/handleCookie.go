@@ -5,13 +5,12 @@ import (
 	db "forum/Database"
 	Struct "forum/data-structs"
 	"log"
-	"strings"
 )
 
 func HandleCookie(requestPayload map[string]interface{}, database db.Db) (bool, string, Struct.Errormessage) {
 	// check if the cookie is present in database
 	log.Println("In cookie")
-	cookie := strings.Split(requestPayload["data"].(string), "=")[1]
+	cookie := requestPayload["data"].(string)
 	ok, session, Msg := authTools.CheckCookie(cookie, database)
 	if !ok {
 		log.Println("❌ cookie not found in db")
