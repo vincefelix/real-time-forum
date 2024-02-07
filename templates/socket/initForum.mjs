@@ -85,6 +85,11 @@ socket.mysocket.onmessage = (e) => {
       let forum_Form = new form();
       Form["value"] = forum_Form;
       Form.value.loginForm("after disconnect");
+      Form.value.redirect.addEventListener(
+        "click",
+        Form.value.updateFormContent
+      );
+
       deleteCookie("vmSession");
       break;
     //---------------------------------------
