@@ -84,6 +84,8 @@ func (c *SocketReader) Read(database db.Db) {
 				Struct.Errormessage{Type: tools.IseType,
 					Msg:        tools.InternalServorError,
 					StatusCode: tools.IseStatus,
+					Location:   "home",
+					Display:    true,
 				})
 		}
 		c.Id = connInf[0]

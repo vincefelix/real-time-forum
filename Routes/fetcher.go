@@ -24,6 +24,8 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
+				Location: "home",
+				Display: false,
 			}
 	}
 	user, err, _ := auth.HelpersBA("sessions", database, "user_id", "WHERE id_session='"+session+"'", "")
@@ -36,6 +38,8 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
+				Location:   "home",
+				Display:    true,
 			}
 	}
 	if user == "" {
@@ -45,6 +49,8 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 				Type:       tools.BdType,
 				Msg:        "Invalid cookie",
 				StatusCode: tools.BdStatus,
+				Location:   "home",
+				Display:    true,
 			}
 	}
 	// connecting to database.
@@ -61,6 +67,8 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
+				Location:   "home",
+				Display:    true,
 			}
 	}
 	//-------------- retrieving datas ---------------//
@@ -73,6 +81,8 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
+				Location:   "home",
+				Display:    true,
 			}
 	}
 	//--2
@@ -84,6 +94,8 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
+				Location:   "home",
+				Display:    true,
 			}
 	}
 	//--3
@@ -95,6 +107,8 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
+				Location:   "home",
+				Display:    true,
 			}
 	}
 	//--4
@@ -107,6 +121,8 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
+				Location:   "home",
+				Display:    true,
 			}
 	}
 	//--5
@@ -119,6 +135,8 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
+				Location:   "home",
+				Display:    true,
 			}
 	}
 	//--------------------------------------------------------------------//
@@ -143,6 +161,8 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 					Type:       tools.IseType,
 					Msg:        tools.InternalServorError,
 					StatusCode: tools.IseStatus,
+					Location:   "home",
+					Display:    true,
 				}
 		}
 		postab[i].Profil = Profil
@@ -163,6 +183,8 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 					Type:       tools.IseType,
 					Msg:        tools.InternalServorError,
 					StatusCode: tools.IseStatus,
+					Location:   "home",
+					Display:    true,
 				}
 		}
 		commtab[i].Profil = Profil

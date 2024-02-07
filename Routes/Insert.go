@@ -18,6 +18,8 @@ func InserPost(user string, data Struct.DataPost, database db.Db) (com.Post, boo
 				Type:       tools.BdType,
 				Msg:        "user doesn't exist",
 				StatusCode: tools.BdStatus,
+				Location:   "home",
+				Display:     true,
 			}
 	}
 
@@ -30,6 +32,8 @@ func InserPost(user string, data Struct.DataPost, database db.Db) (com.Post, boo
 				Type:       tools.BdType,
 				Msg:        "Couldn't create post due to empty title",
 				StatusCode: tools.BdStatus,
+				 Location: "home",
+				 Display: false,
 			}
 	}
 	//checking content's validity
@@ -41,6 +45,8 @@ func InserPost(user string, data Struct.DataPost, database db.Db) (com.Post, boo
 				Type:       tools.BdType,
 				Msg:        "Couldn't create post due to empty content",
 				StatusCode: tools.BdStatus,
+				Location: "home",
+				Display: false,
 			}
 	}
 	//checking categore's validity
@@ -52,6 +58,8 @@ func InserPost(user string, data Struct.DataPost, database db.Db) (com.Post, boo
 				Type:       tools.BdType,
 				Msg:        "Couldn't create post due to missing category",
 				StatusCode: tools.BdStatus,
+				Location: "home",
+				Display: false,
 			}
 	}
 
@@ -61,8 +69,10 @@ func InserPost(user string, data Struct.DataPost, database db.Db) (com.Post, boo
 			false,
 			Struct.Errormessage{
 				Type:       tools.BdType,
-				Msg:        "Couldn't create post due to empty content",
+				Msg:        "Couldn't create post due to invalid input",
 				StatusCode: tools.BdStatus,
+				Location: "home",
+				Display: false,
 			}
 	}
 	post, ok, errMess := CreateP_mngmnt(user, data.Categories, data.Content, data.Title, data.Image, database)
@@ -82,6 +92,8 @@ func InsertComment(user string, data Struct.DataComment, database db.Db) (com.Co
 				Type:       tools.BdType,
 				Msg:        "Couldn't  create comment",
 				StatusCode: tools.BdStatus,
+				Location: "home",
+				Display: false,
 			}
 	}
 
@@ -94,7 +106,10 @@ func InsertComment(user string, data Struct.DataComment, database db.Db) (com.Co
 				Type:       tools.BdType,
 				Msg:        "Couldn't  create comment with empty value",
 				StatusCode: tools.BdStatus,
+				Location: "home",
+				Display: false,
 			}
+
 	}
 
 	//!--checking the comment validity
@@ -106,6 +121,8 @@ func InsertComment(user string, data Struct.DataComment, database db.Db) (com.Co
 				Type:       tools.BdType,
 				Msg:        "Couldn't  create comment with invalid input",
 				StatusCode: tools.BdStatus,
+				Location: "home",
+				Display: false,
 			}
 	}
 
