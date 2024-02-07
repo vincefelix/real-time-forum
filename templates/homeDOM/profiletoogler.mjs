@@ -1,3 +1,5 @@
+import { socket } from "../socket/initForum.mjs";
+
 export class ProfileToggleSection {
   constructor() {}
 
@@ -43,11 +45,17 @@ export class ProfileToggleSection {
     buttonContainer.className = "disconnection-button";
 
     const button = document.createElement("button");
-    button.className='logout-button'
+    button.className = "logout-button";
 
-    button.addEventListener('click', function () {
-      console.log('delogué');
-    })
+    button.addEventListener("click", function () {
+      socket.mysocket.send(
+        JSON.stringify({
+          type: "disconnect",
+          payload: { data: document.cookie.split("=")[1] },
+        })
+      );
+      console.log("delogué");
+    });
 
     const image = document.createElement("img");
     image.src = imagePath;
