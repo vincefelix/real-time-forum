@@ -57,6 +57,16 @@ socket.mysocket.onmessage = (e) => {
     //! invalid session from cookies or session expired
     case "socket-open-invalid-session":
       localStorage.removeItem("jwtToken");
+      if (document.getElementById("container")) {
+        document.getElementById("container").innerHTML = "";
+      } else {
+        if (document.getElementById("err-container")) {
+          document.body.removeChild(document.getElementById("err-container"));
+        }
+        let container = document.createElement("div");
+        container.id = "container";
+        document.body.appendChild(container);
+      }
       let forumForm = new form();
       Form["value"] = forumForm;
       Form.value.loginForm("valid sess");
@@ -115,7 +125,11 @@ socket.mysocket.onmessage = (e) => {
         dataObject.Status == "500" ||
         dataObject.Display == true
       ) {
-        const hdleError = new error(dataObject.StatusCode, dataObject.Msg);
+        const hdleError = new error(
+          dataObject.StatusCode,
+          dataObject.Msg,
+          dataObject.Location
+        );
         hdleError.display();
         hdleError.redirect();
       } else {

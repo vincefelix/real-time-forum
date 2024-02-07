@@ -67,7 +67,7 @@ func RegisterUser(data Struct.Register, tab db.Db) (bool, Struct.Errormessage) {
 		hashpassword, errorhash := auth.HashPassword(password)
 		if errorhash != nil {
 			fmt.Println("❌ error while hashing password")
-			return false, Struct.Errormessage{Type: "Internal servor error", Msg: "oops servor didn't reacted as expected", StatusCode: 500 , Location: "form", Display: true}
+			return false, Struct.Errormessage{Type: "Internal servor error", Msg: "oops servor didn't reacted as expected", StatusCode: 500, Location: "form", Display: true}
 		}
 
 		// store current user information
@@ -75,7 +75,7 @@ func RegisterUser(data Struct.Register, tab db.Db) (bool, Struct.Errormessage) {
 		if err != nil {
 			fmt.Println("erreur avec le uuid niveau create account")
 			fmt.Println("❌ error while generating uuid")
-			return false, Struct.Errormessage{Type: "Internal servor error", Msg: "oops servor didn't reacted as expected", StatusCode: 500 , Location: "form", Display: true}
+			return false, Struct.Errormessage{Type: "Internal servor error", Msg: "oops servor didn't reacted as expected", StatusCode: 500, Location: "form", Display: true}
 		}
 		pp := "/static/./assets/boy.gif"
 		if gender == "female" {
@@ -90,7 +90,7 @@ func RegisterUser(data Struct.Register, tab db.Db) (bool, Struct.Errormessage) {
 		errorIns := tab.INSERT(db.User, attributes, values)
 		if errorIns != nil { //!
 			fmt.Printf("❌ error while inserting into r database %s\n", errorIns)
-			return false, Struct.Errormessage{Type: "Internal servor error", Msg: "oops servor didn't reacted as expected", StatusCode: 500 , Location: "form", Display: true}
+			return false, Struct.Errormessage{Type: "Internal servor error", Msg: "oops servor didn't reacted as expected", StatusCode: 500, Location: "form", Display: true}
 		}
 
 		attributes2 := fmt.Sprintf("(%s, %s, %s)", db.User_id, "id_session", "expireat")
@@ -99,14 +99,14 @@ func RegisterUser(data Struct.Register, tab db.Db) (bool, Struct.Errormessage) {
 		errorInSess := tab.INSERT("sessions", attributes2, values2)
 		if errorInSess != nil {
 			fmt.Println("in session")
-			return false, Struct.Errormessage{Type: "Internal servor error", Msg: "oops servor didn't reacted as expected", StatusCode: 500 , Location: "form", Display: true}
+			return false, Struct.Errormessage{Type: "Internal servor error", Msg: "oops servor didn't reacted as expected", StatusCode: 500, Location: "form", Display: true}
 		}
 
 	} else {
 
 		if !auth.FieldsLimited(name, 2, 15) || !auth.FieldsLimited(surname, 2, 15) || !auth.FieldsLimited(username, 2, 15) {
 			fmt.Println("❌ name, surname, username limitation not respected")
-			return false, Struct.Errormessage{Type: "Bad request", Msg: "the name, surname and username must be between 2 to 15 characters", StatusCode: 400, Location: "form", Display: true}
+			return false, Struct.Errormessage{Type: "Bad request", Msg: "the name, surname and username must be between 2 to 15 characters", StatusCode: 400, Location: "form", Display: false}
 		} else if !auth.FieldsLimited(email, 10, 133) {
 			fmt.Println("❌ email limitation not respected")
 			return false, Struct.Errormessage{Type: "Bad request", Msg: "the Email must be between 10 to 132 characters", StatusCode: 400, Location: "form", Display: false}

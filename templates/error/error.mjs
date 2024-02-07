@@ -1,7 +1,8 @@
 import { socket } from "../socket/initForum.mjs";
 
 export class error {
-  constructor(status, message) {
+  constructor(status, message, location) {
+    this.location = location;
     this.errContainer = document.createElement("div");
     this.status = document.createElement("span");
     this.errMsg = document.createElement("p");
@@ -21,10 +22,21 @@ export class error {
     this.errContainer.appendChild(this.goBack);
   }
   display() {
-    const container = document.getElementById("container");
-    container.innerHTML = "";
-    container.style.visibility = "hidden";
-    document.body.appendChild(this.errContainer);
+    switch (this.location) {
+      case "form":
+        const container = document.getElementById("container");
+        container.innerHTML = "";
+        //container.style.visibility = "hidden";
+        container.appendChild(this.errContainer);
+      case "home":
+        document.body.innerHTML = "";
+        this.errMsg.style.marginTop = "5%";
+        this.errMsg.style.marginBottom = "5%";
+        this.errMsg.style.textAlign = "center";
+        this.errMsg.style.padding = "8% 10% 0% 10%";
+
+        document.body.appendChild(this.errContainer);
+    }
   }
 
   redirect() {
