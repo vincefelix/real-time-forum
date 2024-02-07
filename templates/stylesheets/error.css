@@ -45,7 +45,7 @@
   transition: all 250ms ease-in-out;
 }
 
-#error-form {
+#error-form-form{
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   text-align: center;
   padding: 0 20%;
@@ -57,4 +57,20 @@
   word-wrap: break-word;
   word-break: break-all;
   height: auto;
+}
+
+#error-form-home {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-align: center;
+  padding-right: 20%;
+  width: auto;
+  color: rgb(250, 0, 50);
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 1.8vw;
+  word-wrap: break-word;
+  word-break: break-all;
+  height: auto;
+  margin-top: 2%;
+  background: rgba(255, 228, 196, 0.596);
 }
