@@ -22,6 +22,7 @@ func (c *SocketReader) Read(database db.Db) {
 	if er != nil {
 		if closeMsg, ok := er.(*websocket.CloseError); ok {
 			log.Printf("connexion closed with status %v due to %s", closeMsg.Code, closeMsg.Text)
+			IsDisconnected <- c
 			panic(er)
 		}
 		log.Println("read json error: ", er)
