@@ -155,5 +155,21 @@ func (database Db) Tables() {
 	} else {
 		fmt.Println("✅ 'sessions' table has been created in database succesfully")
 	}
-
+	//----------------- 7 session table --------------------//
+	Discussion := `CREATE TABLE IF NOT EXISTS discussions (
+	sender_id TEXT,
+	receiver_id TEXT,
+	message TEXT,
+	date TEXT,
+	FOREIGN KEY(sender_id) REFERENCES users(id_user)
+	FOREIGN KEY(receiver_id) REFERENCES users(id_user)
+	);
+		`
+	_, errDiscussion := database.Doc.Exec(Discussion)
+	if errDiscussion != nil {
+		fmt.Println("⚠ ERROR with table 'discussions' ⚠ :", errDiscussion)
+		return
+	} else {
+		fmt.Println("✅ 'discussions' table has been created in database succesfully")
+	}
 }
