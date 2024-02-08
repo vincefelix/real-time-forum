@@ -28,20 +28,7 @@ func HandleOnlineUser(database db.Db) {
 
 		case disconnect := <-IsDisconnected:
 			log.Printf("user: %v is disconnected\n", disconnect.Username)
-			serverResponse := make(map[string]interface{})
-			serverResponse["Type"] = "offline"
-			// serverResponse["Payload"] = UserConn{
-			// 	Username: disconnect.Username,
-			// 	Profil:   disconnect.Profil,
-			// 	Online:   false,
-			// }
-			clients, ok, err := GetUsers_State(database)
-			if !ok {
-				log.Println("❌ Error getting users state in habldeOnlineUser")
-				disconnect.Con.WriteJSON(err)
-			}
-			serverResponse["Payload"] = clients
-			disconnect.NotifyOthers(serverResponse)
+
 			//!removing disconnected user from user Tab
 			for i, user := range UserTab {
 				if user == disconnect {
@@ -54,8 +41,16 @@ func HandleOnlineUser(database db.Db) {
 					break
 				}
 			}
-			// case Update := <-UpdateUserConn:
-			// 	UserTab = UpdateConn(Update, UserTab)
+
+			serverResponse := make(map[string]interface{})
+			serverResponse["Type"] = "offline"
+			clients, ok, err := GetUsers_State(database)
+			if !ok {
+				log.Println("❌ Error getting users state in habldeOnlineUser")
+				disconnect.Con.WriteJSON(err)
+			}
+			serverResponse["Payload"] = clients
+			disconnect.NotifyOthers(serverResponse)
 		}
 	}
 }
@@ -69,7 +64,7 @@ func UpdateConn(user *SocketReader, tab []*SocketReader) []*SocketReader {
 		if tab[i].Username == user.Username {
 			tab[i].Con = user.Con
 			found = true
-			log.Printf("connection '%v' updated to '%v'", Initial, tab[i].Con)
+			log.Printf("connection '%v' updated to '%v'", Initial.LocalAddr(), tab[i].Con.LocalAddr())
 			break
 		}
 	}
