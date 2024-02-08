@@ -126,7 +126,7 @@ func InsertComment(user string, data Struct.DataComment, database db.Db) (com.Co
 			}
 	}
 
-	comment, ok, errMess := CreateC_mngmnt(user, data.IdPost, data.Content)
+	comment, ok, errMess := CreateC_mngmnt(user, data.IdPost, data.Content, database)
 	if !ok {
 		return comment, false, errMess
 	}

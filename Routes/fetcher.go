@@ -98,37 +98,10 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 				Display:    true,
 			}
 	}
-	//--3
-	errectabcomm := reactab_com.GetReact_comdata(database)
-	if errectabcomm != nil {
-		return nil,
-			false,
-			Struct.Errormessage{
-				Type:       tools.IseType,
-				Msg:        tools.InternalServorError,
-				StatusCode: tools.IseStatus,
-				Location:   "home",
-				Display:    true,
-			}
-	}
 	//--4
 	categos, err := Com.GetPost_categories(database)
 	if err != nil {
 		fmt.Printf("⚠ ERROR ⚠ : Couldn't get categories data from database\n")
-		return nil,
-			false,
-			Struct.Errormessage{
-				Type:       tools.IseType,
-				Msg:        tools.InternalServorError,
-				StatusCode: tools.IseStatus,
-				Location:   "home",
-				Display:    true,
-			}
-	}
-	//--5
-	errectab := reactab.Get_reacPosts_data(database)
-	if errectab != nil {
-		fmt.Printf("⚠ ERROR ⚠ : Couldn't get reaction for display a from database\n")
 		return nil,
 			false,
 			Struct.Errormessage{
@@ -193,26 +166,6 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 		commtab[i].Surname = surname
 	}
 
-	//storing the reactions in corresponding comments
-	for i := range commtab {
-		for j := range reactab_com {
-			if commtab[i].CommentId == reactab_com[j].CommentId {
-				switch reactab_com[j].Reaction {
-				case true:
-					commtab[i].Likecomm = append(commtab[i].Likecomm, "true")
-					if commtab[i].SessionId == reactab_com[j].UserId {
-						commtab[i].SessionReact = "true"
-					}
-
-				case false:
-					commtab[i].Dislikecomm = append(commtab[i].Dislikecomm, "false")
-					if commtab[i].SessionId == reactab_com[j].UserId {
-						commtab[i].SessionReact = "false"
-					}
-				}
-			}
-		}
-	}
 
 	//storing the comments in corresponding posts
 	for i := range postab {
@@ -232,26 +185,6 @@ func GetAll_fromDB(session string) (Com.Posts, bool, Struct.Errormessage) {
 		}
 	}
 
-	//storing the reactions in corresponding posts
-	for i := range postab {
-		for j := range reactab {
-			if postab[i].PostId == reactab[j].PostId {
-				switch reactab[j].Reaction {
-				case true:
-					postab[i].Like = append(postab[i].Like, "true")
-					if postab[i].SessionId == reactab[j].UserId {
-						postab[i].SessionReact = "true"
-					}
-
-				case false:
-					postab[i].Dislike = append(postab[i].Dislike, "false")
-					if postab[i].SessionId == reactab[j].UserId {
-						postab[i].SessionReact = "false"
-					}
-				}
-			}
-		}
-	}
 	return postab,
 		true,
 		Struct.Errormessage{}

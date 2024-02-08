@@ -147,7 +147,8 @@ func (c *SocketReader) Read(database db.Db) {
 			c.Con.WriteJSON(Msg)
 		}
 
-	case "CreateComment":
+	case "createComment":
+		log.Println("in create comment...")
 		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
 		if ok {
 			serverResponse, check, err := hdle.HandleComment(requestPayload, database)
