@@ -106,8 +106,8 @@ socket.mysocket.onmessage = (e) => {
     //! online request
     case "online":
       console.log("is online => ", dataObject.Payload);
-      let userSideOnline = document.getElementsByClassName("Online-users")[0];
-      let userSideOffline = document.getElementsByClassName("Offline-users")[0];
+      let userSideOnline = document.getElementById("connected-container");
+      let userSideOffline = document.getElementById("disconnected-container");
       userSideOffline.innerHTML = "";
       userSideOnline.innerHTML = "";
       let userList = sort(dataObject.Payload);
@@ -133,9 +133,11 @@ socket.mysocket.onmessage = (e) => {
     //-------------------------------------
     //! offline request
     case "offline":
-      console.log("is offline => ", dataObject.Payload.Username);
-      let userSideoff = document.getElementsByClassName("right-sidebar")[0];
-      userSideoff.innerHTML = "";
+      console.log("is offline => ", dataObject.Payload);
+      let userSideOnlineOff = document.getElementById("connected-container");
+      let userSideOfflineOff = document.getElementById("disconnected-container");
+      userSideOfflineOff.innerHTML = "";
+      userSideOnlineOff.innerHTML = "";
       let userListoff = sort(dataObject.Payload);
       if (userListoff != null) {
         for (const user of userListoff) {
