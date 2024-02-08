@@ -7,6 +7,7 @@ import { form } from "../form/formElement.mjs";
 import { error } from "../error/error.mjs";
 import { alertError } from "../error/alert.mjs";
 import { mainContent, rightSidebar } from "../homeDOM/main.mjs";
+import { sort } from "../utils/sort.mjs";
 
 const Form = {};
 export const socket = new vmSocket();
@@ -105,12 +106,54 @@ socket.mysocket.onmessage = (e) => {
     //! online request
     case "online":
       console.log("is online => ", dataObject.Payload);
+      let userSideOnline = document.getElementsByClassName("Online-users")[0];
+      let userSideOffline = document.getElementsByClassName("Offline-users")[0];
+      userSideOffline.innerHTML = "";
+      userSideOnline.innerHTML = "";
+      let userList = sort(dataObject.Payload);
+      if (userList != null) {
+        for (const user of userList) {
+          let side =
+            user.Online == true
+              ? rightSidebar.connectedUsers
+              : rightSidebar.disconnectedUsers;
+          let state = user.Online == true ? true : false;
+          //------------------------------
+          rightSidebar.createUser(
+            side,
+            user.Username,
+            user.Profil,
+            "messagePopup-john_doe",
+            state
+          );
+        }
+      }
       break;
 
     //-------------------------------------
-    //! online request
+    //! offline request
     case "offline":
       console.log("is offline => ", dataObject.Payload.Username);
+      let userSideoff = document.getElementsByClassName("right-sidebar")[0];
+      userSideoff.innerHTML = "";
+      let userListoff = sort(dataObject.Payload);
+      if (userListoff != null) {
+        for (const user of userListoff) {
+          let side =
+            user.Online == true
+              ? rightSidebar.connectedUsers
+              : rightSidebar.disconnectedUsers;
+          let state = user.Online == true ? true : false;
+          //------------------------------
+          rightSidebar.createUser(
+            side,
+            user.Username,
+            user.Profil,
+            "messagePopup-john_doe",
+            state
+          );
+        }
+      }
       break;
 
     //-------------------------------------

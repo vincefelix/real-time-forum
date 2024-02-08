@@ -1,8 +1,11 @@
 package Socket
 
-import "log"
+import (
+	db "forum/Database"
+	"log"
+)
 
-func HandleOnlineUser() {
+func HandleOnlineUser(database db.Db) {
 	for {
 		select {
 		case user := <-Isconnected:
@@ -10,22 +13,34 @@ func HandleOnlineUser() {
 			UserTab = UpdateConn(user, UserTab)
 			serverResponse := make(map[string]interface{})
 			serverResponse["Type"] = "online"
-			serverResponse["Payload"] = UserConn{
-				Username: user.Username,
-				Profil:   user.Profil,
-				Online:   true,
+			// serverResponse["Payload"] = UserConn{
+			// 	Username: user.Username,
+			// 	Profil:   user.Profil,
+			// 	Online:   true,
+			// }
+			clients, ok, err := GetUsers_State(database)
+			if !ok {
+				log.Println("❌ Error getting users state in habldeOnlineUser")
+				user.Con.WriteJSON(err)
 			}
+			serverResponse["Payload"] = clients
 			user.NotifyOthers(serverResponse)
 
 		case disconnect := <-IsDisconnected:
 			log.Printf("user: %v is disconnected\n", disconnect.Username)
 			serverResponse := make(map[string]interface{})
 			serverResponse["Type"] = "offline"
-			serverResponse["Payload"] = UserConn{
-				Username: disconnect.Username,
-				Profil:   disconnect.Profil,
-				Online:   false,
+			// serverResponse["Payload"] = UserConn{
+			// 	Username: disconnect.Username,
+			// 	Profil:   disconnect.Profil,
+			// 	Online:   false,
+			// }
+			clients, ok, err := GetUsers_State(database)
+			if !ok {
+				log.Println("❌ Error getting users state in habldeOnlineUser")
+				disconnect.Con.WriteJSON(err)
 			}
+			serverResponse["Payload"] = clients
 			disconnect.NotifyOthers(serverResponse)
 			//!removing disconnected user from user Tab
 			for i, user := range UserTab {
