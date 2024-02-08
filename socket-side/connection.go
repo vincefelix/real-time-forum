@@ -28,6 +28,6 @@ func (c *SocketReader) HandleConnection(database db.Db) {
 		}
 
 	}()
-	go HandleOnlineUser()
+	go HandleOnlineUser(database)
 	//}
 }

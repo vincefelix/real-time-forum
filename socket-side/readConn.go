@@ -22,6 +22,7 @@ func (c *SocketReader) Read(database db.Db) {
 	if er != nil {
 		if closeMsg, ok := er.(*websocket.CloseError); ok {
 			log.Printf("connexion closed with status %v due to %s", closeMsg.Code, closeMsg.Text)
+			IsDisconnected <- c
 			panic(er)
 		}
 		log.Println("read json error: ", er)
@@ -35,16 +36,13 @@ func (c *SocketReader) Read(database db.Db) {
 	switch requestType {
 	case "register":
 		log.Println("In register")
-		// serverResponse, ok, err := hdle.HandleRegister(requestPayload, database)
-		// if !ok {
-		// 	c.Con.WriteJSON(err)
-		// 	return
-		// }
-		Response := make(map[string]interface{}, 0)
-		Response["Type"] = "register"
-		Response["Authorization"] = "granted"
-		Response["status"] = "200"
-		c.Con.WriteJSON(Response)
+		serverResponse, ok, err := hdle.HandleRegister(requestPayload, database)
+		if !ok {
+			c.Con.WriteJSON(err)
+			return
+		}
+
+		c.Con.WriteJSON(serverResponse)
 
 	case "login":
 		fmt.Println("in login")
@@ -73,7 +71,28 @@ func (c *SocketReader) Read(database db.Db) {
 		serverResponse["posts"] = posTab
 		serverResponse["userList"] = connectedUserList
 		c.Con.WriteJSON(serverResponse)
-
+	case "disconnect":
+		log.Println("In disconnection process...")
+		connInf := auth.GetCOnnInf(database, requestPayload["data"].(string))
+		if len(connInf) == 0 {
+			c.Con.WriteJSON(
+				Struct.Errormessage{Type: tools.IseType,
+					Msg:        tools.InternalServorError,
+					StatusCode: tools.IseStatus,
+					Location:   "home",
+					Display:    true,
+				})
+		}
+		c.Id = connInf[0]
+		c.Username = connInf[1]
+		c.Profil = connInf[2]
+		c.Connected = false
+		IsDisconnected <- c
+		serverResponse := make(map[string]interface{}, 0)
+		serverResponse["Type"] = "disconnection"
+		serverResponse["Status"] = "200"
+		serverResponse["Msg"] = "user logOut"
+		c.Con.WriteJSON(serverResponse)
 	case "checkCookie":
 		ok, session, Msg := hdle.HandleCookie(requestPayload, database)
 		if !ok {
@@ -87,6 +106,8 @@ func (c *SocketReader) Read(database db.Db) {
 				Struct.Errormessage{Type: tools.IseType,
 					Msg:        tools.InternalServorError,
 					StatusCode: tools.IseStatus,
+					Location:   "home",
+					Display:    true,
 				})
 		}
 		c.Id = connInf[0]

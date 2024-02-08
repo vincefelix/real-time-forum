@@ -1,14 +1,15 @@
 //import { forumForm } from "../form/formScript.mjs";
-import { moveToLogin } from "../form/loginGen.mjs";
 import { setJWT } from "../utils/token.mjs";
 import { launchHome } from "../utils/launchHome.mjs";
-import { setCookies } from "../utils/setCookies.mjs";
+import { deleteCookie, setCookies } from "../utils/setCookies.mjs";
 import { vmSocket } from "./vmsocket.mjs";
 import { form } from "../form/formElement.mjs";
 import { error } from "../error/error.mjs";
 import { alertError } from "../error/alert.mjs";
 import { mainContent, rightSidebar } from "../homeDOM/main.mjs";
+import { sort } from "../utils/sort.mjs";
 
+const Form = {};
 export const socket = new vmSocket();
 socket.connectSocket(); //connecting to socket one tab is opened
 /*****************************************************************
@@ -22,7 +23,8 @@ socket.mysocket.onopen = () => {
     document.getElementById("container").innerHTML = "";
     localStorage.removeItem("jwtToken");
     let forumForm = new form();
-    forumForm.loginForm();
+    Form["value"] = forumForm;
+    forumForm.loginForm("newconn");
     forumForm.redirect.addEventListener("click", forumForm.updateFormContent);
   } else {
     // there is a cookie, check validity
@@ -43,7 +45,6 @@ socket.mysocket.onopen = () => {
 /*****************************************************************
  *******************************************************************/
 
-let forumForm = new form();
 socket.mysocket.onmessage = (e) => {
   console.log("💥 in onmessage", e.data);
   const dataObject = JSON.parse(e.data);
@@ -57,13 +58,46 @@ socket.mysocket.onmessage = (e) => {
     //! invalid session from cookies or session expired
     case "socket-open-invalid-session":
       localStorage.removeItem("jwtToken");
-      forumForm.loginForm();
+      if (document.getElementById("container")) {
+        document.getElementById("container").innerHTML = "";
+      } else {
+        if (document.getElementById("err-container")) {
+          document.body.removeChild(document.getElementById("err-container"));
+        }
+        let container = document.createElement("div");
+        container.id = "container";
+        document.body.appendChild(container);
+      }
+      let forumForm = new form();
+      Form["value"] = forumForm;
+      Form.value.loginForm("valid sess");
+      break;
+
+    //--------------------------------------------------
+    //! log out case
+    case "disconnection":
+      console.log("disconnecting...");
+      localStorage.removeItem("jwtToken");
+      document.body.innerHTML = "";
+      document.head.removeChild(document.head.children[0]);
+      let container = document.createElement("div");
+      container.id = "container";
+      document.body.appendChild(container);
+      let forum_Form = new form();
+      Form["value"] = forum_Form;
+      Form.value.loginForm("after disconnect");
+      Form.value.redirect.addEventListener(
+        "click",
+        Form.value.updateFormContent
+      );
+
+      deleteCookie("vmSession");
       break;
     //---------------------------------------
     //! regsiter request response from server
     case "register":
       if (dataObject.Authorization == "granted" && dataObject.status == "200") {
-        moveToLogin(forumForm);
+        Form.value.moveToLogin();
         console.log("user is registered");
       }
       break;
@@ -72,7 +106,58 @@ socket.mysocket.onmessage = (e) => {
     //! online request
     case "online":
       console.log("is online => ", dataObject.Payload);
+      let userSideOnline = document.getElementById("connected-container");
+      let userSideOffline = document.getElementById("disconnected-container");
+      userSideOffline.innerHTML = "";
+      userSideOnline.innerHTML = "";
+      let userList = sort(dataObject.Payload);
+      if (userList != null) {
+        for (const user of userList) {
+          let side =
+            user.Online == true
+              ? rightSidebar.connectedUsers
+              : rightSidebar.disconnectedUsers;
+          let state = user.Online == true ? true : false;
+          //------------------------------
+          rightSidebar.createUser(
+            side,
+            user.Username,
+            user.Profil,
+            "messagePopup-john_doe",
+            state
+          );
+        }
+      }
       break;
+
+    //-------------------------------------
+    //! offline request
+    case "offline":
+      console.log("is offline => ", dataObject.Payload);
+      let userSideOnlineOff = document.getElementById("connected-container");
+      let userSideOfflineOff = document.getElementById("disconnected-container");
+      userSideOfflineOff.innerHTML = "";
+      userSideOnlineOff.innerHTML = "";
+      let userListoff = sort(dataObject.Payload);
+      if (userListoff != null) {
+        for (const user of userListoff) {
+          let side =
+            user.Online == true
+              ? rightSidebar.connectedUsers
+              : rightSidebar.disconnectedUsers;
+          let state = user.Online == true ? true : false;
+          //------------------------------
+          rightSidebar.createUser(
+            side,
+            user.Username,
+            user.Profil,
+            "messagePopup-john_doe",
+            state
+          );
+        }
+      }
+      break;
+
     //-------------------------------------
     //! login request response from server
     case "login":
@@ -108,8 +193,16 @@ socket.mysocket.onmessage = (e) => {
       break;
     //! an error occured
     default:
-      if (dataObject.Status == "404" || dataObject.Status == "500") {
-        const hdleError = new error(dataObject.StatusCode, dataObject.Msg);
+      if (
+        dataObject.Status == "404" ||
+        dataObject.Status == "500" ||
+        dataObject.Display == true
+      ) {
+        const hdleError = new error(
+          dataObject.StatusCode,
+          dataObject.Msg,
+          dataObject.Location
+        );
         hdleError.display();
         hdleError.redirect();
       } else {

@@ -18,6 +18,7 @@ var (
 	}
 	Isconnected    = make(chan *SocketReader)
 	IsDisconnected = make(chan *SocketReader)
+	UpdateUserConn = make(chan *SocketReader)
 	UserTab        []*SocketReader
 )
 

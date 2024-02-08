@@ -82,6 +82,15 @@ func ValidMailAddress(address string) (string, bool) {
 }
 
 func CheckCookie(value string, tab db.Db) (bool, string, Structs.Errormessage) {
+	value = strings.TrimSpace(value)
+	if value == "" {
+		return false, "",
+			Structs.Errormessage{Type: "socket-open-invalid-session",
+				Msg:        "Invalid cookie",
+				StatusCode: 400,
+			}
+	}
+	value = strings.Split(value, "=")[1]
 	idviasession, err, _ := HelpersBA("sessions", tab, "user_id", "WHERE id_session='"+value+"'", "")
 	if err != nil {
 		log.Println("❌ error while checking cookie in database", err)

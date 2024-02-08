@@ -26,6 +26,8 @@ func CreateP_mngmnt(user string, categorie []string, title string, content strin
 				Type:       tools.BdType,
 				Msg:        "Error while creating post",
 				StatusCode: tools.BdStatus,
+				Location: "home",
+				Display: false,
 			}
 	}
 	fmt.Println("post created with content ", content)
@@ -48,6 +50,8 @@ func CreateP_mngmnt(user string, categorie []string, title string, content strin
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
+				Location: "home",
+				Display: true,
 			}
 	}
 	defer rows_value.Close()
@@ -64,6 +68,8 @@ func CreateP_mngmnt(user string, categorie []string, title string, content strin
 					Type:       tools.IseType,
 					Msg:        tools.InternalServorError,
 					StatusCode: tools.IseStatus,
+					Location: "home",
+					Display: true,
 				}
 		}
 		//--formatting content's special chars
@@ -86,6 +92,8 @@ func CreateP_mngmnt(user string, categorie []string, title string, content strin
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
+				Location: "home",
+				Display: true,
 			}
 	}
 	Username, _, _, err := tools.GetName_byID(database, user)
@@ -97,6 +105,8 @@ func CreateP_mngmnt(user string, categorie []string, title string, content strin
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
+				Location: "home",
+				Display: true,
 			}
 	}
 	post.Categorie = categorie
@@ -121,6 +131,8 @@ func CreateC_mngmnt(user string, Id_post string, newcomment string) (com.Comment
 				Type:       tools.BdType,
 				Msg:        "Error while creating comment",
 				StatusCode: tools.BdStatus,
+				Location: "home",
+				Display: false,
 			}
 	}
 	newcomment = strings.ReplaceAll(newcomment, "'", "2@c86cb3")
@@ -138,6 +150,8 @@ func CreateC_mngmnt(user string, Id_post string, newcomment string) (com.Comment
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
+				Location: "home",
+				Display: true,
 			}
 	}
 	fmt.Println("✔ comments fetched from database")
@@ -155,6 +169,8 @@ func CreateC_mngmnt(user string, Id_post string, newcomment string) (com.Comment
 					Type:       tools.IseType,
 					Msg:        tools.InternalServorError,
 					StatusCode: tools.IseStatus,
+					Location: "home",
+					Display: true,
 				}
 		}
 		cmt.Content = strings.ReplaceAll(cmt.Content, "2@c86cb3", "'")
