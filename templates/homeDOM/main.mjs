@@ -20,7 +20,6 @@ export const initHome = (props = {}, posts, userList) => {
 
   if (posts != null) {
     for (const post of posts) {
-      console.log("catego ", post.Categorie);
       let likeCount = post.Like == null ? 0 : post.Like.length,
         dislikeCount = post.Dislike == null ? 0 : post.Dislike.length,
         commentCount = post.Comment_tab == null ? 0 : post.Comment_tab.length;
@@ -36,6 +35,18 @@ export const initHome = (props = {}, posts, userList) => {
         dislikeCount,
         commentCount,
       ]);
+      if (post.Comment_tab != null) {
+        for (const comment of post.Comment_tab) {
+          const commentDetails = [
+            comment.PostId,
+            comment.Username,
+            "",
+            comment.Profil,
+            comment.Content,
+          ];
+          mainContent.createComment(...commentDetails);
+        }
+      }
     }
   }
   userList = sort(userList);

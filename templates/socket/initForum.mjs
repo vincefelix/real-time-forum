@@ -135,7 +135,9 @@ socket.mysocket.onmessage = (e) => {
     case "offline":
       console.log("is offline => ", dataObject.Payload);
       let userSideOnlineOff = document.getElementById("connected-container");
-      let userSideOfflineOff = document.getElementById("disconnected-container");
+      let userSideOfflineOff = document.getElementById(
+        "disconnected-container"
+      );
       userSideOfflineOff.innerHTML = "";
       userSideOnlineOff.innerHTML = "";
       let userListoff = sort(dataObject.Payload);
@@ -190,6 +192,14 @@ socket.mysocket.onmessage = (e) => {
       break;
     case "addComment":
       console.log("adding comm");
+      const commentDetails = [
+        dataObject.Payload.PostId,
+        dataObject.Payload.Username,
+        "",
+        dataObject.Payload.Profil,
+        dataObject.Payload.Content,
+      ];
+      mainContent.createComment(...commentDetails);
       break;
     //! an error occured
     default:

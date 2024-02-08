@@ -21,7 +21,7 @@ export const removeHomeStyle = () => {
   const header = document.head;
   let link = "";
   for (const i of header.children) {
-    console.log("link", i.href);
+    //console.log("link", i.href);
     if (typeof i.href == "string")
       link = i.href.split("/stylesheets/")[1] == "homeStyles/home.css" ? i : "";
   }

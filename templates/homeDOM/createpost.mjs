@@ -68,6 +68,7 @@ export class MainContentSection {
   //     }
   // }
   createComment(postId, username, thetime, userImageSrc, commentText) {
+    console.log("in create comment ", postId, username, commentText);
     // Créez un élément de commentaire
     const commentContainer = document.createElement("div");
     commentContainer.className = "comment";
@@ -102,6 +103,7 @@ export class MainContentSection {
     // Trouvez le post correspondant à l'ID
     const post = document.getElementById(postId);
     if (post) {
+      console.log("to append post found");
       // Trouvez la section des commentaires du post
       const commentsSection = post.querySelector(".comments-section");
       if (commentsSection) {
@@ -462,4 +464,5 @@ export class MainContentSection {
 
     return createPost;
   }
+
 }

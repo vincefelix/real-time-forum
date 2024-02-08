@@ -48,7 +48,18 @@ export function addComment() {
   let test = this.parentElement;
   let addedcommentid = test.parentElement.parentElement.id;
   console.log("Added to post id: ", addedcommentid);
-  mainContent.createComment(addedcommentid, "test", "", "", commentvalue);
+  const comment = {
+    Type: "createComment",
+    payload: {
+      user_id: getUserId(),
+      post_id: addedcommentid,
+      content: commentvalue,
+      data: document.cookie,
+    },
+  };
+  console.log("comment sent => ", comment);
+  socket.mysocket.send(JSON.stringify(comment));
+  //mainContent.createComment(addedcommentid, "test", "", "", commentvalue);
 }
 
 export function showConnectedMessages(userName) {

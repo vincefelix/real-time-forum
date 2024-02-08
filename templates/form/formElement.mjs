@@ -84,7 +84,7 @@ export class form {
     generateLoginForm(this.formDiv);
     this.registerLink = document.getElementById("createAccountLink");
     const passwordIcon = document.getElementsByClassName("hideP")[0];
-    console.log(passwordIcon);
+   // console.log(passwordIcon);
     passwordIcon.addEventListener("click", () => {
       if (passwordIcon.src.split("/assets/")[1] == "dormir.gif") {
         pass.showPassword("password-login", "passwordIcon");
