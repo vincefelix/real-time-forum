@@ -48,6 +48,7 @@ export function addComment() {
   let test = this.parentElement;
   let addedcommentid = test.parentElement.parentElement.id;
   console.log("Added to post id: ", addedcommentid);
+  this.previousElementSibling.value = "";
   const comment = {
     Type: "createComment",
     payload: {
