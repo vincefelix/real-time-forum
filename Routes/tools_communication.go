@@ -131,7 +131,8 @@ func CreateC_mngmnt(user string, Id_post string, newcomment string, database db.
 				Type:       tools.BdType,
 				Msg:        "Error while creating comment",
 				StatusCode: tools.BdStatus,
-				Location:   "home",
+				Post:       Id_post,
+				Location:   "homeComment",
 				Display:    false,
 			}
 	}
