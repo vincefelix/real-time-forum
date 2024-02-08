@@ -83,7 +83,7 @@ export class MainContentSection {
     usernameElement.textContent = username;
 
     const publicationtime = document.createElement("span");
-    publicationtime.className = "time-comment"
+    publicationtime.className = "time-comment";
     publicationtime.textContent = thetime;
 
     userSection.appendChild(userImage);
@@ -267,12 +267,15 @@ export class MainContentSection {
     const commentReaction = document.createElement("div");
     commentReaction.className = "comment-reaction";
     // commentReaction.onclick = com.toggleComments;
-    commentReaction.addEventListener("click", function() {
+    commentReaction.addEventListener("click", function () {
       const allAboutComment = postContainer.querySelector(".allaboutcomment");
-      if (allAboutComment.style.display === "none" || !allAboutComment.style.display) {
-          allAboutComment.style.display = "block";
+      if (
+        allAboutComment.style.display === "none" ||
+        !allAboutComment.style.display
+      ) {
+        allAboutComment.style.display = "block";
       } else {
-          allAboutComment.style.display = "none";
+        allAboutComment.style.display = "none";
       }
     });
 
@@ -294,10 +297,9 @@ export class MainContentSection {
 
     aboutComment.appendChild(commentReaction);
 
-    // Add commentcontainertoogle 
-    const tooglecomment = document.createElement('div')
-    tooglecomment.className = "allaboutcomment"
-
+    // Add commentcontainertoogle
+    const tooglecomment = document.createElement("div");
+    tooglecomment.className = "allaboutcomment";
 
     // Create comments-section section
     const commentsSection = document.createElement("div");
@@ -310,7 +312,7 @@ export class MainContentSection {
     newCommentForm.id = "newCommentForm";
 
     const commentTextarea = document.createElement("textarea");
-    commentTextarea.className = "Toaddacomment"
+    commentTextarea.className = "Toaddacomment";
     commentTextarea.required = true;
     commentTextarea.maxLength = 250;
     commentTextarea.minLength = 2;
@@ -318,7 +320,7 @@ export class MainContentSection {
 
     const postButton = document.createElement("button");
     postButton.textContent = "Post";
-    postButton.onclick = com.addComment(idofpost);
+    postButton.onclick = com.addComment;
 
     newCommentForm.appendChild(commentTextarea);
     newCommentForm.appendChild(postButton);

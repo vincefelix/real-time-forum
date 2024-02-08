@@ -1,6 +1,6 @@
 import { socket } from "../socket/initForum.mjs";
 import { getUserId } from "../utils/getUserId.mjs";
-
+import { mainContent } from "./main.mjs";
 // --------------------Message----------------------
 
 export function openMessagePopup() {
@@ -41,16 +41,14 @@ export function sendMessage(userName) {
   messageInput.value = "";
 }
 
-export function addComment(identitypost) {
+export function addComment() {
   console.log("Comment added!");
-  let testit = document.querySelector(".Toaddacomment")
-  if (testit) {
-    var commenttext = testit.value
-    console.log(commenttext);
-  }
-  let postidforcomm = identitypost
-  console.log(postidforcomm);
-  console.log(testit);
+  let commentvalue = this.previousElementSibling.value;
+  console.log("text written: ", commentvalue);
+  let test = this.parentElement;
+  let addedcommentid = test.parentElement.parentElement.id;
+  console.log("Added to post id: ", addedcommentid);
+  mainContent.createComment(addedcommentid, "test", "", "", commentvalue);
 }
 
 export function showConnectedMessages(userName) {
