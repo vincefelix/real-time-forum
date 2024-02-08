@@ -51,7 +51,7 @@ export const initHome = (props = {}, posts, userList) => {
         side,
         user.Username,
         user.Profil,
-        "messagePopup-john_doe",
+        `messagePopup-${user.Username}`,
         state
       );
     }

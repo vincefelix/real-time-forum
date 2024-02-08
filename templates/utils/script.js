@@ -29,8 +29,9 @@ function sendMessage() {
 
 
 function addComment() {
-    // Ajoutez le code nécessaire pour gérer l'ajout d'un commentaire ici
-    console.log('Comment added!');
+    var newComment = document.getElementById('Tocomment');
+    var textareacontent = newComment.value
+    console.log(textareacontent);
 }
 
 function showConnectedMessages(userName) {
@@ -49,26 +50,25 @@ function showConnectedMessages(userName) {
 }
 
 function showAllInfoMsg() {
-    console.log('dokhna');
     document.querySelectorAll('.allinfo-msg').forEach(function (allinfoMsg) {
         allinfoMsg.style.display = 'block';
     });
 }
 
 
-function toggleComments() {
-    const commentsSection = document.getElementById('commentsSection');
-    const newCommentForm = document.getElementById('newCommentForm');
+// function toggleComments() {
+//     const commentsSection = document.getElementById('commentsSection');
+//     const newCommentForm = document.getElementById('newCommentForm');
 
-    // Toggle the 'active' class to show/hide comments section and new comment form
-    commentsSection.classList.toggle('active');
-    newCommentForm.classList.toggle('active');
-        // Appeler la fonction pour chaque post individuellement
-    const feedPosts = document.querySelectorAll('.feedpost');
-    feedPosts.forEach(postContainer => {
-        handleLikesAndDislikes(postContainer);
-    });
-}
+//     // Toggle the 'active' class to show/hide comments section and new comment form
+//     commentsSection.classList.toggle('active');
+//     newCommentForm.classList.toggle('active');
+//         // Appeler la fonction pour chaque post individuellement
+//     const feedPosts = document.querySelectorAll('.feedpost');
+//     feedPosts.forEach(postContainer => {
+//         handleLikesAndDislikes(postContainer);
+//     });
+// }
 
 // --------------------------------categoriesadded---------
 
@@ -158,3 +158,37 @@ export function deletePostValues() {
     postTextContent.value = '';
     postCategoriesSelect.selectedIndex = -1; // Désélectionne toutes les options
 }
+
+
+// function toggleMessagePopups() {
+//     const connectedNames = document.querySelectorAll('.connected-name');
+//     const disconnectedNames = document.querySelectorAll('.isnotconnected-name');
+
+//     connectedNames.forEach(nameElement => {
+//         nameElement.addEventListener('click', () => {
+//             const userName = nameElement.textContent.trim();
+//             hideMessagePopup(userName);
+//         });
+//     });
+
+//     disconnectedNames.forEach(nameElement => {
+//         nameElement.addEventListener('click', () => {
+//             // Récupérer le nom de l'utilisateur correspondant
+//             const userName = nameElement.textContent.trim();
+//             // Cacher le popup de message correspondant
+//             hideMessagePopup(userName);
+//         });
+//     });
+// }
+
+// // Fonction pour cacher le popup de message correspondant à un nom d'utilisateur
+// function hideMessagePopup(userName) {
+//     const popupId = `messagePopup-${userName}`;
+//     const popup = document.getElementById(popupId);
+//     if (popup) {
+//         popup.style.display = 'none';
+//     }
+// }
+
+// // Appeler la fonction pour activer le basculement des popups de message
+// toggleMessagePopups();

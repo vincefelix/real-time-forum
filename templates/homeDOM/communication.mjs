@@ -41,9 +41,16 @@ export function sendMessage(userName) {
   messageInput.value = "";
 }
 
-export function addComment() {
-  // Ajoutez le code nécessaire pour gérer l'ajout d'un commentaire ici
+export function addComment(identitypost) {
   console.log("Comment added!");
+  let testit = document.querySelector(".Toaddacomment")
+  if (testit) {
+    var commenttext = testit.value
+    console.log(commenttext);
+  }
+  let postidforcomm = identitypost
+  console.log(postidforcomm);
+  console.log(testit);
 }
 
 export function showConnectedMessages(userName) {
@@ -68,19 +75,19 @@ export function showAllInfoMsg() {
   });
 }
 
-export function toggleComments() {
-  const commentsSection = document.getElementById("commentsSection");
-  const newCommentForm = document.getElementById("newCommentForm");
+// export function toggleComments() {
+//   const commentsSection = document.getElementById("commentsSection");
+//   const newCommentForm = document.getElementById("newCommentForm");
 
-  // Toggle the 'active' class to show/hide comments section and new comment form
-  commentsSection.classList.toggle("active");
-  newCommentForm.classList.toggle("active");
-  // Appeler la fonction pour chaque post individuellement
-  //const feedPosts = document.querySelectorAll('.feedpost');
-  //feedPosts.forEach(postContainer => {
-  //   handleLikesAndDislikes(postContainer);
-  // });
-}
+//   // Toggle the 'active' class to show/hide comments section and new comment form
+//   commentsSection.classList.toggle("active");
+//   newCommentForm.classList.toggle("active");
+//   // Appeler la fonction pour chaque post individuellement
+//   //const feedPosts = document.querySelectorAll('.feedpost');
+//   //feedPosts.forEach(postContainer => {
+//   //   handleLikesAndDislikes(postContainer);
+//   // });
+// }
 
 // --------------------------------categoriesadded---------
 

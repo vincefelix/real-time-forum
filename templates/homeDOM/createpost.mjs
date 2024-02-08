@@ -67,7 +67,7 @@ export class MainContentSection {
   //         });
   //     }
   // }
-  createComment(postId, username, userImageSrc, commentText) {
+  createComment(postId, username, thetime, userImageSrc, commentText) {
     // Créez un élément de commentaire
     const commentContainer = document.createElement("div");
     commentContainer.className = "comment";
@@ -82,8 +82,13 @@ export class MainContentSection {
     const usernameElement = document.createElement("span");
     usernameElement.textContent = username;
 
+    const publicationtime = document.createElement("span");
+    publicationtime.className = "time-comment"
+    publicationtime.textContent = thetime;
+
     userSection.appendChild(userImage);
     userSection.appendChild(usernameElement);
+    userSection.appendChild(publicationtime);
 
     // Créez la section de texte du commentaire
     const commentTextSection = document.createElement("div");
@@ -261,7 +266,15 @@ export class MainContentSection {
     // Create comment-reaction section
     const commentReaction = document.createElement("div");
     commentReaction.className = "comment-reaction";
-    commentReaction.onclick = com.toggleComments;
+    // commentReaction.onclick = com.toggleComments;
+    commentReaction.addEventListener("click", function() {
+      const allAboutComment = postContainer.querySelector(".allaboutcomment");
+      if (allAboutComment.style.display === "none" || !allAboutComment.style.display) {
+          allAboutComment.style.display = "block";
+      } else {
+          allAboutComment.style.display = "none";
+      }
+    });
 
     const commentImg = document.createElement("img");
     commentImg.src = "/static/./assets/comment.png";
@@ -281,6 +294,11 @@ export class MainContentSection {
 
     aboutComment.appendChild(commentReaction);
 
+    // Add commentcontainertoogle 
+    const tooglecomment = document.createElement('div')
+    tooglecomment.className = "allaboutcomment"
+
+
     // Create comments-section section
     const commentsSection = document.createElement("div");
     commentsSection.className = "comments-section";
@@ -292,15 +310,15 @@ export class MainContentSection {
     newCommentForm.id = "newCommentForm";
 
     const commentTextarea = document.createElement("textarea");
+    commentTextarea.className = "Toaddacomment"
     commentTextarea.required = true;
     commentTextarea.maxLength = 250;
     commentTextarea.minLength = 2;
-    commentTextarea.required = true;
     commentTextarea.placeholder = "Add a comment";
 
     const postButton = document.createElement("button");
     postButton.textContent = "Post";
-    postButton.onclick = com.addComment;
+    postButton.onclick = com.addComment(idofpost);
 
     newCommentForm.appendChild(commentTextarea);
     newCommentForm.appendChild(postButton);
@@ -311,12 +329,15 @@ export class MainContentSection {
     reactionTable.appendChild(dislikeReaction);
     reactionTable.appendChild(aboutComment);
 
+    tooglecomment.appendChild(commentsSection);
+    tooglecomment.appendChild(newCommentForm);
+
     // Append sections to postContainer
     postContainer.appendChild(userPublish);
     postContainer.appendChild(aPost);
     postContainer.appendChild(reactionTable);
-    postContainer.appendChild(commentsSection);
-    postContainer.appendChild(newCommentForm);
+    postContainer.appendChild(tooglecomment);
+    // postContainer.appendChild(newCommentForm);
 
     deletePostValues();
     return postContainer;

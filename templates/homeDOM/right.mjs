@@ -39,6 +39,16 @@ export class RightSidebarSection {
 
         // Append right-sidebar section to body
         document.body.appendChild(rightSidebarSection);
+
+        const sidebarElements = document.querySelectorAll('.user-connected, .user-disconnected');
+        sidebarElements.forEach(element => {
+            element.addEventListener('click', () => {
+                const popup = element.querySelector('.message-popup');
+                if (popup) {
+                    popup.style.display = 'block';
+                }
+            });
+        });
     }
 
     
@@ -57,9 +67,9 @@ export class RightSidebarSection {
         });
     }
 
+
     createUser(parentElement, userName, profileImageSrc, messagePopupId, isConnected) {
         const userContainer = document.createElement('div');
-
         userContainer.className = isConnected ? 'user-connected' : 'user-disconnected';
     
         const isConnectedSpan = document.createElement('span');
@@ -67,6 +77,27 @@ export class RightSidebarSection {
     
         const connectionInfo = document.createElement('div');
         connectionInfo.className = isConnected ? 'connection-info' : 'isnotconnected-info';
+
+//--------------------------------------------------------------------------------------------
+        
+        connectionInfo.onclick = function () {
+            const userNameSpan = connectionInfo.querySelector('.connected-name, .isnotconnected-name');
+            if (userNameSpan) {
+                const userName = userNameSpan.textContent;
+                const messagePopup = document.getElementById(`messagePopup-${userName}`);
+                if (messagePopup) {
+                    // Masquer tous les autres messagePopups
+                    const allMessagePopups = document.querySelectorAll('[id^="messagePopup-"]');
+                    allMessagePopups.forEach(popup => {
+                        popup.style.display = 'none';
+                    });
+
+                    // Afficher le messagePopup correspondant au nom cliqué
+                    messagePopup.style.display = 'block';
+                }
+            }
+        };
+
     
         const profileImage = document.createElement('img');
         profileImage.src = profileImageSrc;
@@ -81,11 +112,12 @@ export class RightSidebarSection {
     
         // Message popup
         const messagePopupContainer = document.createElement('div');
-        messagePopupContainer.className = 'allinfo-msg';
+        messagePopupContainer.className = 'message-popup-container'; // Ajout d'une classe pour le conteneur du popup
     
         const messagePopup = document.createElement('div');
         messagePopup.className = 'message-popup';
         messagePopup.id = messagePopupId;
+        messagePopup.style.display= "none"
     
         // Message popup content
         const messagePopupContent = document.createElement('div');
@@ -97,9 +129,24 @@ export class RightSidebarSection {
         const closeButton = document.createElement('span');
         closeButton.className = 'close-button';
         closeButton.innerHTML = '&times;';
-        closeButton.onclick = function () {
-            messagePopup.style.display = 'none';
-        };
+        closeButton.addEventListener("click", function () {
+        const allMessagePopups = document.querySelectorAll('[id^="messagePopup-"]');
+            allMessagePopups.forEach(popup => {
+                console.log('ferme');
+                popup.style.display ="none"
+                // popup.style.visibility ="hidden"
+                console.log(popup.style.display);
+            });
+        })
+
+        // commentReaction.addEventListener("click", function() {
+        //     const allAboutComment = postContainer.querySelector(".allaboutcomment");
+        //     if (allAboutComment.style.display === "none" || !allAboutComment.style.display) {
+        //         allAboutComment.style.display = "block";
+        //     } else {
+        //         allAboutComment.style.display = "none";
+        //     }
+        // });
     
         const popupTitle = document.createElement('h3');
         popupTitle.textContent = userName;
@@ -107,7 +154,6 @@ export class RightSidebarSection {
         const messagePopupBody = document.createElement('div');
         messagePopupBody.className = 'message-popup-body';
         messagePopupBody.id = `messagePopupBody-${userName}`;
-
     
         // ... (Ajoutez ici le code pour générer l'historique des messages précédents)
     
@@ -137,20 +183,17 @@ export class RightSidebarSection {
         messagePopup.appendChild(messagePopupContent);
         messagePopupContainer.appendChild(messagePopup);
     
-        // ... (Ajoutez ici le code pour générer le contenu de la fenêtre contextuelle des messages)
-    
         connectionInfo.appendChild(isConnectedSpan);
         connectionInfo.appendChild(profileImage);
         connectionInfo.appendChild(connectedName);
         connectionInfo.appendChild(connectionIndicator);
+    
+        // Ajoutez le conteneur du popup de message à la connexion info
         connectionInfo.appendChild(messagePopupContainer);
     
         userContainer.appendChild(connectionInfo);
-        
-        let modified = document.createElement('div')
-        modified.className = isConnected ? 'connected-users' : 'disconnected-users' 
-        modified.appendChild(userContainer)
-        // Append user container to the specified parent element
-        parentElement.appendChild(modified);
-    } 
+    
+        // Ajoutez le conteneur de l'utilisateur au parent
+        parentElement.appendChild(userContainer);
+    }
 }
