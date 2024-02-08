@@ -78,3 +78,20 @@
   margin-top: 2%;
   background: rgba(255, 228, 196, 0.596);
 }
+
+#error-comment {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-align: center;
+  padding-right: 20%;
+  padding-bottom: 0.7%;
+  padding-top: 0.2%;
+  width: auto;
+  color: rgb(250, 0, 50);
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 1.4vw;
+  word-wrap: break-word;
+  word-break: break-all;
+  height: auto;
+  margin-top: -2%;
+}
