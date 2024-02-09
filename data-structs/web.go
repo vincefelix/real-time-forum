@@ -9,3 +9,10 @@ type WebError struct {
 	Status  int
 	Message string
 }
+
+type Message struct {
+	Content string
+	Sender string
+	Receiver string
+	Date string
+}
