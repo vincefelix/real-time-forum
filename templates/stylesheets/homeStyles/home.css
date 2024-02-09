@@ -15,7 +15,9 @@ body {
 
 /* -----------------------nav----------------- */
 
-
+.allinfo-msg {
+    display: none;
+}
 nav {
     padding-left: 10px;
     padding-right: 20px;
