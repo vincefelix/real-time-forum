@@ -109,6 +109,24 @@ export class RightSidebarSection {
       ? "connection-info"
       : "isnotconnected-info";
 
+    connectionInfo.onclick = function () {
+            const userNameSpan = connectionInfo.querySelector('.connected-name, .isnotconnected-name');
+            if (userNameSpan) {
+                const userName = userNameSpan.textContent;
+                const messagePopup = document.getElementById(`messagePopup-${userName}`);
+                if (messagePopup) {
+                    // Masquer tous les autres messagePopups
+                    const allMessagePopups = document.querySelectorAll('[id^="messagePopup-"]');
+                    allMessagePopups.forEach(popup => {
+                        popup.style.display = 'none';
+                    });
+
+                    // Afficher le messagePopup correspondant au nom cliqué
+                    messagePopup.style.display = 'block';
+                }
+            }
+        };
+
     const profileImage = document.createElement("img");
     profileImage.src = profileImageSrc;
     profileImage.alt = userName;
@@ -141,7 +159,12 @@ export class RightSidebarSection {
     closeButton.className = "close-button";
     closeButton.innerHTML = "&times;";
     closeButton.onclick = function () {
-      messagePopup.style.display = "none";
+      var tek = (((this.parentElement).parentElement).parentElement).id
+      console.log(tek);
+      console.log((document.getElementById(tek)).style.display);
+     ((document.getElementById(tek)).style.display === "")
+     ((document.getElementById(tek)).style.backgroundColor === "red")
+      // ((document.getElementById(tek)).style.cssText) = "display: none !important;";
     };
 
     const popupTitle = document.createElement("h3");

@@ -3,15 +3,15 @@ import { getUserId } from "../utils/getUserId.mjs";
 import { mainContent } from "./main.mjs";
 // --------------------Message----------------------
 
-export function openMessagePopup() {
-  var messagePopup = document.getElementById("messagePopup");
-  messagePopup.style.display = "block";
-}
+// export function openMessagePopup() {
+//   var messagePopup = document.getElementById("messagePopup");
+//   messagePopup.style.display = "block";
+// }
 
-export function closeMessagePopup() {
-  var messagePopup = document.getElementById("messagePopup");
-  messagePopup.style.display = "none";
-}
+// export function closeMessagePopup() {
+//   var messagePopup = document.getElementById("messagePopup");
+//   messagePopup.style.display = "none";
+// }
 
 export function sendMessage(userName) {
   // Récupérer le contenu du champ de saisie
@@ -63,27 +63,27 @@ export function addComment() {
   //mainContent.createComment(addedcommentid, "test", "", "", commentvalue);
 }
 
-export function showConnectedMessages(userName) {
-  // Masquer toutes les boîtes de dialogue des messages
-  document.querySelectorAll(".message-popup").forEach(function (popup) {
-    popup.style.display = "none";
-  });
+// export function showConnectedMessages(userName) {
+//   // Masquer toutes les boîtes de dialogue des messages
+//   document.querySelectorAll(".message-popup").forEach(function (popup) {
+//     popup.style.display = "none";
+//   });
 
-  // Afficher la boîte de dialogue des messages pour l'utilisateur spécifique
-  var popupId = "messagePopup-" + userName;
-  var popup = document.getElementById(popupId);
-  if (popup) {
-    showAllInfoMsg();
-    popup.style.display = "block";
-  }
-}
+//   // Afficher la boîte de dialogue des messages pour l'utilisateur spécifique
+//   var popupId = "messagePopup-" + userName;
+//   var popup = document.getElementById(popupId);
+//   if (popup) {
+//     showAllInfoMsg();
+//     popup.style.display = "block";
+//   }
+// }
 
-export function showAllInfoMsg() {
-  console.log("dokhna");
-  document.querySelectorAll(".allinfo-msg").forEach(function (allinfoMsg) {
-    allinfoMsg.style.display = "block";
-  });
-}
+// export function showAllInfoMsg() {
+//   console.log("dokhna");
+//   document.querySelectorAll(".allinfo-msg").forEach(function (allinfoMsg) {
+//     allinfoMsg.style.display = "block";
+//   });
+// }
 
 // export function toggleComments() {
 //   const commentsSection = document.getElementById("commentsSection");
