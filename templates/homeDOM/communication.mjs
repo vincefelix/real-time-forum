@@ -44,10 +44,10 @@ export function sendMessage(userName) {
 export function addComment() {
   console.log("Comment added!");
   let commentvalue = this.previousElementSibling.value;
-  console.log("text written: ", commentvalue);
+ // console.log("text written: ", commentvalue);
   let test = this.parentElement;
   let addedcommentid = test.parentElement.parentElement.id;
-  console.log("Added to post id: ", addedcommentid);
+ // console.log("Added to post id: ", addedcommentid);
   this.previousElementSibling.value = "";
   const comment = {
     Type: "createComment",

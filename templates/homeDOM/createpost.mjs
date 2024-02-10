@@ -317,7 +317,7 @@ export class MainContentSection {
     const commentTextarea = document.createElement("textarea");
     commentTextarea.className = "Toaddacomment";
     commentTextarea.required = true;
-    commentTextarea.maxLength = 250;
+    commentTextarea.maxLength = 1500;
     commentTextarea.minLength = 2;
     commentTextarea.placeholder = "Add a comment";
 
@@ -361,6 +361,7 @@ export class MainContentSection {
     const postTitleInput = document.createElement("input");
     postTitleInput.type = "text";
     postTitleInput.minLength = 2;
+    postTitleInput.maxLength = 25;
     postTitleInput.id = "postTitleInput";
     postTitleInput.placeholder = "Enter post title...";
 
@@ -369,7 +370,7 @@ export class MainContentSection {
 
     // Create textarea for post text
     const postTextArea = document.createElement("textarea");
-    postTextArea.maxLength = 250;
+    postTextArea.maxLength = 1500;
     postTextArea.minLength = 2;
     postTextArea.required = true;
     postTextArea.id = "postText";
