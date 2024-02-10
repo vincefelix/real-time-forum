@@ -81,6 +81,7 @@ export class MainContentSection {
     userImage.alt = "";
 
     const usernameElement = document.createElement("span");
+    usernameElement.className = "comment-user-identity"
     usernameElement.textContent = username;
 
     const publicationtime = document.createElement("span");
@@ -92,7 +93,7 @@ export class MainContentSection {
     userSection.appendChild(publicationtime);
 
     // Créez la section de texte du commentaire
-    const commentTextSection = document.createElement("div");
+    const commentTextSection = document.createElement("pre");
     commentTextSection.className = "comment-text";
     commentTextSection.textContent = commentText;
 

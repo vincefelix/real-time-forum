@@ -11,12 +11,13 @@ body {
     width: 100%;
     height: 100vh;
     background-color: #68475632;
-    /*     overflow: hidden; */
 }
 
 /* -----------------------nav----------------- */
 
-
+.allinfo-msg {
+    display: none;
+}
 nav {
     padding-left: 10px;
     padding-right: 20px;
@@ -59,6 +60,10 @@ nav .logo img {
 nav ul {
     list-style: none;
     display: flex;
+}
+
+span.comment-user-identity {
+    text-align: center;
 }
 
 nav img {
@@ -139,9 +144,7 @@ nav .user_nav-img {
     height: 10vh;
     background-color: #333;
     padding: 15px 20px;
-    /* Ajustez la marge intérieure selon vos besoins */
     color: #ffffff;
-    /* Couleur du texte */
     transition: background-color 0.3s ease, color 0.3s ease;
 
     a {
@@ -347,16 +350,16 @@ nav .user_nav-img {
     /* background-color: rgba(85, 85, 85, 0.047); */
 }
 
-.main-content::-webkit-scrollbar {
+.main-content::-webkit-scrollbar{
     width: 7px;
 }
 
-.main-content::-webkit-scrollbar-thumb {
+.main-content::-webkit-scrollbar-thumb{
     background-color: #888;
     border-radius: 5px;
 }
 
-.main-content:hover::-webkit-scrollbar {
+.main-content:hover::-webkit-scrollbar{
     width: 5px;
 }
 
@@ -518,8 +521,8 @@ nav .user_nav-img {
 }
 
 .right-sidebar .connected-users img {
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
 }
 
 .user-connected {
@@ -548,19 +551,30 @@ nav .user_nav-img {
 }
 
 .right-sidebar .disconnected-users {
-    margin-top: 20px;
     height: 35%;
     margin-left: 5%;
     margin-bottom: 5px;
     width: 86%;
     border-radius: 15px;
-    background-color: rgba(0, 0, 0, 0.156);
+    /* background-color: rgba(0, 0, 0, 0.156); */
 }
 
 .right-sidebar .disconnected-users img {
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     filter: grayscale(1);
+}
+
+#connected-container{
+    height: auto;
+    max-height: 35svh;
+    overflow-y: scroll;
+}
+
+#disconnected-container {
+    height: auto;
+    max-height: 35svh;
+    overflow-y: scroll;
 }
 
 .user-disconnected {
@@ -674,6 +688,13 @@ nav .user_nav-img {
     
 }
 
+.comment-text {
+    white-space: pre-wrap;
+    width: 84%;
+    margin-left: 3%;
+    text-align: justify;
+}
+
 .post-text pre {
     width: 88%;
     max-height: 350px;
@@ -681,7 +702,7 @@ nav .user_nav-img {
     word-wrap: break-word;
     position: relative;
     left: 3%;
-    font-size: 1rem;
+    font-size: 1.1rem;
     white-space: pre-wrap;
     text-align: justify;
 }
@@ -756,8 +777,8 @@ nav .user_nav-img {
 
 .post-categories p{
     border: 2px black solid;
-    margin: 10px 10px 10px 10px;
-    padding: 4px 15px 4px 15px;
+    margin: 5px 3px 10px 3px;
+    padding: 0px 9px 3px 9px;
     font-size: 1.2rem;
     border-radius: 12px;
 }
@@ -821,11 +842,19 @@ nav .user_nav-img {
     border-radius: 14px;
 }
 
-/* Ajoutez ces styles pour cacher la div au départ */
-/* .profile-toogle:not(.show) {
-    display: none;
-} */
+.comments-section {
+    height: auto;
+    max-height: 227px;
+    overflow-y: scroll;
+}
 
+.user-section {
+    max-height: 65px;
+    padding: 4px;
+    display: grid;
+    background-color: #80808029;
+    border-radius: 9px;
+}
 /* ------------------------------------------ */
 
 @media only screen and (max-width: 1200px) {
@@ -833,18 +862,9 @@ nav .user_nav-img {
         font-size: 14px;
     }
 
-    /* .rightside {
-        display: none;
-    } */
-
     .responsive-toggle {
         display: block;
     }
-
-    /* .leftside {
-        width: 100%;
-    } */
-
 
     #postTitleInput{
         width: 100%;
@@ -882,7 +902,7 @@ nav .user_nav-img {
 
     .post-text pre{
         width: 74%;
-        font-size: 0.6rem;
+        font-size: 1.1rem;
     }
 
     nav ul {
@@ -945,13 +965,6 @@ nav .user_nav-img {
     nav .logo .tooglerleftimg {
         margin-left: 4px;
     }
-
-    /* .connection-info img{
-        display: none;
-    } */
-    /* .connected-name {
-        display: none;
-    } */
 
     .leftside{
         display: none;
@@ -1114,7 +1127,7 @@ nav .user_nav-img {
     border: 1px solid #ccc;
     padding: 20px;
     z-index: 1;
-    display: none;
+    /* display: none; */
 }
 
 .message-popup-content {
@@ -1161,8 +1174,6 @@ button {
         width: 90%;
         margin-top: -10px;
         padding: 20px;
-        /* background-color: #fff;
-        border: 1px solid #ccc; */
     }
 
     body {
@@ -1202,31 +1213,3 @@ button {
         -webkit-text-fill-color: transparent;
     }
 }
-
-
-
-/* .leftside {
-    display: flex;
-    flex-direction: column;
-    background-color: #333;
-}
-
-.leftside .left-sidebar ul li {
-    list-style: none;
-    font-size: 1rem;
-    margin: 10px;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.leftside .left-sidebar ul li:hover {
-    background-color: #555; 
-    color: #fff; 
-} */
-
-
-
-
-
-

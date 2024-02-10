@@ -27,7 +27,7 @@ func GetUsers_State(database db.Db) ([]UserConn, bool, Struct.Errormessage) {
 	for _, user := range Users {
 		for _, connectedUser := range UserTab {
 			if connectedUser.Id == user.Id {
-				Clients = append(Clients, UserConn{Username: user.Username, Profil: user.Pp, Online: true})
+				Clients = append(Clients, UserConn{Username: user.Username, Profil: user.Pp, Online: true, Id: user.Id})
 				break
 			}
 		}
@@ -35,7 +35,7 @@ func GetUsers_State(database db.Db) ([]UserConn, bool, Struct.Errormessage) {
 	var Clients2 []UserConn
 	for _, user := range Users {
 		if !ConnectedUser(user, Clients) {
-			Clients2 = append(Clients2, UserConn{Username: user.Username, Profil: user.Pp, Online: false})
+			Clients2 = append(Clients2, UserConn{Username: user.Username, Profil: user.Pp, Online: false, Id: user.Id})
 		}
 	}
 

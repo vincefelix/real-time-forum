@@ -18,7 +18,7 @@ export class Navigation {
     //    // this.profilLink = userInfo.payload.profilLink
     }
 
-    init(username) {
+    init(username, pp) {
         // Create nav element
         const navElement = document.createElement('nav');
 
@@ -101,7 +101,7 @@ export class Navigation {
 
         const optionsMenuImg = document.createElement('img');
         optionsMenuImg.className = 'options-menu-img';
-        optionsMenuImg.src = '/static/./assets/profil-img.png';
+        optionsMenuImg.src = pp;
         optionsMenuImg.alt = '';
 
         // User name

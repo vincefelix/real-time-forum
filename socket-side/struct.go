@@ -25,5 +25,6 @@ var (
 type UserConn struct {
 	Username string
 	Profil   string
+	Id string
 	Online   bool
 }

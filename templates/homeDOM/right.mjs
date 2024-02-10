@@ -109,6 +109,32 @@ export class RightSidebarSection {
       ? "connection-info"
       : "isnotconnected-info";
 
+    connectionInfo.onclick = function () {
+      console.log("clicked");
+      messagePopupContainer.style.display = "block";
+      const userNameSpan = connectionInfo.querySelector(
+        ".connected-name, .isnotconnected-name"
+      );
+      if (userNameSpan) {
+        const userName = userNameSpan.textContent;
+        const messagePopup = document.getElementById(
+          `messagePopup-${userName}`
+        );
+        if (messagePopup) {
+          // Masquer tous les autres messagePopups
+          const allMessagePopups = document.querySelectorAll(
+            '[id^="messagePopup-"]'
+          );
+          allMessagePopups.forEach((popup) => {
+            popup.style.display = "none";
+          });
+
+          // Afficher le messagePopup correspondant au nom cliqué
+          messagePopup.style.display = "block";
+        }
+      }
+    };
+
     const profileImage = document.createElement("img");
     profileImage.src = profileImageSrc;
     profileImage.alt = userName;
@@ -141,7 +167,14 @@ export class RightSidebarSection {
     closeButton.className = "close-button";
     closeButton.innerHTML = "&times;";
     closeButton.onclick = function () {
-      messagePopup.style.display = "none";
+      console.log("on close");
+      let tek = this.parentElement.parentElement.parentElement.parentElement;
+      console.log("retrieved ", tek);
+      //messagePopupContainer.style.display = "none";
+      //  console.log(document.getElementById(tek).style.display);
+      tek.style.display = "none";
+      tek.style.backgroundColor = "red";
+      tek.style.cssText = "display: none !important;";
     };
 
     const popupTitle = document.createElement("h3");
@@ -185,9 +218,9 @@ export class RightSidebarSection {
     connectionInfo.appendChild(profileImage);
     connectionInfo.appendChild(connectedName);
     connectionInfo.appendChild(connectionIndicator);
-    connectionInfo.appendChild(messagePopupContainer);
 
     userContainer.appendChild(connectionInfo);
+    userContainer.appendChild(messagePopupContainer);
 
     let modified = document.createElement("div");
     modified.className = isConnected ? "connected-users" : "disconnected-users";
