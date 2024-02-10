@@ -8,6 +8,7 @@ import { error } from "../error/error.mjs";
 import { alertError } from "../error/alert.mjs";
 import { mainContent, rightSidebar } from "../homeDOM/main.mjs";
 import { sort } from "../utils/sort.mjs";
+import { getUserId } from "../utils/getUserId.mjs";
 
 const Form = {};
 export const socket = new vmSocket();
@@ -112,7 +113,9 @@ socket.mysocket.onmessage = (e) => {
       userSideOnline.innerHTML = "";
       let userList = sort(dataObject.Payload);
       if (userList != null) {
+        const sessionId = getUserId();
         for (const user of userList) {
+          if (user.Id == sessionId) continue; //! not displaying the session owner
           let side =
             user.Online == true
               ? rightSidebar.connectedUsers
@@ -142,7 +145,9 @@ socket.mysocket.onmessage = (e) => {
       userSideOnlineOff.innerHTML = "";
       let userListoff = sort(dataObject.Payload);
       if (userListoff != null) {
+        const sessionId = getUserId();
         for (const user of userListoff) {
+          if (user.Id == sessionId) continue; //! not displaying the session owner
           let side =
             user.Online == true
               ? rightSidebar.connectedUsers

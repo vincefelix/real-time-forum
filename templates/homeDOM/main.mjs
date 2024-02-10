@@ -3,6 +3,7 @@ import { Navigation } from "./nav.mjs";
 import { MainContentSection } from "./createpost.mjs";
 import { ProfileToggleSection } from "./profiletoogler.mjs";
 import { sort } from "../utils/sort.mjs";
+import { getUserId } from "../utils/getUserId.mjs";
 
 export const navigation = new Navigation();
 export const mainContent = new MainContentSection();
@@ -10,9 +11,9 @@ export const rightSidebar = new RightSidebarSection();
 export const profileToggle = new ProfileToggleSection();
 
 export const initHome = (props = {}, posts, userList) => {
-  console.log("posts to display ", posts);
-  console.log("users in database => ", userList);
-  console.log("typeof posts to display ", typeof posts);
+  // console.log("posts to display ", posts);
+  // console.log("users in database => ", userList);
+  // console.log("typeof posts to display ", typeof posts);
   navigation.init(props.payload.NickName);
   profileToggle.init();
   mainContent.init();
@@ -51,7 +52,11 @@ export const initHome = (props = {}, posts, userList) => {
   }
   userList = sort(userList);
   if (userList != null) {
+    const sessionId = getUserId();
+    console.log("actual conn => ", sessionId);
     for (const user of userList) {
+      if (user.Id == sessionId) continue; //! not displaying the session owner
+      console.log("er ",user);
       let side =
         user.Online == true
           ? rightSidebar.connectedUsers
