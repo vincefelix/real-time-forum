@@ -24,7 +24,7 @@ func InserPost(user string, data Struct.DataPost, database db.Db) (com.Post, boo
 	}
 
 	//checking Title's validity
-	if data.Title == "" {
+	if strings.TrimSpace(data.Title) == "" {
 		fmt.Printf("⚠ ERROR ⚠ : Couldn't create post from user %s due to empty title ❌\n", user)
 		return com.Post{},
 			false,
@@ -37,7 +37,7 @@ func InserPost(user string, data Struct.DataPost, database db.Db) (com.Post, boo
 			}
 	}
 	//checking content's validity
-	if strings.TrimSpace(data.Content) == "" && data.Image == "" {
+	if strings.TrimSpace(data.Content) == "" {
 		fmt.Printf("⚠ ERROR ⚠ : Couldn't create post from user %s due to empty content ❌\n", user)
 		return com.Post{},
 			false,
@@ -63,7 +63,7 @@ func InserPost(user string, data Struct.DataPost, database db.Db) (com.Post, boo
 			}
 	}
 
-	if len(data.Content) > 1500 || tools.IsInvalid(data.Title) || len(data.Title) > 25 { //found only spaces,newlines in the input or chars number limit exceeded
+	if len(data.Content) > 1500 || len(data.Title) > 25 { //found only spaces,newlines in the input or chars number limit exceeded
 		fmt.Printf("⚠ ERROR ⚠ : Couldn't create post from user %s due to invalid input ❌\n", user)
 		return com.Post{},
 			false,
