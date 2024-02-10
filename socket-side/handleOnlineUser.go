@@ -13,11 +13,6 @@ func HandleOnlineUser(database db.Db) {
 			UserTab = UpdateConn(user, UserTab)
 			serverResponse := make(map[string]interface{})
 			serverResponse["Type"] = "online"
-			// serverResponse["Payload"] = UserConn{
-			// 	Username: user.Username,
-			// 	Profil:   user.Profil,
-			// 	Online:   true,
-			// }
 			clients, ok, err := GetUsers_State(database)
 			if !ok {
 				log.Println("❌ Error getting users state in habldeOnlineUser")
