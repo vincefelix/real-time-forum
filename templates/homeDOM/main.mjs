@@ -14,7 +14,8 @@ export const initHome = (props = {}, posts, userList) => {
   // console.log("posts to display ", posts);
   // console.log("users in database => ", userList);
   // console.log("typeof posts to display ", typeof posts);
-  navigation.init(props.payload.NickName);
+  console.log("nav ", props);
+  navigation.init(props.payload.NickName, props.payload.Profil);
   profileToggle.init();
   mainContent.init();
   rightSidebar.init();
@@ -56,7 +57,7 @@ export const initHome = (props = {}, posts, userList) => {
     console.log("actual conn => ", sessionId);
     for (const user of userList) {
       if (user.Id == sessionId) continue; //! not displaying the session owner
-      console.log("er ",user);
+      console.log("er ", user);
       let side =
         user.Online == true
           ? rightSidebar.connectedUsers
