@@ -80,6 +80,8 @@ socket.mysocket.onmessage = (e) => {
       console.log("disconnecting...");
       localStorage.removeItem("jwtToken");
       document.body.innerHTML = "";
+      rightSidebar.connectedUsers.innerHTML = "";
+      rightSidebar.disconnectedUsers.innerHTML = "";
       document.head.removeChild(document.head.children[0]);
       let container = document.createElement("div");
       container.id = "container";
