@@ -5,8 +5,8 @@
   height: auto;
   margin: 5vh 17.5vw;
   border-radius: 45px;
-  border: 2px solid black;
-  transition:  width 800ms ease-in-out, transform 800ms ease-in-out, position 800ms ease-in-out;
+  transition: width 800ms ease-in-out, transform 800ms ease-in-out,
+    position 800ms ease-in-out;
 }
 
 #text-info {
@@ -17,7 +17,7 @@
   flex-shrink: 1;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 1.4vw;
-  width: 40%;
+  width: 40.4%;
   text-align: center;
   word-spacing: 5px;
   line-height: 50px;
@@ -29,6 +29,7 @@
   transition: border 800ms ease-in-out;
   animation: fade1 2s ease-in-out;
   /* height: 85vh; */
+  box-shadow: -7px 5px 15px 1px rgba(65, 64, 64, 0.171);
   height: auto;
   hr {
     border-radius: 50%;
@@ -51,14 +52,14 @@
     width: 75%;
     padding: 2% 0%;
     border-radius: 15px;
-    border: 2px solid;
     height: auto;
     padding-left: 6%;
     will-change: width;
-    transition: width 800ms ease-in-out;
+    transition: width 800ms ease-in-out, transform 200ms ease-in-out;
     &:hover {
       cursor: pointer;
-      transform: scale(1.1);
+      transform: scale(1.06);
+      transition: transform 200ms ease-in-out;
     }
     button {
       padding-left: 8%;
@@ -127,6 +128,9 @@ label {
 #lastNameLabel {
   grid-column: 2/2;
   grid-row: 1;
+  input {
+    font-size: 0.9vw;
+  }
 }
 
 #nickNameLabel {
@@ -141,7 +145,6 @@ label {
     display: flex;
     margin-top: 5%;
     flex-flow: row;
-    border: 1px solid gray;
     border-radius: 25px;
     width: 65%;
     input {
@@ -171,7 +174,6 @@ label {
     display: block;
     margin-top: 5%;
     border-radius: 25px;
-    border: 1px groove gray;
     width: 85%;
     text-align: center;
     letter-spacing: 4px;
@@ -185,7 +187,6 @@ label {
   display: flex;
   margin-top: 5%;
   flex-flow: row;
-  border: 2px solid rgb(98, 99, 98);
   border-radius: 25px;
   width: 75%;
   padding: 2% 0% 2% 4%;
@@ -193,7 +194,7 @@ label {
     width: 70%;
     border: none;
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-    font-size: 1.2vw;
+    /* font-size: 1.2vw; */
     padding-left: 7%;
     background: none;
     &:focus {
@@ -209,7 +210,6 @@ label {
   }
 }
 #separator {
-  background-color: black;
   margin-top: 5%;
   margin-bottom: 5%;
   border: none;
@@ -259,7 +259,6 @@ label {
   margin-top: 2%;
   margin-bottom: 5%;
   border-radius: 25px;
-  border: 2px solid;
   input {
     width: 86%;
     border: none;
@@ -298,7 +297,7 @@ label {
     margin: 10vh 12.5vw;
   }
   label {
-    font-size: 1.2vw
+    font-size: 1.2vw;
   }
   #text-info {
     font-size: 2.4vw;
@@ -328,7 +327,8 @@ label {
     }
   }
   #email-holder,
-  .Password, .holder {
+  .Password,
+  .holder {
     input {
       font-size: 2vw;
     }

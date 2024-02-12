@@ -4,12 +4,14 @@
     height: auto;
     border-top-left-radius: 42px;
     border-bottom-left-radius: 42px;
+    box-shadow: 7px 5px 15px 1px rgba(65, 64, 64, 0.171);
   }
   to {
     transform: translateX(135%);
     height: auto;
     border-top-right-radius: 42px;
     border-bottom-right-radius: 42px;
+    box-shadow: -7px 5px 15px 1px rgba(65, 64, 64, 0.171);
   }
 }
 @keyframes switchTextInfoBack {
@@ -18,12 +20,14 @@
     height: auto;
     border-top-right-radius: 42px;
     border-bottom-right-radius: 42px;
+    box-shadow: -7px 5px 15px 1px rgba(65, 64, 64, 0.171);
   }
   to {
     transform: translateX(0%);
     height: auto;
     border-top-left-radius: 42px;
     border-bottom-left-radius: 42px;
+    box-shadow: -7px 5px 15px 1px rgba(65, 64, 64, 0.171);
   }
 }
 

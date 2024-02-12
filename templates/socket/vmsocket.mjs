@@ -22,7 +22,7 @@ export class vmSocket {
   }
 
   connectSocket() {
-    var socket = new WebSocket("ws://11.11.90.25:8080/socket"); //make sure the port matches with your golang code
+    var socket = new WebSocket("ws://localhost:8080/socket"); //make sure the port matches with your golang code
     this.mysocket = socket;
   }
 }
