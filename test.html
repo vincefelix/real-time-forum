@@ -12,6 +12,7 @@
       href="templates/stylesheets/formStyles/formColor.css" />
 
     <link rel="stylesheet" href="templates/stylesheets/formStyles/login.css" />
+    <script type="module" src="templates/socket/initForum.mjs"></script>
     <title>Forum</title>
   </head>
   <body>
@@ -44,7 +45,7 @@
         </div>
       </div>
     </nav>
-    <div class="profile-toogle">
+    <div class="profile-toogle" style="display: none">
       <div class="toogle-allelement">
         <div class="disconnection-button">
           <button class="logout-button">
@@ -2504,7 +2505,38 @@ lkjlkj lnpi lioh loi oiu loig iuv ki </pre
     <section class="right-sidebar">
       <div class="online-users">
         <h3 class="on-or-offline">Online users</h3>
-        <div id="connected-container"></div>
+        <div id="connected-container">
+          <div class="connected-users">
+            <div class="user-connected">
+              <div class="connection-info">
+                <span class="is-connected"></span
+                ><img src="templates/assets/fille.gif" alt="sniang" /><span
+                  class="connected-name"
+                  >sniang</span
+                ><span class="connection-indicator"></span>
+              </div>
+              <div class="allinfo-msg">
+                <div class="message-popup" id="messagePopup-john_doe">
+                  <div class="message-popup-content">
+                    <div class="message-popup-header">
+                      <span class="close-button">×</span>
+                      <h3>sniang</h3>
+                    </div>
+                    <div
+                      class="message-popup-body"
+                      id="messagePopupBody-sniang"></div>
+                    <div class="message-popup-footer">
+                      <textarea
+                        id="newMessageInput-sniang"
+                        placeholder="Saisissez votre message"></textarea
+                      ><button>Envoyer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="offline-users">
         <h3 class="on-or-offline">Offline users</h3>
@@ -2519,7 +2551,7 @@ lkjlkj lnpi lioh loi oiu loig iuv ki </pre
                 ><span class="connection-indicator"></span>
               </div>
               <div class="allinfo-msg">
-                <div class="message-popup" id="messagePopup-pol">
+                <div class="message-popup" id="messagePopup-john_doe">
                   <div class="message-popup-content">
                     <div class="message-popup-header">
                       <span class="close-button">×</span>
@@ -2543,43 +2575,13 @@ lkjlkj lnpi lioh loi oiu loig iuv ki </pre
             <div class="user-disconnected">
               <div class="isnotconnected-info">
                 <span class="is-notconnected"></span
-                ><img src="templates/assets/fille.gif" alt="sniang" /><span
-                  class="isnotconnected-name"
-                  >sniang</span
-                ><span class="connection-indicator"></span>
-              </div>
-              <div class="allinfo-msg">
-                <div class="message-popup" id="messagePopup-sniang">
-                  <div class="message-popup-content">
-                    <div class="message-popup-header">
-                      <span class="close-button">×</span>
-                      <h3>sniang</h3>
-                    </div>
-                    <div
-                      class="message-popup-body"
-                      id="messagePopupBody-sniang"></div>
-                    <div class="message-popup-footer">
-                      <textarea
-                        id="newMessageInput-sniang"
-                        placeholder="Saisissez votre message"></textarea
-                      ><button>Envoyer</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="disconnected-users">
-            <div class="user-disconnected">
-              <div class="isnotconnected-info">
-                <span class="is-notconnected"></span
                 ><img src="templates/assets/boy.gif" alt="vindour" /><span
                   class="isnotconnected-name"
                   >vindour</span
                 ><span class="connection-indicator"></span>
               </div>
               <div class="allinfo-msg">
-                <div class="message-popup" id="messagePopup-vindour">
+                <div class="message-popup" id="messagePopup-john_doe">
                   <div class="message-popup-content">
                     <div class="message-popup-header">
                       <span class="close-button">×</span>

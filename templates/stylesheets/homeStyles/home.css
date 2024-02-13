@@ -16,7 +16,7 @@
 body {
   width: 100%;
   height: 100vh;
-  background-color: rgb(245, 242, 242);
+  background-color: rgb(241, 240, 240);
 }
 
 /* -----------------------nav----------------- */
@@ -328,8 +328,10 @@ nav .user_nav-img {
   border-bottom-right-radius: 55px;
   margin-left: 4%;
   background-color: var(--lavender);
-  box-shadow: -5px -5px 9px 3px #ffffffc7, 5px 5px 7px 3px #504f4fc4;
+  box-shadow: -5px -5px 9px 3px #ffffff, 6px 6px 7px 3px #504f4f73;
   border: 1px outset rgba(116, 115, 115, 0.24);
+  overflow-y: scroll;
+  padding-bottom: 5%;
   .post-creation {
     width: 75%;
     text-align: center;
@@ -343,6 +345,20 @@ nav .user_nav-img {
     height: 5%;
   }
 }
+
+.main-content .create-post::-webkit-scrollbar {
+  width: 10px; /* Largeur de la scrollbar */
+}
+.main-content .create-post::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 25px;
+}
+.main-content .create-post::-webkit-scrollbar-track {
+  margin-block-end: 40px;
+}
+/* .main-content .create-post::-webkit-scrollbar-thumb:horizontal {
+  height: 5px;
+} */
 
 .feed {
   width: 97%;
@@ -433,10 +449,10 @@ nav .user_nav-img {
 /**-------------------------- right sidebar handling  -------------------------- */
 .right-sidebar {
   position: fixed;
-  height: 92vh;
-  width: 23%;
-  left: 75%;
-  top: 8%;
+  height: 100vh;
+  width: 28%;
+  left: 72vw;
+  top: 7.5vh;
   background-color: var(--light-chamoise);
 }
 
@@ -463,11 +479,11 @@ nav .user_nav-img {
 .right-sidebar .connected-users {
   margin-top: 20px;
   height: 35%;
-  margin-left: 5%;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 5px;
   border-radius: 15px;
-  width: 85%;
-  background-color: rgba(0, 0, 0, 0.156);
+  max-width: 85%;  
 }
 
 .right-sidebar .connected-users img {
@@ -482,10 +498,21 @@ nav .user_nav-img {
 .connection-info {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  background-color: #b1acb3;
+  justify-content:space-around;
   border-radius: 14px;
-
+  background-color: #ffffff98;
+  border-bottom: 4px inset rgba(216, 201, 172, 0.856);
+  color: rgba(0, 0, 0, 0.705);
+  box-shadow: 3px 5px 4px 1px rgba(175, 172, 172, 0.253),-2px -5px 4px 1px rgba(255, 254, 254, 0.178);
+  max-width: 75%;
+  margin: 0% auto;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  img {
+    margin-left: -35%;
+    margin-right: -25%;
+    border-radius: 11px;
+    mix-blend-mode: multiply;
+  }
   .connection-indicator {
     height: 10px;
     width: 10px;
@@ -498,6 +525,14 @@ nav .user_nav-img {
 
 .on-or-offline {
   margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 5%;
+  color: var(--blacky);
+  text-align: center;
+  letter-spacing: 1px;
+  width: fit-content;
+  border-bottom: 2px inset rgba(121, 120, 120, 0.164);
 }
 
 .right-sidebar .disconnected-users {
@@ -522,9 +557,10 @@ nav .user_nav-img {
 }
 
 #disconnected-container {
+  display: flex;
+  flex-direction: column;
   height: auto;
   max-height: 35svh;
-  overflow-y: scroll;
 }
 
 .user-disconnected {
@@ -534,10 +570,20 @@ nav .user_nav-img {
 .isnotconnected-info {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content:space-around;
   border-radius: 14px;
-  background-color: #b1acb3;
-
+  background-color: #b1acb36c;
+  color: rgba(0, 0, 0, 0.425);
+  box-shadow: 4px 5px 4px 1px rgba(92, 91, 91, 0.205);
+  max-width: 75%;
+  margin: 0% auto;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  img {
+    margin-left: -35%;
+    margin-right: -25%;
+    border-radius: 11px;
+    mix-blend-mode: multiply;
+  }
   .connection-indicator {
     height: 10px;
     width: 10px;
@@ -593,8 +639,8 @@ nav .user_nav-img {
   cursor: pointer;
 }
 
-.right-sidebar .connection-info:hover {
-  background-color: #ff9900;
+/* .right-sidebar .connection-info:hover {
+  background-color: #ff9900; 
   width: 100%;
 }
 
@@ -606,7 +652,8 @@ nav .user_nav-img {
 .right-sidebar .disconnected-users a:hover {
   color: #fff;
   background-color: #ff9900;
-}
+  background-color: var(--light-chamoise);
+} */
 
 .right-sidebar .connected-name:hover,
 .right-sidebar .isnotconnected-name:hover {
@@ -614,10 +661,17 @@ nav .user_nav-img {
   cursor: pointer;
 }
 
-.right-sidebar .connection-info:hover,
-.right-sidebar .isnotconnected-info:hover {
-  background-color: #ff9900;
+.right-sidebar .connection-info:hover {
+  background-color: #b88e9a5b;
   border-radius: 14px;
+  border-bottom: 5px inset rgba(90, 81, 64, 0.637) ;
+  transform: perspective(1000px) scale(1.05) translateY(-10%) rotateX(10deg);
+}
+.right-sidebar .isnotconnected-info:hover {
+  background-color: #5f5f5f5b;
+  border-radius: 14px;
+  border-bottom: 5px inset rgba(90, 81, 64, 0.637) ;
+  transform:  perspective(1000px) scale(1.05) translateY(-10%) rotateX(10deg);
 }
 
 .disconnection-element {
@@ -641,10 +695,10 @@ nav .user_nav-img {
   padding: 1%;
   border-radius: 10px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  scrollbar-width: 2%;
   color: var(--blacky);
   backdrop-filter: blur(10px);
   overflow: auto;
+  margin-bottom: 5%;
 }
 .post-text {
   width: 100%;
@@ -720,7 +774,7 @@ nav .user_nav-img {
 
 #postTitleInput {
   margin-bottom: 10px;
-  border-radius: 10px;
+  border-radius: 8px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   border: none;
   padding: 1%;
@@ -728,6 +782,7 @@ nav .user_nav-img {
   box-shadow: 3px 3px 4px rgba(71, 71, 71, 0.466);
   background-color: rgba(255, 255, 255, 0.781);
   margin-left: 1%;
+  width: 80%;
 }
 
 .profile-toogle {
@@ -849,9 +904,9 @@ nav .user_nav-img {
     width: 75%;
   }
 
-  .right-sidebar {
+  /* .right-sidebar {
     width: 20%;
-  }
+  } */
 
   .left-sidebar {
     overflow-x: hidden;
@@ -1056,10 +1111,10 @@ nav .user_nav-img {
   .new-comment-form button {
     padding: 1svh 1svw;
   }
-  .right-sidebar,
   .connected-users,
   .disconnected-users {
     width: 22%;
+    padding-right:10% ;
   }
 
   .connected-users,
@@ -1149,6 +1204,24 @@ button {
 
   .validation-post {
     display: flex;
+    margin-left: 45%;
+    margin-top: -20%;
+    width: fit-content;
+    button {
+      width: 15vw;
+      height: 5vh;
+      border-radius: 25px;
+      border: none;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      background-color: rgba(245, 222, 179, 0.507);
+      letter-spacing: 5px;
+      color: var(--blacky);
+      box-shadow: -3px -3px 4px rgba(0, 0, 0, 0.26),
+        3px 3px 4px rgba(255, 255, 255, 0.219);
+      &:hover {
+        filter: invert();
+      }
+    }
   }
 
   textarea {
