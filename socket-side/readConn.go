@@ -160,6 +160,23 @@ func (c *SocketReader) Read(database db.Db) {
 		} else {
 			c.Con.WriteJSON(Msg)
 		}
+	case "loadMsg":
+		// load messages from server to client
+		serverResponse, ok, err := hdle.HandleLoadMsg(database)
+		if !ok {
+			log.Println("error while loading  msg: ", err)
+			c.Con.WriteJSON(err)
+			return
+		}
+		c.Con.WriteJSON(serverResponse)
+	case "newMsg":
+		serverResponse, receiver, ok, err := hdle.HandleMessage(requestPayload, database)
+		if !ok {
+			log.Println("error while sending new msg: ", err)
+			c.Con.WriteJSON(err)
+			return
+		}
+		sendToUser(receiver, serverResponse)
 	}
 
 	log.Println("done reading!!!")

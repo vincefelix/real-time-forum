@@ -43,6 +43,17 @@ func (c *SocketReader) NotifyOthers(message map[string]interface{}) {
 	}
 }
 
+func sendToUser(username string, response map[string]interface{}) {
+	fmt.Println("in sendToUSer ...")
+	fmt.Printf("%s must received %v\n", username[1:], response)
+	for _, user := range UserTab {
+		if user.Username == username[1:] && user.Connected {
+			log.Println("message sent to receiver: ", user.Username)
+			user.SendMessage(response) // Send the data to the client
+			break
+		}
+	}
+}
 func (c *SocketReader) SendMessage(message map[string]interface{}) {
 	c.Con.WriteJSON(message)
 }
