@@ -9,6 +9,7 @@ import { alertError } from "../error/alert.mjs";
 import { mainContent, rightSidebar } from "../homeDOM/main.mjs";
 import { sort } from "../utils/sort.mjs";
 import { getUserId } from "../utils/getUserId.mjs";
+import { addMessage } from "../homeDOM/communication.mjs";
 
 const Form = {};
 export const socket = new vmSocket();
@@ -126,7 +127,7 @@ socket.mysocket.onmessage = (e) => {
           //------------------------------
           rightSidebar.createUser(
             side,
-            "@"+user.Username,
+            "@" + user.Username,
             user.Profil,
             "messagePopup-john_doe",
             state
@@ -158,7 +159,7 @@ socket.mysocket.onmessage = (e) => {
           //------------------------------
           rightSidebar.createUser(
             side,
-            "@"+user.Username,
+            "@" + user.Username,
             user.Profil,
             "messagePopup-john_doe",
             state
@@ -187,7 +188,7 @@ socket.mysocket.onmessage = (e) => {
         dataObject.Payload.Title,
         dataObject.Payload.PostId,
         dataObject.Payload.Profil,
-        "@"+dataObject.Payload.Username,
+        "@" + dataObject.Payload.Username,
         "",
         dataObject.Payload.Content,
         dataObject.Payload.Categorie,
@@ -201,13 +202,29 @@ socket.mysocket.onmessage = (e) => {
       console.log("adding comm");
       const commentDetails = [
         dataObject.Payload.PostId,
-        "@"+dataObject.Payload.Username,
+        "@" + dataObject.Payload.Username,
         "",
         dataObject.Payload.Profil,
         dataObject.Payload.Content,
       ];
       mainContent.createComment(...commentDetails);
       break;
+    case "loadMsg":
+      console.log("in loadMsg...");
+      const msg = dataObject.Payload;
+      let count = 0;
+      while (count < msg.length) {
+        const sms = msg[count];
+        setTimeout(() => {
+          addMessage(sms.Sender, sms.Receiver, sms.MessageText);
+        }, 150 * count);
+        count++;
+      }
+      break;
+    case "newMsg":
+      console.log("in addMessage...");
+      break;
+      p;
     //! an error occured
     default:
       if (

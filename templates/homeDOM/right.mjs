@@ -1,3 +1,5 @@
+import { socket } from "../socket/initForum.mjs";
+import { getUserId, getUser_Nickname } from "../utils/getUserId.mjs";
 import * as com from "./communication.mjs";
 
 export class RightSidebarSection {
@@ -111,6 +113,22 @@ export class RightSidebarSection {
 
     connectionInfo.onclick = function () {
       console.log("clicked");
+      //?----sending "loadMsg" request
+      if (messagePopupContainer.style.display != "block") {
+        const receiver = userName,
+          sender = getUser_Nickname();
+        socket.mysocket.send(
+          JSON.stringify({
+            Type: "loadMsg",
+            Payload: {
+              Receiver: receiver,
+              Sender: sender,
+              data: document.cookie,
+            },
+          })
+        );
+      }
+      //?----end of "get last 10 messages" request
       messagePopupContainer.style.display = "block";
       const userNameSpan = connectionInfo.querySelector(
         ".connected-name, .isnotconnected-name"
@@ -168,6 +186,10 @@ export class RightSidebarSection {
     closeButton.innerHTML = "&times;";
     closeButton.onclick = function () {
       console.log("on close");
+      const nickname = this.nextSibling.textContent;
+      console.log("nickname retrieved ", nickname);
+      document.getElementById(`messagePopupBody-${nickname}`).innerHTML = "";
+      console.log("pop up body cleaned");
       let tek = this.parentElement.parentElement.parentElement.parentElement;
       console.log("retrieved ", tek);
       //messagePopupContainer.style.display = "none";
@@ -194,9 +216,24 @@ export class RightSidebarSection {
     messageInput.placeholder = "Saisissez votre message";
 
     const sendButton = document.createElement("button");
-    sendButton.textContent = "Envoyer";
+    sendButton.textContent = "Send";
     sendButton.onclick = function () {
-      com.sendMessage(userName);
+      //?------sending new message request to back
+      const receiver = userName,
+        sender = getUser_Nickname(),
+        message = com.sendMessage(userName);
+      socket.mysocket.send(
+        JSON.stringify({
+          Type: "newMsg",
+          Payload: {
+            receiver: receiver,
+            sender: sender,
+            message: message,
+            data: document.cookie,
+          },
+        })
+      );
+      //?------end of new message request to back
     };
 
     messagePopupHeader.appendChild(closeButton);
