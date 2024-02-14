@@ -1,11 +1,5 @@
 # **TASKS**
 
-   $$
-    FRONT-END
-   $$
+progression (70%)
 
-        Vindour (homepage)
-
-        Mthiaw (login register and profil page)
-
-
+chat feature on process...
