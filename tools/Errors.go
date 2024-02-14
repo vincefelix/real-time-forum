@@ -1,7 +1,7 @@
 package tools
 
 const (
-	InternalServorError = "Oops ! sefrver didn't react as expected"
+	InternalServorError = "Oops ! server didn't react as expected"
 	//-----------------------------------------------------------
 	BdType  = "Bad Request"
 	IseType = "Internal Servor Error"
