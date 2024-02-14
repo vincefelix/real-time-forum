@@ -55,7 +55,7 @@ export const initHome = (props = {}, posts, userList) => {
     console.log("actual conn => ", sessionId);
     for (const user of userList) {
       if (user.Id == sessionId) continue; //! not displaying the session owner
-      console.log("er ", user);
+      // console.log("er ", user);
       let side =
         user.Online == true
           ? rightSidebar.connectedUsers

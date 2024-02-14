@@ -1,17 +1,5 @@
 import { socket } from "../socket/initForum.mjs";
-import { getUserId } from "../utils/getUserId.mjs";
-import { mainContent } from "./main.mjs";
-// --------------------Message----------------------
-
-// export function openMessagePopup() {
-//   var messagePopup = document.getElementById("messagePopup");
-//   messagePopup.style.display = "block";
-// }
-
-// export function closeMessagePopup() {
-//   var messagePopup = document.getElementById("messagePopup");
-//   messagePopup.style.display = "none";
-// }
+import { getUserId, getUser_Nickname } from "../utils/getUserId.mjs";
 
 export function sendMessage(userName) {
   // Récupérer le contenu du champ de saisie
@@ -37,17 +25,42 @@ export function sendMessage(userName) {
   );
   messageHistoryContainer.appendChild(messageItem);
 
-  // Effacer le champ de saisie après l'envoi
   messageInput.value = "";
+  return messageText;
+}
+
+export function addMessage(sender, receiver, message) {
+  console.log(
+    `adding message sender : ${sender}, receiver: ${receiver}, content: "${message}"`
+  );
+  const username = getUser_Nickname() ==  sender ? receiver : sender;
+  const messageHistoryContainer = document.getElementById(
+    `messagePopupBody-@${username}`
+  );
+  // Créer un nouvel élément de message
+  const messageItem = document.createElement("div");
+  messageItem.className = "message-item";
+
+  const senderName = document.createElement("span");
+  senderName.textContent =
+    getUser_Nickname() == sender ? "moi" : "@" + username; // Vous pouvez utiliser le nom de l'utilisateur actuel
+
+  const messageTextElement = document.createElement("div");
+  messageTextElement.textContent = message;
+
+  messageItem.appendChild(senderName);
+  messageItem.appendChild(messageTextElement);
+  messageHistoryContainer.appendChild(messageItem);
+  console.log("message added successfully");
 }
 
 export function addComment() {
   console.log("Comment added!");
   let commentvalue = this.previousElementSibling.value;
- // console.log("text written: ", commentvalue);
+  // console.log("text written: ", commentvalue);
   let test = this.parentElement;
   let addedcommentid = test.parentElement.parentElement.id;
- // console.log("Added to post id: ", addedcommentid);
+  // console.log("Added to post id: ", addedcommentid);
   this.previousElementSibling.value = "";
   const comment = {
     Type: "createComment",
