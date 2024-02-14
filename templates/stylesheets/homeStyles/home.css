@@ -227,7 +227,7 @@ nav .user_nav-img {
   margin-bottom: 5px;
 }
 
-.comment-reaction .new-comment-form {
+.new-comment-form {
   /* display: none; */
   margin-top: 10px;
 }
@@ -252,7 +252,7 @@ nav .user_nav-img {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #bdbaba41;
 }
 
 .comment img {
@@ -274,14 +274,38 @@ nav .user_nav-img {
   width: calc(100% - 50px);
   box-sizing: border-box;
   margin-bottom: 10px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: var(--blacky);
   margin-left: 2vw;
-  resize: vertical;
+  border: none;
+  border-radius: 10px;
+  padding: 3%;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.247),
+    -2px -2px 5px rgba(207, 207, 207, 0.616);
 }
 
 .new-comment-form button {
   padding: 6px 25px;
   cursor: pointer;
-  margin-left: 3%;
+  margin-left: 73%;
+  border: none;
+  border-radius: 25px;
+  padding: 2% 5%;
+  background-color: rgba(212, 156, 51, 0.295);
+  letter-spacing: 5px;
+  color: var(--blacky);
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.26),
+    -3px -3px 4px rgba(228, 225, 225, 0.705);
+  &:hover {
+    background-color: var(--lavender);
+    color: white;
+    font-weight: bolder;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.26),
+      -3px -3px 4px rgba(228, 225, 225, 0.705);
+
+    transform: scale(1.1);
+  }
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   margin-bottom: 8px;
 }
 
@@ -343,6 +367,7 @@ nav .user_nav-img {
   border: 1px outset rgba(116, 115, 115, 0.24);
   overflow-y: auto;
   padding-bottom: 5%;
+  transition: all 500ms ease-in-out;
   .post-creation {
     width: 75%;
     text-align: center;
@@ -384,7 +409,6 @@ nav .user_nav-img {
   margin-right: auto;
   width: 80%;
   height: auto;
-  max-height: 600px;
   background-color: #fafcffc5;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 4px 13px -1px;
@@ -751,6 +775,12 @@ nav .user_nav-img {
   width: 84%;
   margin-left: 3%;
   text-align: justify;
+  color: var(--blacky);
+  padding-left: 2%;
+  padding-top: 1%;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background-color: rgba(255, 255, 255, 0.61);
+  border-radius: 5px;
 }
 
 .post-text pre {
@@ -771,12 +801,11 @@ nav .user_nav-img {
 
 .toogle-allelement {
   min-width: 200px;
-  min-height: 120px;
   width: 15%;
-  height: 20%;
+  height: auto;
   position: absolute;
   left: 84%;
-  top: 57px;
+  top: 20%;
   justify-content: center;
   align-items: center;
   background-color: #555555;
@@ -825,6 +854,11 @@ nav .user_nav-img {
   background-color: rgba(255, 255, 255, 0.781);
   margin-left: 1%;
   width: 80%;
+  transition: all 250ms ease-in-out;
+  &:focus {
+    transform: scale(1.05);
+    transition: all 250ms ease-in-out;
+  }
 }
 
 .profile-toogle {
@@ -906,7 +940,7 @@ nav .user_nav-img {
   text-align: center;
   font-size: 1.7rem;
   border-radius: 5%;
-  transform: skewX(-20deg);
+  transform: skewX(-10deg);
   margin-left: auto;
   margin-right: auto;
   border: 4px outset #2c2c2c6b;
@@ -922,12 +956,11 @@ nav .user_nav-img {
 
 .toogle-allelement {
   min-width: 150px;
-  min-height: 110px;
   width: 80%;
-  height: 60%;
+  height: auto;
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 20%;
   transform: translate(-50%, -50%);
   justify-content: center;
   align-items: center;
@@ -938,15 +971,35 @@ nav .user_nav-img {
 .comments-section {
   height: auto;
   max-height: 227px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  border-top: 2px inset rgba(202, 199, 199, 0.233);
+  border-radius: 2%;
 }
 
+.comments-section::-webkit-scrollbar-track {
+  margin-block-start: 10px;
+}
+.comments-section::-webkit-scrollbar {
+  width: 10px;
+}
+.comments-section::-webkit-scrollbar-thumb {
+  background-color: #f7c5a58c;
+  border-radius: 25px;
+}
 .user-section {
   max-height: 65px;
   padding: 4px;
   display: grid;
-  background-color: #80808029;
   border-radius: 9px;
+  background-color: white;
+  border: 2px inset rgba(245, 222, 179, 0.342);
+  img {
+    mix-blend-mode: multiply;
+  }
+  span {
+    color: var(--blacky);
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  }
 }
 /* ------------------------------------------ */
 
@@ -981,7 +1034,6 @@ nav .user_nav-img {
   .toogle-allelement {
     left: 2%;
     width: 20%;
-    height: 10%;
   }
 }
 
@@ -1015,7 +1067,7 @@ nav .user_nav-img {
     height: auto;
   }
   .post-categories {
-    width: 67%;
+    width: 80%;
   }
 
   option {
@@ -1273,6 +1325,7 @@ button {
     margin-left: 45%;
     margin-top: -20%;
     width: fit-content;
+    transition: all 500ms ease-in-out;
     button {
       width: 15vw;
       height: 5vh;
@@ -1286,18 +1339,23 @@ button {
         3px 3px 4px rgba(255, 255, 255, 0.219);
       &:hover {
         filter: invert();
+        font-weight: bolder;
+        transition: transform 500ms ease-in-out;
       }
     }
   }
-
   textarea {
     width: 100%;
     min-width: 80px;
     box-sizing: border-box;
     margin-bottom: 10px;
-    resize: vertical;
+    background-color: rgba(255, 255, 255, 0.568);
+    &:focus {
+      background-color: rgba(255, 255, 255, 0.671);
+      transform: scale(1.05);
+      transition: transform 200ms ease-in-out;
+    }
   }
-
   button {
     padding: 0 20px;
     cursor: pointer;

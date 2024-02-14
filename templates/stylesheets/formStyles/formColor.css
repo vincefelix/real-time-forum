@@ -4,16 +4,19 @@
   --candy: #f7c4a5;
   --blacky: rgba(0, 0, 0, 0.7);
 }
-
+html {
+  background-color: rgba(241, 240, 240);
+}
 #container {
-  box-shadow: 15px 5px 85px 1px var(--light-chamoise),
-    -25px -5px 85px 1px var(--candy);
-  filter: contrast(120%) brightness(100%) blur(0px);
-  background-color: rgba(216, 211, 211, 0.226);
+  box-shadow: -25px -5px 9px rgba(255, 255, 255, 0.199),
+    15px 5px 85px 1px var(--light-chamoise), -25px -5px 85px 1px var(--candy),
+    15px 15px 9px 1px rgba(95, 94, 94, 0.123);
+
+  background-color: white;
 }
 
 #text-info {
-  background: linear-gradient(165deg, var(--lavender) 20%, var(--candy) 80%);
+  background: linear-gradient(165deg, var(--lavender) 20%, #d5804ba1 80%);
   color: rgba(255, 255, 255, 0.7);
   hr {
     border: 2px dotted rgba(0, 0, 0, 0.212);
