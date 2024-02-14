@@ -81,7 +81,7 @@ export class MainContentSection {
     userImage.alt = "";
 
     const usernameElement = document.createElement("span");
-    usernameElement.className = "comment-user-identity"
+    usernameElement.className = "comment-user-identity";
     usernameElement.textContent = username;
 
     const publicationtime = document.createElement("span");
@@ -142,9 +142,9 @@ export class MainContentSection {
     postImageSrc,
     postText,
     Categories,
-    likeCount,
-    dislikeCount,
-    commentCount
+    likeCount = 0,
+    dislikeCount = 0,
+    commentCount = 0
   ) {
     // Create postContainer
     const postContainer = document.createElement("div");
@@ -161,6 +161,16 @@ export class MainContentSection {
     const publisherNameElement = document.createElement("span");
     publisherNameElement.className = "publisher-name";
     publisherNameElement.textContent = publisherName;
+    // Ajouter les catégories
+    const categoriesSection = document.createElement("div");
+    categoriesSection.className = "post-categories";
+    //Ajouter les categories
+    Categories.forEach((category) => {
+      const categoryParagraph = document.createElement("p");
+      categoryParagraph.textContent = category;
+      categoryParagraph.classList.add(category);
+      categoriesSection.appendChild(categoryParagraph);
+    });
 
     userPublish.appendChild(userImage);
     userPublish.appendChild(publisherNameElement);
@@ -177,17 +187,6 @@ export class MainContentSection {
     const postTextSection = document.createElement("div");
     postTextSection.className = "post-text";
 
-    // Ajouter les catégories
-    const categoriesSection = document.createElement("div");
-    categoriesSection.className = "post-categories";
-
-    Categories.forEach((category) => {
-      const categoryParagraph = document.createElement("p");
-      categoryParagraph.textContent = category;
-      categoriesSection.appendChild(categoryParagraph);
-    });
-
-    postTextSection.appendChild(categoriesSection);
     aPost.appendChild(postTitleContent);
 
     // Créez un élément <pre> pour afficher le texte du post
@@ -206,61 +205,9 @@ export class MainContentSection {
 
     aPost.appendChild(postImageElement);
 
-    //Ajouter les cathegories
-
     // Create reaction-table section
     const reactionTable = document.createElement("div");
     reactionTable.className = "reaction-table";
-
-    // Create user-img-feed section
-    const userImgFeed = document.createElement("div");
-    userImgFeed.className = "user-img-feed";
-
-    const userImgFeedImage = document.createElement("img");
-    userImgFeedImage.src = profileImageSrc;
-    userImgFeedImage.alt = "";
-
-    userImgFeed.appendChild(userImgFeedImage);
-
-    // Create like-reaction section
-    const likeReaction = document.createElement("div");
-    likeReaction.className = "like-reaction";
-
-    const likeImg = document.createElement("img");
-    likeImg.src = "/static/./assets/like.png";
-    likeImg.alt = "";
-
-    const likeText = document.createElement("span");
-    likeText.className = "reaction-text";
-    likeText.textContent = "like";
-
-    const likeCounter = document.createElement("span");
-    likeCounter.className = "like-counter";
-    likeCounter.textContent = likeCount;
-
-    likeReaction.appendChild(likeImg);
-    likeReaction.appendChild(likeText);
-    likeReaction.appendChild(likeCounter);
-
-    // Create dislike-reaction section
-    const dislikeReaction = document.createElement("div");
-    dislikeReaction.className = "dislike-reaction";
-
-    const dislikeImg = document.createElement("img");
-    dislikeImg.src = "/static/./assets/dislike.png";
-    dislikeImg.alt = "";
-
-    const dislikeText = document.createElement("span");
-    dislikeText.className = "reaction-text";
-    dislikeText.textContent = "Dislike";
-
-    const dislikeCounter = document.createElement("span");
-    dislikeCounter.className = "dislike-counter";
-    dislikeCounter.textContent = dislikeCount;
-
-    dislikeReaction.appendChild(dislikeImg);
-    dislikeReaction.appendChild(dislikeText);
-    dislikeReaction.appendChild(dislikeCounter);
 
     // Create about-comment section
     const aboutComment = document.createElement("div");
@@ -328,16 +275,13 @@ export class MainContentSection {
     newCommentForm.appendChild(commentTextarea);
     newCommentForm.appendChild(postButton);
 
-    // Append sections to reactionTable
-    reactionTable.appendChild(userImgFeed);
-    reactionTable.appendChild(likeReaction);
-    reactionTable.appendChild(dislikeReaction);
     reactionTable.appendChild(aboutComment);
 
     tooglecomment.appendChild(commentsSection);
     tooglecomment.appendChild(newCommentForm);
 
     // Append sections to postContainer
+    postContainer.appendChild(categoriesSection)
     postContainer.appendChild(userPublish);
     postContainer.appendChild(aPost);
     postContainer.appendChild(reactionTable);
@@ -374,7 +318,7 @@ export class MainContentSection {
     postTextArea.minLength = 2;
     postTextArea.required = true;
     postTextArea.id = "postText";
-    postTextArea.placeholder = "Saisissez votre message";
+    postTextArea.placeholder = "what's new ?...";
 
     function enableCtrlClickSelection(selectElement) {
       selectElement.addEventListener("mousedown", function (event) {
@@ -411,7 +355,7 @@ export class MainContentSection {
     postCategoriesSelect.multiple = true;
     postCategoriesSelect.className = "collapsible-select";
 
-    const categories = ["Sport", "Art", "Cinéma", "Musique", "Informatique"];
+    const categories = ["Sport", "Art", "Cinema", "Music", "Computer-science"];
     categories.forEach((category) => {
       const option = document.createElement("option");
       option.value = category.toLowerCase();
@@ -466,5 +410,4 @@ export class MainContentSection {
 
     return createPost;
   }
-
 }
