@@ -2,20 +2,6 @@
 
 export class Navigation {
     constructor() {
-    //     let userInfo = localStorage.getItem("jwtToken");
-    //     try {
-    //       userInfo = decode(userInfo);
-    //     } catch (error) {
-    //       console.log(`Error decoding token: ${error}`);
-    //       container.innerHTML = "";
-    //       container.innerHTML = `
-    //       <p id="succeedeed">error JWT</p>
-    //       `;
-    //       return;
-    //     }
-    //     console.log("after decoding jwt =>", userInfo);
-    //     this.nickName = userInfo.payload.NickName
-    //    // this.profilLink = userInfo.payload.profilLink
     }
 
     init(username, pp) {

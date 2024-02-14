@@ -15,33 +15,31 @@ export const initHome = (props = {}, posts, userList) => {
   // console.log("users in database => ", userList);
   // console.log("typeof posts to display ", typeof posts);
   console.log("nav ", props);
-  navigation.init(props.payload.NickName, props.payload.Profil);
+  navigation.init("@"+props.payload.NickName, props.payload.Profil);
   profileToggle.init();
   mainContent.init();
   rightSidebar.init();
 
   if (posts != null) {
     for (const post of posts) {
-      let likeCount = post.Like == null ? 0 : post.Like.length,
-        dislikeCount = post.Dislike == null ? 0 : post.Dislike.length,
-        commentCount = post.Comment_tab == null ? 0 : post.Comment_tab.length;
+      let commentCount = post.Comment_tab == null ? 0 : post.Comment_tab.length;
       mainContent.createAndAddPost([
         post.Title,
         post.PostId,
         post.Profil,
-        post.Username,
+        "@" + post.Username,
         "",
         post.Content,
         post.Categorie,
-        likeCount,
-        dislikeCount,
+        0,
+        0,
         commentCount,
       ]);
       if (post.Comment_tab != null) {
         for (const comment of post.Comment_tab) {
           const commentDetails = [
             comment.PostId,
-            comment.Username,
+            "@" + comment.Username,
             "",
             comment.Profil,
             comment.Content,
@@ -66,7 +64,7 @@ export const initHome = (props = {}, posts, userList) => {
       //------------------------------
       rightSidebar.createUser(
         side,
-        user.Username,
+        "@" + user.Username,
         user.Profil,
         `messagePopup-${user.Username}`,
         state

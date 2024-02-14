@@ -23,16 +23,10 @@ export class ProfileToggleSection {
       "/static/./assets/logout.png"
     );
 
-    // Create Dark Mode Button
-    const darkModeButton = this.createButton(
-      "Display",
-      "/static/./assets/logout.png"
-    );
 
     // Append buttons to toggleAllElement
     toggleAllElement.appendChild(disconnectionButton);
-    toggleAllElement.appendChild(darkModeButton);
-
+  
     // Append toggleAllElement to profileToggleSection
     profileToggleSection.appendChild(toggleAllElement);
 
@@ -48,12 +42,12 @@ export class ProfileToggleSection {
     button.className = "logout-button";
 
     button.addEventListener("click", function () {
-      socket.mysocket.send(
-        JSON.stringify({
-          type: "disconnect",
-          payload: { data: document.cookie.split("=")[1] },
-        })
-      );
+        socket.mysocket.send(
+          JSON.stringify({
+            type: "disconnect",
+            payload: { data: document.cookie.split("=")[1] },
+          })
+        );
       console.log("delogué");
     });
 

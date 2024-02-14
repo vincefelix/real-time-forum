@@ -126,7 +126,7 @@ socket.mysocket.onmessage = (e) => {
           //------------------------------
           rightSidebar.createUser(
             side,
-            user.Username,
+            "@"+user.Username,
             user.Profil,
             "messagePopup-john_doe",
             state
@@ -158,7 +158,7 @@ socket.mysocket.onmessage = (e) => {
           //------------------------------
           rightSidebar.createUser(
             side,
-            user.Username,
+            "@"+user.Username,
             user.Profil,
             "messagePopup-john_doe",
             state
@@ -187,7 +187,7 @@ socket.mysocket.onmessage = (e) => {
         dataObject.Payload.Title,
         dataObject.Payload.PostId,
         dataObject.Payload.Profil,
-        dataObject.Payload.Username,
+        "@"+dataObject.Payload.Username,
         "",
         dataObject.Payload.Content,
         dataObject.Payload.Categorie,
@@ -201,7 +201,7 @@ socket.mysocket.onmessage = (e) => {
       console.log("adding comm");
       const commentDetails = [
         dataObject.Payload.PostId,
-        dataObject.Payload.Username,
+        "@"+dataObject.Payload.Username,
         "",
         dataObject.Payload.Profil,
         dataObject.Payload.Content,
