@@ -266,7 +266,7 @@ export class MainContentSection {
     commentTextarea.required = true;
     commentTextarea.maxLength = 1500;
     commentTextarea.minLength = 2;
-    commentTextarea.placeholder = "Add a comment";
+    commentTextarea.placeholder = "Add a comment...";
 
     const postButton = document.createElement("button");
     postButton.textContent = "Post";
