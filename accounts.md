@@ -4,7 +4,7 @@
 
 ## Mass THIAW
 
-+ username: papis
++ username: mthiaw
 + mail: mass@gmail.com
 + password:11111111
 
@@ -13,7 +13,7 @@
 ## Nabou NIANG
 
 + username: sniang
-+ mail: nabou@gmail.com
++ mail: sniang@gmail.com
 + password:22222222
 
 ***
@@ -21,7 +21,7 @@
 ## Harry POTTER
 
 + username: ranos
-+ mail: poudlard@gmail.com
++ mail: ranos@gmail.com
 + password:33333333
 
 ***
