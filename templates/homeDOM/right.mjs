@@ -131,6 +131,14 @@ export class RightSidebarSection {
           })
         );
       }
+      // Masquer tous les autres messagePopups
+      const allMessagePopups = document.querySelectorAll(
+        '[id^="messagePopup-"]')
+        allMessagePopups.forEach((popup) => {
+          (popup.parentElement).style.display = "none";
+          console.log("tout les messages",popup.parentElement)
+        });
+
       //?----end of "get last 10 messages" request
       messagePopupContainer.style.display = "block";
       const userNameSpan = connectionInfo.querySelector(
@@ -143,12 +151,12 @@ export class RightSidebarSection {
         );
         if (messagePopup) {
           // Masquer tous les autres messagePopups
-          const allMessagePopups = document.querySelectorAll(
-            '[id^="messagePopup-"]'
-          );
-          allMessagePopups.forEach((popup) => {
-            popup.style.display = "none";
-          });
+          // const allMessagePopups = document.querySelectorAll(
+          //   '[id^="messagePopup-"]'
+          // );
+          // allMessagePopups.forEach((popup) => {
+          //   popup.style.display = "none";
+          // });
 
           // Afficher le messagePopup correspondant au nom cliqué
           messagePopup.style.display = "block";
@@ -213,7 +221,7 @@ export class RightSidebarSection {
 
     const messageInput = document.createElement("textarea");
     messageInput.id = `newMessageInput-${userName}`;
-    messageInput.placeholder = "Saisissez votre message";
+    messageInput.placeholder = "Write your message";
 
     const sendButton = document.createElement("button");
     sendButton.textContent = "Send";

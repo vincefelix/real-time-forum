@@ -305,7 +305,10 @@ nav .user_nav-img {
 
     transform: scale(1.1);
   }
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: "Franklin Gothic Medium",
+  "Arial Narrow",
+  Arial,
+  sans-serif;
   margin-bottom: 8px;
 }
 
@@ -331,6 +334,7 @@ nav .user_nav-img {
   overflow-y: scroll;
   overflow-x: hidden;
   margin-left: 1%;
+  background-color: #edcb9629;
   /* background-color: rgba(85, 85, 85, 0.047); */
 }
 
@@ -409,9 +413,9 @@ nav .user_nav-img {
   margin-right: auto;
   width: 80%;
   height: auto;
-  background-color: #fafcffc5;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 4px 13px -1px;
+  background: linear-gradient(225deg, #fafaf8, #fafcffc5);
+  box-shadow:  -10px 10px 20px #aeadad,
+             10px -10px 20px #d9d8d8;
   border-top-left-radius: 40px;
   border-bottom-right-radius: 40px;
   overflow: hidden;
@@ -491,6 +495,7 @@ nav .user_nav-img {
   left: 72vw;
   top: 7.5vh;
   background-color: var(--light-chamoise);
+  box-shadow: -12px 12px 24px #807e6a80, 12px -12px 24px #ffffff;
 }
 
 .offline-user {
@@ -1259,22 +1264,26 @@ nav .user_nav-img {
 /* ------------------------------------- */
 .message-popup {
   position: absolute;
-  top: 68%;
+  bottom: 4%;
   width: 95%;
   min-width: 130px;
   right: 4%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
+  background-color: #9e7682e3;
   border: 1px solid #ccc;
   padding: 20px;
   z-index: 1;
+  border-radius: 21px;
   /* display: none; */
 }
 
 .message-popup-content {
   width: 100%;
   max-height: 300px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+}
+.message-item {
+  margin: 8px 0 0px 0;
 }
 
 .message-popup-header {
@@ -1288,7 +1297,8 @@ nav .user_nav-img {
 }
 
 .message-popup-body {
-  max-height: 200px;
+  max-height: 180px;
+  padding: 5px 0 6px 11px;
   overflow-y: auto;
 }
 
@@ -1297,6 +1307,17 @@ nav .user_nav-img {
   text-align: center;
 }
 
+.message-popup-footer textarea {
+  background-color: #eae1e3;
+  border-radius: 5px;
+}
+
+.message-popup-footer button {
+  background-color: #dec8a6bd;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: #3c332e;
+  border-radius: 22px;
+}
 textarea {
   width: 100%;
   box-sizing: border-box;
