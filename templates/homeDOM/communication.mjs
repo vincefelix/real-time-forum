@@ -1,20 +1,26 @@
 import { socket } from "../socket/initForum.mjs";
 import { getUserId, getUser_Nickname } from "../utils/getUserId.mjs";
 
-export function sendMessage(userName) {
-  // Récupérer le contenu du champ de saisie
+export function getMessageInput(userName) {
   const messageInput = document.getElementById(`newMessageInput-${userName}`);
   const messageText = messageInput.value;
+  return messageText;
+}
+export function sendMessage(userName, message, time) {
+  // Récupérer le contenu du champ de saisie
+  console.log("received username ", userName);
+  const messageInput = document.getElementById(`newMessageInput-${userName}`);
+  console.log("message input => ", messageInput);
 
   // Créer un nouvel élément de message
   const messageItem = document.createElement("div");
   messageItem.className = "message-item";
 
   const senderName = document.createElement("span");
-  senderName.textContent = "Moi"; // Vous pouvez utiliser le nom de l'utilisateur actuel
+  senderName.textContent = "Moi " + time; // Vous pouvez utiliser le nom de l'utilisateur actuel
 
   const messageTextElement = document.createElement("div");
-  messageTextElement.textContent = messageText;
+  messageTextElement.textContent = message;
 
   messageItem.appendChild(senderName);
   messageItem.appendChild(messageTextElement);
@@ -26,16 +32,15 @@ export function sendMessage(userName) {
   messageHistoryContainer.appendChild(messageItem);
 
   messageInput.value = "";
-  return messageText;
 }
 
-export function addMessage(sender, receiver, message) {
+export function addMessage(sender, receiver, message, date) {
   console.log(
     `adding message sender : ${sender}, receiver: ${receiver}, content: "${message}"`
   );
-  const username = getUser_Nickname() ==  sender ? receiver : sender;
+  const username = getUser_Nickname() == sender ? receiver : sender;
   const messageHistoryContainer = document.getElementById(
-    `messagePopupBody-@${username}`
+    `messagePopupBody-${username}`
   );
   // Créer un nouvel élément de message
   const messageItem = document.createElement("div");
@@ -43,17 +48,34 @@ export function addMessage(sender, receiver, message) {
 
   const senderName = document.createElement("span");
   senderName.textContent =
-    getUser_Nickname() == sender ? "moi" : "@" + username; // Vous pouvez utiliser le nom de l'utilisateur actuel
+    getUser_Nickname() == sender ? "moi" : "@" + username;
+  senderName.textContent += "  " + date;
 
   const messageTextElement = document.createElement("div");
   messageTextElement.textContent = message;
 
   messageItem.appendChild(senderName);
   messageItem.appendChild(messageTextElement);
-  messageHistoryContainer.appendChild(messageItem);
+  messageHistoryContainer.insertBefore(
+    messageItem,
+    messageHistoryContainer.firstChild
+  );
   console.log("message added successfully");
 }
 
+export function isChatBox_opened(receiver) {
+  console.log("is chat box opened with " + receiver + " ?");
+  const messageHistoryContainer = document.getElementById(
+      `messagePopup-${receiver.replace("@", "")}`
+    ),
+    parent = messageHistoryContainer.parentElement;
+  console.log("in chatbox check\n parent => ", parent);
+  if (parent.style.display == "none") {
+    return false;
+  } else if (parent.style.display == "block") {
+    return true;
+  }
+}
 export function addComment() {
   console.log("Comment added!");
   let commentvalue = this.previousElementSibling.value;

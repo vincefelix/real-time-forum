@@ -6,6 +6,7 @@ import (
 	Struct "forum/data-structs"
 	tools "forum/tools"
 	"log"
+	"time"
 )
 
 func HandleMessage(requestPayload map[string]interface{}, database db.Db) (map[string]interface{}, string, bool, Struct.Errormessage) {
@@ -29,19 +30,22 @@ func HandleMessage(requestPayload map[string]interface{}, database db.Db) (map[s
 				}
 		}
 	}
+	date := time.Now()
 	fmt.Println("Sender : ", requestPayload["sender"].(string))
 	fmt.Println("Receiver: ", requestPayload["receiver"].(string))
 	fmt.Println("Message content: ", requestPayload["message"].(string))
+	fmt.Println("sent at : ", date)
 
 	// Créer une structure pour le message
 	message := Struct.Message{
 		Sender:      requestPayload["sender"].(string),
 		Receiver:    requestPayload["receiver"].(string),
 		MessageText: requestPayload["message"].(string),
+		Timestamp:   date,
 	}
 	// Insérer le message dans la base de données
-	values := fmt.Sprintf("('%s', '%s', '%s', '%s')", message.Sender, message.Receiver, tools.EncodeMsg(message.MessageText), message.Timestamp)
-	err := database.INSERT("Messages", "(sender_id, receiver_id, message, timestamp)", values)
+	values := fmt.Sprintf("('%s', '%s', '%s', '%v')", message.Sender, message.Receiver, tools.EncodeMsg(message.MessageText), time.Now())
+	err := database.INSERT("Messages", "(sender, receiver, message, timestamp)", values)
 	if err != nil {
 		errMsg := fmt.Sprintf("Error inserting message into database: %v", err)
 		log.Println(errMsg)

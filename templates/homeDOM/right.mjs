@@ -110,6 +110,9 @@ export class RightSidebarSection {
     connectionInfo.className = isConnected
       ? "connection-info"
       : "isnotconnected-info";
+    // Message popup
+    const messagePopupContainer = document.createElement("div");
+    messagePopupContainer.className = "allinfo-msg";
 
     connectionInfo.onclick = function () {
       console.log("clicked");
@@ -166,10 +169,6 @@ export class RightSidebarSection {
     const connectionIndicator = document.createElement("span");
     connectionIndicator.className = "connection-indicator";
 
-    // Message popup
-    const messagePopupContainer = document.createElement("div");
-    messagePopupContainer.className = "allinfo-msg";
-
     const messagePopup = document.createElement("div");
     messagePopup.className = "message-popup";
     messagePopup.id = messagePopupId;
@@ -191,6 +190,7 @@ export class RightSidebarSection {
       document.getElementById(`messagePopupBody-${nickname}`).innerHTML = "";
       console.log("pop up body cleaned");
       let tek = this.parentElement.parentElement.parentElement.parentElement;
+      0;
       console.log("retrieved ", tek);
       //messagePopupContainer.style.display = "none";
       //  console.log(document.getElementById(tek).style.display);
@@ -221,7 +221,7 @@ export class RightSidebarSection {
       //?------sending new message request to back
       const receiver = userName,
         sender = getUser_Nickname(),
-        message = com.sendMessage(userName);
+        message = com.getMessageInput(userName);
       socket.mysocket.send(
         JSON.stringify({
           Type: "newMsg",

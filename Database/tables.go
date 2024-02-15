@@ -157,12 +157,13 @@ func (database Db) Tables() {
 	}
 	//----------------- 7 session table --------------------//
 	Message := `CREATE TABLE IF NOT EXISTS Messages (
-		sender_id TEXT NOT NULL,
-		receiver_id TEXT NOT NULL,
+		sender TEXT NOT NULL,
+		receiver TEXT NOT NULL,
 		message TEXT NOT NULL,
 		timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-		FOREIGN KEY(sender_id) REFERENCES users(id_user),
-		FOREIGN KEY(receiver_id) REFERENCES users(id_user)
+		isread BOOLEAN DEFAULT FALSE,
+		FOREIGN KEY(sender) REFERENCES users(id_user),
+		FOREIGN KEY(receiver) REFERENCES users(id_user)
 		);
 			`
 	_, errMessage := database.Doc.Exec(Message)

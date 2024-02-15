@@ -9,7 +9,11 @@ import { alertError } from "../error/alert.mjs";
 import { mainContent, rightSidebar } from "../homeDOM/main.mjs";
 import { sort } from "../utils/sort.mjs";
 import { getUserId } from "../utils/getUserId.mjs";
-import { addMessage } from "../homeDOM/communication.mjs";
+import {
+  addMessage,
+  isChatBox_opened,
+  sendMessage,
+} from "../homeDOM/communication.mjs";
 
 const Form = {};
 export const socket = new vmSocket();
@@ -72,7 +76,7 @@ socket.mysocket.onmessage = (e) => {
       }
       let forumForm = new form();
       Form["value"] = forumForm;
-      Form.value.loginForm("valid sess");
+      Form.value.loginForm("invalid sess");
       break;
 
     //--------------------------------------------------
@@ -192,9 +196,9 @@ socket.mysocket.onmessage = (e) => {
         "",
         dataObject.Payload.Content,
         dataObject.Payload.Categorie,
-        8,
-        9,
-        11,
+        0,
+        0,
+        0,
       ];
       mainContent.createAndAddPost(postDetails, true);
       break;
@@ -212,19 +216,32 @@ socket.mysocket.onmessage = (e) => {
     case "loadMsg":
       console.log("in loadMsg...");
       const msg = dataObject.Payload;
-      let count = 0;
-      while (count < msg.length) {
-        const sms = msg[count];
-        setTimeout(() => {
-          addMessage(sms.Sender, sms.Receiver, sms.MessageText);
-        }, 150 * count);
-        count++;
+      console.log("loaded msg => ", msg);
+      if (msg != null) {
+        let count = 0;
+        while (count < msg.length) {
+          const sms = msg[count];
+          setTimeout(() => {
+            addMessage(sms.Sender, sms.Receiver, sms.MessageText, sms.Date);
+          }, 250 * count);
+          count++;
+        }
       }
       break;
     case "newMsg":
       console.log("in addMessage...");
+      const receiver = dataObject.Payload.Receiver;
+      // const sender = dataObject.Payload.Sender;
+      const message = dataObject.Payload.MessageText;
+      const date = dataObject.Payload.Date;
+      if (isChatBox_opened(receiver)) {
+        console.log("chat opened");
+        console.log(receiver);
+        sendMessage(receiver, message, date);
+      } else {
+        console.log("chat closed");
+      }
       break;
-      p;
     //! an error occured
     default:
       if (
