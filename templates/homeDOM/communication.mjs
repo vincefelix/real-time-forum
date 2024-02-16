@@ -6,18 +6,24 @@ export function getMessageInput(userName) {
   const messageText = messageInput.value;
   return messageText;
 }
-export function sendMessage(userName, message, time) {
+export function sendMessage(userName, receiver, sender, message, time, idMess) {
   // Récupérer le contenu du champ de saisie
+  let usernameHeader = userName.includes("@") ? userName : "@" + userName;
   console.log("received username ", userName);
-  const messageInput = document.getElementById(`newMessageInput-${userName}`);
+  console.log("chat header ", usernameHeader);
+  const messageInput = document.getElementById(
+    `newMessageInput-${usernameHeader}`
+  );
   console.log("message input => ", messageInput);
 
   // Créer un nouvel élément de message
   const messageItem = document.createElement("div");
   messageItem.className = "message-item";
+  messageItem.dataset.id = idMess;
 
+  const messUser = getUser_Nickname() == sender ? "moi" : usernameHeader;
   const senderName = document.createElement("span");
-  senderName.textContent = "Moi " + time; // Vous pouvez utiliser le nom de l'utilisateur actuel
+  senderName.innerHTML = `${messUser} ` + `<small>${time}</small>`;
 
   const messageTextElement = document.createElement("div");
   messageTextElement.textContent = message;
@@ -26,30 +32,36 @@ export function sendMessage(userName, message, time) {
   messageItem.appendChild(messageTextElement);
 
   // Ajouter le nouveau message à l'historique des messages
+
   const messageHistoryContainer = document.getElementById(
-    `messagePopupBody-${userName}`
+    `messagePopupBody-${usernameHeader}`
   );
   messageHistoryContainer.appendChild(messageItem);
 
   messageInput.value = "";
 }
 
-export function addMessage(sender, receiver, message, date) {
+export function addMessage(sender, receiver, message, date, idMess) {
   console.log(
-    `adding message sender : ${sender}, receiver: ${receiver}, content: "${message}"`
+    `adding message sender : ${sender}, receiver: ${receiver}, content: "${message}", date: "${date}"`
   );
-  const username = getUser_Nickname() == sender ? receiver : sender;
+  const username = getUser_Nickname() == sender ? receiver : "@" + sender;
   const messageHistoryContainer = document.getElementById(
     `messagePopupBody-${username}`
   );
   // Créer un nouvel élément de message
   const messageItem = document.createElement("div");
   messageItem.className = "message-item";
+  messageItem.dataset.id = idMess;
 
   const senderName = document.createElement("span");
   senderName.textContent =
-    getUser_Nickname() == sender ? "moi" : "@" + username;
-  senderName.textContent += "  " + date;
+    getUser_Nickname() == sender
+      ? "moi"
+      : username.includes("@")
+      ? username
+      : "@" + username;
+  senderName.innerHTML += ` <small id="date-text">${date}</small>`;
 
   const messageTextElement = document.createElement("div");
   messageTextElement.textContent = message;
@@ -63,10 +75,10 @@ export function addMessage(sender, receiver, message, date) {
   console.log("message added successfully");
 }
 
-export function isChatBox_opened(receiver) {
-  console.log("is chat box opened with " + receiver + " ?");
+export function isChatBox_opened(chatUsername) {
+  console.log("is chat box opened with " + chatUsername + " ?");
   const messageHistoryContainer = document.getElementById(
-      `messagePopup-${receiver.replace("@", "")}`
+      `messagePopup-${chatUsername.replace("@", "")}`
     ),
     parent = messageHistoryContainer.parentElement;
   console.log("in chatbox check\n parent => ", parent);

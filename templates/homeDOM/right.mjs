@@ -1,5 +1,6 @@
 import { socket } from "../socket/initForum.mjs";
 import { getUserId, getUser_Nickname } from "../utils/getUserId.mjs";
+import { throttle } from "../utils/throttle.mjs";
 import * as com from "./communication.mjs";
 
 export class RightSidebarSection {
@@ -212,7 +213,32 @@ export class RightSidebarSection {
 
     const messagePopupBody = document.createElement("div");
     messagePopupBody.className = "message-popup-body";
+    //?------ throttling load more msg -----
     messagePopupBody.id = `messagePopupBody-${userName}`;
+    const throttledRequest = throttle(() => {
+      const time = messagePopupBody.firstElementChild.dataset.id;
+      console.log("last message in box sent at : ", time);
+      socket.mysocket.send(
+        JSON.stringify({
+          Type: "load_10Msg",
+          Payload: {
+            IdMess: time,
+            Sender: getUser_Nickname(),
+            Receiver: popupTitle.textContent,
+            data: document.cookie,
+          },
+        })
+      );
+      console.log("load 10 more request sent!");
+    }, 2000);
+    //?------ end of throttling load more msg -----
+    messagePopupBody.addEventListener("scroll", () => {
+      console.log("scrolltop ", messagePopupBody.scrollTop);
+      if (messagePopupBody.scrollTop == 0) {
+        console.log("catched");
+        throttledRequest();
+      }
+    });
 
     // ... (Ajoutez ici le code pour générer l'historique des messages précédents)
 
@@ -226,21 +252,26 @@ export class RightSidebarSection {
     const sendButton = document.createElement("button");
     sendButton.textContent = "Send";
     sendButton.onclick = function () {
-      //?------sending new message request to back
-      const receiver = userName,
-        sender = getUser_Nickname(),
-        message = com.getMessageInput(userName);
-      socket.mysocket.send(
-        JSON.stringify({
-          Type: "newMsg",
-          Payload: {
-            receiver: receiver,
-            sender: sender,
-            message: message,
-            data: document.cookie,
-          },
-        })
-      );
+      const messageRetrieved = messageInput.value.replace("\n", " ").trim();
+      if (messageRetrieved != "") {
+        //?------sending new message request to back
+        const receiver = userName,
+          sender = getUser_Nickname(),
+          message = com.getMessageInput(userName);
+        socket.mysocket.send(
+          JSON.stringify({
+            Type: "newMsg",
+            Payload: {
+              receiver: receiver,
+              sender: sender,
+              message: message,
+              data: document.cookie,
+            },
+          })
+        );
+      } else {
+        console.log("empty msg");
+      }
       //?------end of new message request to back
     };
 

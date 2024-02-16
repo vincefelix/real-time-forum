@@ -167,7 +167,7 @@ func (c *SocketReader) Read(database db.Db) {
 			c.Con.WriteJSON(Msg)
 			return
 		}
-		serverResponse, ok, err := hdle.HandleLoadMsg(requestPayload, database)
+		serverResponse, ok, err := hdle.HandleLoadMsg(requestPayload, database, "load")
 		if !ok {
 			log.Println("error while loading  msg: ", err)
 			c.Con.WriteJSON(err)
@@ -189,6 +189,21 @@ func (c *SocketReader) Read(database db.Db) {
 		}
 		sendToUser(receiver, serverResponse)
 		c.Con.WriteJSON(serverResponse) // send back to the sender
+	case "load_10Msg":
+		log.Println("In load_10Msg...")
+		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
+		if !ok {
+			c.Con.WriteJSON(Msg)
+			return
+		}
+		serverResponse, ok, err := hdle.HandleLoadMsg(requestPayload, database, "moreMsg")
+		if !ok {
+			log.Println("error while loading  msg: ", err)
+			c.Con.WriteJSON(err)
+			return
+		}
+		serverResponse["Type"] = "load_10Msg"
+		c.Con.WriteJSON(serverResponse)
 	}
 
 	log.Println("done reading!!!")

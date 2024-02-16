@@ -17,9 +17,8 @@ export const launchHome = (posts, userList) => {
   console.log("after decoding jwt =>", userInfo);
   document.body.innerHTML = "";
   setTimeout(() => {
-
     removeHomeStyle();
-    setHomeStyle();
+    setHomeStyle(); 
     initHome(userInfo, posts, userList);
   }, 500);
 };

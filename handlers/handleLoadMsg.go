@@ -9,11 +9,16 @@ import (
 	"time"
 )
 
-func HandleLoadMsg(requestPayload map[string]interface{}, database db.Db) (map[string]interface{}, bool, Struct.Errormessage) {
+func HandleLoadMsg(requestPayload map[string]interface{}, database db.Db, request string) (map[string]interface{}, bool, Struct.Errormessage) {
 	var Messages Struct.Msgs
+	var IdMess string
 	sender, receiver := requestPayload["Sender"].(string), requestPayload["Receiver"].(string)
-	rows, err := database.LoadMessage(sender, receiver, time.Time{})
+	if request == "moreMsg" {
+		IdMess = requestPayload["IdMess"].(string)
+	}
+	rows, err := database.LoadMessage(sender, receiver, IdMess, time.Time{}, request)
 	if err != nil {
+		fmt.Println("Error in loading messages: ", err)
 		return nil, false, Struct.Errormessage{
 			Type:       tools.IseType,
 			Msg:        tools.InternalServorError,
@@ -24,8 +29,9 @@ func HandleLoadMsg(requestPayload map[string]interface{}, database db.Db) (map[s
 	}
 	for rows.Next() {
 		var msg Struct.Message
-		err = rows.Scan(&msg.Sender, &msg.Receiver, &msg.MessageText, &msg.Timestamp, &msg.Isread)
+		err = rows.Scan(&msg.Id, &msg.Sender, &msg.Receiver, &msg.MessageText, &msg.Timestamp, &msg.Date, &msg.Isread)
 		if err != nil {
+			log.Println("❌ Error while iterating through the results of query to load message: ", err)
 			return nil, false, Struct.Errormessage{
 				Type:       tools.IseType,
 				Msg:        tools.InternalServorError,
@@ -34,7 +40,17 @@ func HandleLoadMsg(requestPayload map[string]interface{}, database db.Db) (map[s
 				Display:    true,
 			}
 		}
-		msg.Date = msg.Timestamp.Format("02 Jan 15:04") // Format the timestamp to a
+
+		fmt.Println("--------scanned----------")
+		fmt.Println("message id => ", msg.Id)
+		fmt.Println("sender => ", msg.Sender)
+		fmt.Println("receiver => ", msg.Receiver)
+		fmt.Println("content => ", msg.MessageText)
+		fmt.Println("timestamp => ", msg.Timestamp)
+		fmt.Println("date => ", msg.Date)
+		fmt.Println("ReadState => ", msg.Isread)
+		fmt.Println("-------------------------")
+
 		Messages = append(Messages, msg)
 	}
 	log.Println("✔ Messages loaded and stored in local struct")
@@ -45,13 +61,3 @@ func HandleLoadMsg(requestPayload map[string]interface{}, database db.Db) (map[s
 	serverResponse["Payload"] = Messages
 	return serverResponse, true, Struct.Errormessage{}
 }
-
-// func sortByDate(messages []Struct.Message) {
-// 	for i := range messages {
-// 		j := i + 1
-// 		for j < len(messages) && messages[i].Timestamp.After(messages[j].Timestamp) {
-// 			messages[i], messages[j] = messages[j], messages[i]
-// 			j = i + 1
-// 		}
-// 	}
-// }

@@ -8,12 +8,8 @@ import { error } from "../error/error.mjs";
 import { alertError } from "../error/alert.mjs";
 import { mainContent, rightSidebar } from "../homeDOM/main.mjs";
 import { sort } from "../utils/sort.mjs";
-import { getUserId } from "../utils/getUserId.mjs";
-import {
-  addMessage,
-  isChatBox_opened,
-  sendMessage,
-} from "../homeDOM/communication.mjs";
+import { getUserId, getUser_Nickname } from "../utils/getUserId.mjs";
+import * as com from "../homeDOM/communication.mjs";
 
 const Form = {};
 export const socket = new vmSocket();
@@ -133,7 +129,7 @@ socket.mysocket.onmessage = (e) => {
             side,
             "@" + user.Username,
             user.Profil,
-            "messagePopup-john_doe",
+            `messagePopup-${user.Username}`,
             state
           );
         }
@@ -165,7 +161,7 @@ socket.mysocket.onmessage = (e) => {
             side,
             "@" + user.Username,
             user.Profil,
-            "messagePopup-john_doe",
+            `messagePopup-${user.Username}`,
             state
           );
         }
@@ -222,24 +218,66 @@ socket.mysocket.onmessage = (e) => {
         while (count < msg.length) {
           const sms = msg[count];
           setTimeout(() => {
-            addMessage(sms.Sender, sms.Receiver, sms.MessageText, sms.Date);
+            com.addMessage(
+              sms.Sender,
+              sms.Receiver,
+              sms.MessageText,
+              sms.Date,
+              sms.Id
+            );
           }, 250 * count);
           count++;
         }
       }
       break;
+    case "load_10Msg":
+      console.log("in load_10Msg...");
+      const moreMsg = dataObject.Payload;
+      console.log("loaded msg => ", moreMsg);
+      if (moreMsg != null) {
+        let count = 0;
+        while (count < moreMsg.length) {
+          const sms = moreMsg[count];
+          setTimeout(() => {
+            com.addMessage(
+              sms.Sender,
+              sms.Receiver,
+              sms.MessageText,
+              sms.Date,
+              sms.Id
+            );
+          }, 250 * count);
+          count++;
+        }
+      } else {
+        console.log("no more messages to load...");
+      }
+      break;
     case "newMsg":
       console.log("in addMessage...");
       const receiver = dataObject.Payload.Receiver;
-      // const sender = dataObject.Payload.Sender;
+      const sender = dataObject.Payload.Sender;
       const message = dataObject.Payload.MessageText;
       const date = dataObject.Payload.Date;
-      if (isChatBox_opened(receiver)) {
-        console.log("chat opened");
-        console.log(receiver);
-        sendMessage(receiver, message, date);
+      const idMess = dataObject.Payload.Id;
+      console.log("session user => ", getUser_Nickname());
+      console.log("receiver user => ", receiver);
+      console.log("sender user => ", sender);
+      const chatUsername =
+        getUser_Nickname() == receiver.replace("@", "") ? sender : receiver;
+      if (com.isChatBox_opened(chatUsername)) {
+        console.log("chatbox opened");
+        console.log(chatUsername);
+        com.sendMessage(
+          chatUsername,
+          receiver.replace("@", ""),
+          sender,
+          message,
+          date,
+          idMess
+        );
       } else {
-        console.log("chat closed");
+        console.log("chatbox closed");
       }
       break;
     //! an error occured
