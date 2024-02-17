@@ -2,6 +2,7 @@ import { socket } from "../socket/initForum.mjs";
 import { getUserId, getUser_Nickname } from "../utils/getUserId.mjs";
 import { throttle } from "../utils/throttle.mjs";
 import * as com from "./communication.mjs";
+import { rightSidebar } from "./main.mjs";
 
 export class RightSidebarSection {
   constructor() {
@@ -16,7 +17,8 @@ export class RightSidebarSection {
   init() {
     const rightSidebarSection = document.createElement("section");
     rightSidebarSection.className = "right-sidebar";
-
+    this.mainContainer = rightSidebarSection;
+    this.chatbox();
     // Online users section
     const onlineUsersSection = document.createElement("div");
     onlineUsersSection.className = "online-users";
@@ -89,106 +91,17 @@ export class RightSidebarSection {
     });
   }
 
-  createUser(
-    parentElement,
-    userName,
-    profileImageSrc,
-    messagePopupId,
-    isConnected
-  ) {
-    const userContainer = document.createElement("div");
-
-    userContainer.className = isConnected
-      ? "user-connected"
-      : "user-disconnected";
-
-    const isConnectedSpan = document.createElement("span");
-    isConnectedSpan.className = isConnected
-      ? "is-connected"
-      : "is-notconnected";
-
-    const connectionInfo = document.createElement("div");
-    connectionInfo.className = isConnected
-      ? "connection-info"
-      : "isnotconnected-info";
+  chatbox() {
     // Message popup
     const messagePopupContainer = document.createElement("div");
     messagePopupContainer.className = "allinfo-msg";
-
-    connectionInfo.onclick = function () {
-      console.log("clicked");
-      //?----sending "loadMsg" request
-      if (messagePopupContainer.style.display != "block") {
-        const receiver = userName,
-          sender = getUser_Nickname();
-        socket.mysocket.send(
-          JSON.stringify({
-            Type: "loadMsg",
-            Payload: {
-              Receiver: receiver,
-              Sender: sender,
-              data: document.cookie,
-            },
-          })
-        );
-      }
-      // Masquer tous les autres messagePopups
-      const allMessagePopups = document.querySelectorAll(
-        '[id^="messagePopup-"]')
-        allMessagePopups.forEach((popup) => {
-          (popup.parentElement).style.display = "none";
-          console.log("tout les messages",popup.parentElement)
-        });
-
-      //?----end of "get last 10 messages" request
-      messagePopupContainer.style.display = "block";
-      const userNameSpan = connectionInfo.querySelector(
-        ".connected-name, .isnotconnected-name"
-      );
-      if (userNameSpan) {
-        const userName = userNameSpan.textContent;
-        const messagePopup = document.getElementById(
-          `messagePopup-${userName}`
-        );
-        if (messagePopup) {
-          // Masquer tous les autres messagePopups
-          // const allMessagePopups = document.querySelectorAll(
-          //   '[id^="messagePopup-"]'
-          // );
-          // allMessagePopups.forEach((popup) => {
-          //   popup.style.display = "none";
-          // });
-
-          // Afficher le messagePopup correspondant au nom cliqué
-          messagePopup.style.display = "block";
-        }
-      }
-    };
-
-    const profileImage = document.createElement("img");
-    profileImage.src = profileImageSrc;
-    profileImage.alt = userName;
-
-    const connectedName = document.createElement("span");
-    connectedName.className = isConnected
-      ? "connected-name"
-      : "isnotconnected-name";
-    connectedName.textContent = userName;
-
-    const connectionIndicator = document.createElement("span");
-    connectionIndicator.className = "connection-indicator";
+    messagePopupContainer.id = "chatbox";
 
     const messagePopup = document.createElement("div");
     messagePopup.className = "message-popup";
-    messagePopup.id = messagePopupId;
+    messagePopup.id = "messagePopup";
 
-    // Message popup content
-    const messagePopupContent = document.createElement("div");
-    messagePopupContent.className = "message-popup-content";
-
-    const messagePopupHeader = document.createElement("div");
-    messagePopupHeader.className = "message-popup-header";
-
+    //close popup
     const closeButton = document.createElement("span");
     closeButton.className = "close-button";
     closeButton.innerHTML = "&times;";
@@ -196,25 +109,33 @@ export class RightSidebarSection {
       console.log("on close");
       const nickname = this.nextSibling.textContent;
       console.log("nickname retrieved ", nickname);
-      document.getElementById(`messagePopupBody-${nickname}`).innerHTML = "";
+      document.getElementById(`messagePopupBody`).innerHTML = "";
       console.log("pop up body cleaned");
       let tek = this.parentElement.parentElement.parentElement.parentElement;
       0;
       console.log("retrieved ", tek);
       //messagePopupContainer.style.display = "none";
       //  console.log(document.getElementById(tek).style.display);
-      tek.style.display = "none";
-      tek.style.backgroundColor = "red";
-      tek.style.cssText = "display: none !important;";
+      document.getElementById("chatbox").style.display = "none";
     };
+    //body
+    // Message popup content
+    const messagePopupContent = document.createElement("div");
+    messagePopupContent.className = "message-popup-content";
+
+    const messagePopupHeader = document.createElement("div");
+    messagePopupHeader.className = "message-popup-header";
 
     const popupTitle = document.createElement("h3");
-    popupTitle.textContent = userName;
+    popupTitle.textContent = "discussion";
+    popupTitle.id = "title-name";
+    this.popupTitle = popupTitle;
 
     const messagePopupBody = document.createElement("div");
     messagePopupBody.className = "message-popup-body";
+    this.messagePopupBody = messagePopupBody;
     //?------ throttling load more msg -----
-    messagePopupBody.id = `messagePopupBody-${userName}`;
+    messagePopupBody.id = `messagePopupBody`;
     const throttledRequest = throttle(() => {
       const time = messagePopupBody.firstElementChild.dataset.id;
       console.log("last message in box sent at : ", time);
@@ -246,7 +167,7 @@ export class RightSidebarSection {
     messagePopupFooter.className = "message-popup-footer";
 
     const messageInput = document.createElement("textarea");
-    messageInput.id = `newMessageInput-${userName}`;
+    messageInput.id = `newMessageInput`;
     messageInput.placeholder = "Write your message";
 
     const sendButton = document.createElement("button");
@@ -255,9 +176,9 @@ export class RightSidebarSection {
       const messageRetrieved = messageInput.value.replace("\n", " ").trim();
       if (messageRetrieved != "") {
         //?------sending new message request to back
-        const receiver = userName,
+        const receiver = document.getElementById("title-name").textContent,
           sender = getUser_Nickname(),
-          message = com.getMessageInput(userName);
+          message = com.getMessageInput();
         socket.mysocket.send(
           JSON.stringify({
             Type: "newMsg",
@@ -274,7 +195,6 @@ export class RightSidebarSection {
       }
       //?------end of new message request to back
     };
-
     messagePopupHeader.appendChild(closeButton);
     messagePopupHeader.appendChild(popupTitle);
 
@@ -287,6 +207,75 @@ export class RightSidebarSection {
 
     messagePopup.appendChild(messagePopupContent);
     messagePopupContainer.appendChild(messagePopup);
+    this.mainContainer.appendChild(messagePopupContainer);
+  }
+  openChat(username) {
+    const chatBox = document.getElementById("chatbox");
+    if ((chatBox.style.display = "block")) {
+      this.messagePopupBody.innerHTML = "";
+      this.popupTitle.textContent = username;
+    } else {
+      chatBox.style.display = "block";
+      this.popupTitle.textContent = username;
+    }
+  }
+  createUser(
+    parentElement,
+    userName,
+    profileImageSrc,
+    messagePopupId,
+    isConnected
+  ) {
+    const userContainer = document.createElement("div");
+
+    userContainer.className = isConnected
+      ? "user-connected"
+      : "user-disconnected";
+
+    const isConnectedSpan = document.createElement("span");
+    isConnectedSpan.className = isConnected
+      ? "is-connected"
+      : "is-notconnected";
+
+    const connectionInfo = document.createElement("div");
+    connectionInfo.className = isConnected
+      ? "connection-info"
+      : "isnotconnected-info";
+
+    connectionInfo.onclick = function () {
+      console.log("clicked");
+      //?----sending "loadMsg" request
+      if (document.getElementById("title-name") != userName) {
+        const receiver = userName,
+          sender = getUser_Nickname();
+        socket.mysocket.send(
+          JSON.stringify({
+            Type: "loadMsg",
+            Payload: {
+              Receiver: receiver,
+              Sender: sender,
+              data: document.cookie,
+            },
+          })
+        );
+      }
+      rightSidebar.openChat(userName);
+
+      //?----end of "get last 10 messages" request
+    };
+
+    const profileImage = document.createElement("img");
+    profileImage.src = profileImageSrc;
+    profileImage.alt = userName;
+
+    const connectedName = document.createElement("span");
+    connectedName.className = isConnected
+      ? "connected-name"
+      : "isnotconnected-name";
+    connectedName.textContent = userName;
+
+    const connectionIndicator = document.createElement("span");
+    connectionIndicator.className = "connection-indicator";
 
     // ... (Ajoutez ici le code pour générer le contenu de la fenêtre contextuelle des messages)
 
@@ -296,7 +285,6 @@ export class RightSidebarSection {
     connectionInfo.appendChild(connectionIndicator);
 
     userContainer.appendChild(connectionInfo);
-    userContainer.appendChild(messagePopupContainer);
 
     let modified = document.createElement("div");
     modified.className = isConnected ? "connected-users" : "disconnected-users";

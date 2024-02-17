@@ -1,8 +1,8 @@
 import { socket } from "../socket/initForum.mjs";
 import { getUserId, getUser_Nickname } from "../utils/getUserId.mjs";
 
-export function getMessageInput(userName) {
-  const messageInput = document.getElementById(`newMessageInput-${userName}`);
+export function getMessageInput() {
+  const messageInput = document.getElementById(`newMessageInput`);
   const messageText = messageInput.value;
   return messageText;
 }
@@ -12,7 +12,7 @@ export function sendMessage(userName, receiver, sender, message, time, idMess) {
   console.log("received username ", userName);
   console.log("chat header ", usernameHeader);
   const messageInput = document.getElementById(
-    `newMessageInput-${usernameHeader}`
+    `newMessageInput`
   );
   console.log("message input => ", messageInput);
 
@@ -33,11 +33,8 @@ export function sendMessage(userName, receiver, sender, message, time, idMess) {
 
   // Ajouter le nouveau message à l'historique des messages
 
-  const messageHistoryContainer = document.getElementById(
-    `messagePopupBody-${usernameHeader}`
-  );
+  const messageHistoryContainer = document.getElementById("messagePopupBody");
   messageHistoryContainer.appendChild(messageItem);
-
   messageInput.value = "";
 }
 
@@ -46,9 +43,7 @@ export function addMessage(sender, receiver, message, date, idMess) {
     `adding message sender : ${sender}, receiver: ${receiver}, content: "${message}", date: "${date}"`
   );
   const username = getUser_Nickname() == sender ? receiver : "@" + sender;
-  const messageHistoryContainer = document.getElementById(
-    `messagePopupBody-${username}`
-  );
+  const messageHistoryContainer = document.getElementById("messagePopupBody");
   // Créer un nouvel élément de message
   const messageItem = document.createElement("div");
   messageItem.className = "message-item";
@@ -77,10 +72,7 @@ export function addMessage(sender, receiver, message, date, idMess) {
 
 export function isChatBox_opened(chatUsername) {
   console.log("is chat box opened with " + chatUsername + " ?");
-  const messageHistoryContainer = document.getElementById(
-      `messagePopup-${chatUsername.replace("@", "")}`
-    ),
-    parent = messageHistoryContainer.parentElement;
+  const parent = document.getElementById("chatbox")
   console.log("in chatbox check\n parent => ", parent);
   if (parent.style.display == "none") {
     return false;
