@@ -40,6 +40,7 @@ func HandleLoadMsg(requestPayload map[string]interface{}, database db.Db, reques
 				Display:    true,
 			}
 		}
+		msg.MessageText = tools.DecodeMsg(msg.MessageText)
 
 		fmt.Println("--------scanned----------")
 		fmt.Println("message id => ", msg.Id)
