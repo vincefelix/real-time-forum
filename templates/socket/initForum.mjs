@@ -270,7 +270,6 @@ socket.mysocket.onmessage = (e) => {
         console.log(chatUsername);
         com.sendMessage(
           chatUsername,
-          receiver.replace("@", ""),
           sender,
           message,
           date,

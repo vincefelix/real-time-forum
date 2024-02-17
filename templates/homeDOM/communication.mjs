@@ -6,14 +6,12 @@ export function getMessageInput() {
   const messageText = messageInput.value;
   return messageText;
 }
-export function sendMessage(userName, receiver, sender, message, time, idMess) {
+export function sendMessage(userName, sender, message, time, idMess) {
   // Récupérer le contenu du champ de saisie
   let usernameHeader = userName.includes("@") ? userName : "@" + userName;
   console.log("received username ", userName);
   console.log("chat header ", usernameHeader);
-  const messageInput = document.getElementById(
-    `newMessageInput`
-  );
+  const messageInput = document.getElementById(`newMessageInput`);
   console.log("message input => ", messageInput);
 
   // Créer un nouvel élément de message
@@ -35,7 +33,10 @@ export function sendMessage(userName, receiver, sender, message, time, idMess) {
 
   const messageHistoryContainer = document.getElementById("messagePopupBody");
   messageHistoryContainer.appendChild(messageItem);
-  messageInput.value = "";
+  console.log("messUser => ", messUser);
+  if (messUser == "moi") {
+    messageInput.value = "";
+  }
 }
 
 export function addMessage(sender, receiver, message, date, idMess) {
@@ -72,7 +73,7 @@ export function addMessage(sender, receiver, message, date, idMess) {
 
 export function isChatBox_opened(chatUsername) {
   console.log("is chat box opened with " + chatUsername + " ?");
-  const parent = document.getElementById("chatbox")
+  const parent = document.getElementById("chatbox");
   console.log("in chatbox check\n parent => ", parent);
   if (parent.style.display == "none") {
     return false;
@@ -99,44 +100,7 @@ export function addComment() {
   };
   console.log("comment sent => ", comment);
   socket.mysocket.send(JSON.stringify(comment));
-  //mainContent.createComment(addedcommentid, "test", "", "", commentvalue);
 }
-
-// export function showConnectedMessages(userName) {
-//   // Masquer toutes les boîtes de dialogue des messages
-//   document.querySelectorAll(".message-popup").forEach(function (popup) {
-//     popup.style.display = "none";
-//   });
-
-//   // Afficher la boîte de dialogue des messages pour l'utilisateur spécifique
-//   var popupId = "messagePopup-" + userName;
-//   var popup = document.getElementById(popupId);
-//   if (popup) {
-//     showAllInfoMsg();
-//     popup.style.display = "block";
-//   }
-// }
-
-// export function showAllInfoMsg() {
-//   console.log("dokhna");
-//   document.querySelectorAll(".allinfo-msg").forEach(function (allinfoMsg) {
-//     allinfoMsg.style.display = "block";
-//   });
-// }
-
-// export function toggleComments() {
-//   const commentsSection = document.getElementById("commentsSection");
-//   const newCommentForm = document.getElementById("newCommentForm");
-
-//   // Toggle the 'active' class to show/hide comments section and new comment form
-//   commentsSection.classList.toggle("active");
-//   newCommentForm.classList.toggle("active");
-//   // Appeler la fonction pour chaque post individuellement
-//   //const feedPosts = document.querySelectorAll('.feedpost');
-//   //feedPosts.forEach(postContainer => {
-//   //   handleLikesAndDislikes(postContainer);
-//   // });
-// }
 
 // --------------------------------categoriesadded---------
 
