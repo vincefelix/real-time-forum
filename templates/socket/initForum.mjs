@@ -272,6 +272,7 @@ socket.mysocket.onmessage = (e) => {
         com.sendMessage(chatUsername, sender, message, date, idMess);
       } else {
         console.log("chatbox closed");
+        //! message notifications
       }
       break;
     //! an error occured
