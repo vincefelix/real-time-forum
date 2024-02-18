@@ -60,6 +60,7 @@ socket.mysocket.onmessage = (e) => {
     //! invalid session from cookies or session expired
     case "socket-open-invalid-session":
       localStorage.removeItem("jwtToken");
+      if (document.cookie) deleteCookie("vmSession");
       if (document.getElementById("container")) {
         document.getElementById("container").innerHTML = "";
       } else {
@@ -268,13 +269,7 @@ socket.mysocket.onmessage = (e) => {
       if (com.isChatBox_opened(chatUsername)) {
         console.log("chatbox opened");
         console.log(chatUsername);
-        com.sendMessage(
-          chatUsername,
-          sender,
-          message,
-          date,
-          idMess
-        );
+        com.sendMessage(chatUsername, sender, message, date, idMess);
       } else {
         console.log("chatbox closed");
       }

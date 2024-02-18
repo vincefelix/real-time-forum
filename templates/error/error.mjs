@@ -39,12 +39,13 @@ export class error {
     }
   }
 
-  redirect() {
+  redirect(location = "home") {
+    const where = location == "home" ? document.cookie : location;
     this.goBack.addEventListener("click", () => {
       socket.mysocket.send(
         JSON.stringify({
           type: "checkCookie",
-          payload: { data: document.cookie },
+          payload: { data: where },
         })
       );
     });
