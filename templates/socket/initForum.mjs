@@ -52,9 +52,16 @@ socket.mysocket.onmessage = (e) => {
   const dataObject = JSON.parse(e.data);
   switch (dataObject.Type) {
     case "socket-open-with-session":
-      console.log("in  the open with session");
-      console.log("received user list =>", dataObject.userList);
-      launchHome(dataObject.posts, dataObject.userList);
+      if (window.location.pathname != "/") {
+        const hdleError = new error(404, "Sorry...<br>page not found", "home");
+        hdleError.display();
+        hdleError.redirect("home");
+        console.log(`${window.location.pathname} page not found`);
+      } else {
+        console.log("in  the open with session");
+        console.log("received user list =>", dataObject.userList);
+        launchHome(dataObject.posts, dataObject.userList);
+      }
       break;
     //--------------------------------------------------
     //! invalid session from cookies or session expired
