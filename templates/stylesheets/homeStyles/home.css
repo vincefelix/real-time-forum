@@ -114,8 +114,8 @@ nav .others-page ul {
 
 .user-nav .user-nav-info .presence-status {
   display: flex;
-  margin-bottom: 10%;
-  margin-top: 60%;
+  margin-bottom:2.5vh;
+  margin-top: 1.8vw;
   width: 1.2vw;
   height: 2vh;
   border-radius: 50%;
@@ -128,7 +128,7 @@ nav .others-page ul {
 
 .user-nav-info {
   span {
-    margin-left: -26px;
+    margin-left: -20px;
   }
 }
 
@@ -145,7 +145,7 @@ nav .logo .tooglerleftimg {
   font-weight: 700;
   display: flex;
   margin-top: -55%;
-  margin-left: 15%;
+  margin-left: 55%;
   color: var(--blacky);
 }
 
@@ -153,7 +153,7 @@ nav .user_nav-img {
   display: flex;
   position: absolute;
   top: 12%;
-  left: 98%;
+  left: 95%;
   img {
     border-radius: 25px;
     opacity: 90%;
@@ -305,10 +305,7 @@ nav .user_nav-img {
 
     transform: scale(1.1);
   }
-  font-family: "Franklin Gothic Medium",
-  "Arial Narrow",
-  Arial,
-  sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   margin-bottom: 8px;
 }
 
@@ -414,8 +411,7 @@ nav .user_nav-img {
   width: 80%;
   height: auto;
   background: linear-gradient(225deg, #fafaf8, #fafcffc5);
-  box-shadow:  -10px 10px 20px #aeadad,
-             10px -10px 20px #d9d8d8;
+  box-shadow: -10px 10px 20px #aeadad, 10px -10px 20px #d9d8d8;
   border-top-left-radius: 40px;
   border-bottom-right-radius: 40px;
   overflow: hidden;
@@ -922,14 +918,14 @@ nav .user_nav-img {
   }
 }
 
-@keyframes scrollLeftSide {
+/* @keyframes scrollLeftSide {
   from {
     width: 1%;
   }
   to {
     width: 100%;
   }
-}
+} */
 
 .profile-toogle-overlay {
   width: 100%;
@@ -1078,6 +1074,10 @@ nav .user_nav-img {
   option {
     width: 8vw;
   }
+  .user-nav-info
+span {
+    margin-left: 2px;
+}
 }
 
 @media only screen and (max-width: 768px) {
@@ -1184,14 +1184,18 @@ nav .user_nav-img {
     width: 15%;
   }
 
-  nav .user-nav-info .presence-status {
-    margin-top: 15%;
-  }
-
+  /* nav .user-nav-info .presence-status {
+    margin-top: 35%;
+    margin-bottom: 5%;
+  } */
   .user-nav .user-nav-info .username {
-    margin-top: -28%;
+    margin-top: -51%;
+    margin-left: 30%;
   }
-
+  .user-nav-info
+  span {
+      margin-left: -30px;
+  }
   .feedpost {
     overflow: hidden;
   }
