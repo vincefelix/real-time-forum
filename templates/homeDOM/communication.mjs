@@ -9,10 +9,9 @@ export function getMessageInput() {
 export function sendMessage(userName, sender, message, time, idMess) {
   // Récupérer le contenu du champ de saisie
   let usernameHeader = userName.includes("@") ? userName : "@" + userName;
-  console.log("received username ", userName);
-  console.log("chat header ", usernameHeader);
+  // console.log("received username ", userName);
+  // console.log("chat header ", usernameHeader);
   const messageInput = document.getElementById(`newMessageInput`);
-  console.log("message input => ", messageInput);
 
   // Créer un nouvel élément de message
   const messageItem = document.createElement("div");
@@ -29,12 +28,25 @@ export function sendMessage(userName, sender, message, time, idMess) {
   messageItem.appendChild(senderName);
   messageItem.appendChild(messageTextElement);
 
-  // Ajouter le nouveau message à l'historique des messages
-
   const messageHistoryContainer = document.getElementById("messagePopupBody");
+  // Ajouter le nouveau message à l'historique des messages
+  const ST = messageHistoryContainer.scrollTop,
+    SH = messageHistoryContainer.scrollHeight;
+  // console.log("sh bf => ", SH);
+  // console.log("st bf=> ", ST);
   messageHistoryContainer.appendChild(messageItem);
+  //?-------deciding wether moving the scrollstate to the bottom or not
+  // console.log("sh aft => ", SH);
+  // console.log("st aft => ", ST);
+  // console.log("res => ", SH - ST);
+  if (SH - ST <= 182)
+    // console.log("🟢 in new scroll ", SH - ST),
+    messageHistoryContainer.scrollTop = messageHistoryContainer.scrollHeight;
+
   console.log("messUser => ", messUser);
   if (messUser == "moi") {
+    if (SH - ST > 182)
+      messageHistoryContainer.scrollTop = messageHistoryContainer.scrollHeight;
     messageInput.value = "";
   }
 }
@@ -74,7 +86,7 @@ export function addMessage(sender, receiver, message, date, idMess) {
 export function isChatBox_opened(chatUsername) {
   console.log("is chat box opened with " + chatUsername + " ?");
   const parent = document.getElementById("chatbox");
-  console.log("in chatbox check\n parent => ", parent);
+  // console.log("in chatbox check\n parent => ", parent);
   if (parent.style.display == "none") {
     return false;
   } else if (parent.style.display == "block") {

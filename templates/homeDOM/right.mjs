@@ -154,7 +154,8 @@ export class RightSidebarSection {
     }, 2000);
     //?------ end of throttling load more msg -----
     messagePopupBody.addEventListener("scroll", () => {
-      console.log("scrolltop ", messagePopupBody.scrollTop);
+      //console.log("scrolltop ", messagePopupBody.scrollTop);
+      console.log("scrollheight ", messagePopupBody.scrollHeight);
       if (messagePopupBody.scrollTop == 0) {
         console.log("catched");
         throttledRequest();

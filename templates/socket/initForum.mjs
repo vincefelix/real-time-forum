@@ -215,6 +215,8 @@ socket.mysocket.onmessage = (e) => {
       const msg = dataObject.Payload;
       console.log("loaded msg => ", msg);
       if (msg != null) {
+        const popupBody = document.getElementById("messagePopupBody"),
+          prevSH = popupBody.scrollHeight;
         let count = 0;
         while (count < msg.length) {
           const sms = msg[count];
@@ -226,6 +228,8 @@ socket.mysocket.onmessage = (e) => {
               sms.Date,
               sms.Id
             );
+            const currentSH = popupBody.scrollHeight;
+            popupBody.scrollTop = currentSH - prevSH;
           }, 250 * count);
           count++;
         }
@@ -236,10 +240,10 @@ socket.mysocket.onmessage = (e) => {
       const moreMsg = dataObject.Payload;
       console.log("loaded msg => ", moreMsg);
       if (moreMsg != null) {
-        let count = 0;
-        while (count < moreMsg.length) {
-          const sms = moreMsg[count];
-          setTimeout(() => {
+        const popupBody = document.getElementById("messagePopupBody"),
+          prevSH = popupBody.scrollHeight;
+        setTimeout(() => {
+          moreMsg.map((sms) => {
             com.addMessage(
               sms.Sender,
               sms.Receiver,
@@ -247,9 +251,10 @@ socket.mysocket.onmessage = (e) => {
               sms.Date,
               sms.Id
             );
-          }, 250 * count);
-          count++;
-        }
+          });
+          const currentSH = popupBody.scrollHeight;
+          popupBody.scrollTop = currentSH - prevSH;
+        }, 500);
       } else {
         console.log("no more messages to load...");
       }
@@ -268,7 +273,6 @@ socket.mysocket.onmessage = (e) => {
         getUser_Nickname() == receiver.replace("@", "") ? sender : receiver;
       if (com.isChatBox_opened(chatUsername)) {
         console.log("chatbox opened");
-        console.log(chatUsername);
         com.sendMessage(chatUsername, sender, message, date, idMess);
       } else {
         console.log("chatbox closed");
