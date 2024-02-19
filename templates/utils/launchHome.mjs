@@ -8,7 +8,7 @@ export const launchHome = (posts, userList) => {
   try {
     userInfo = decode(userInfo);
   } catch (err) {
-    const hdleError = new error(404, "Oops JWT is missing...!", "home");
+    const hdleError = new error(400, "Oops JWT is missing...!", "home");
     hdleError.display();
     hdleError.redirect("cookie=empty");
     console.log(`Error decoding token: ${err}`);
