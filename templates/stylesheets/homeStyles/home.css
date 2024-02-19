@@ -1299,7 +1299,7 @@ nav .user_nav-img {
     text-shadow: 0px 0px 4px rgb(184, 153, 184);
   }
   div {
-    text-indent: 5%;
+    padding-left: 5%;
     color: black;
     font-weight: 600;
   }
@@ -1320,7 +1320,7 @@ nav .user_nav-img {
     text-shadow: 0px 0px 4px rgb(32, 21, 32);
   }
   div {
-    text-indent: 5%;
+    padding-left: 5%;
     color: rgba(0, 0, 0, 0.87);
   }
 }
