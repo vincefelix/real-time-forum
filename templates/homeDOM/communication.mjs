@@ -34,6 +34,11 @@ export function sendMessage(userName, sender, message, time, idMess) {
     SH = messageHistoryContainer.scrollHeight;
   // console.log("sh bf => ", SH);
   // console.log("st bf=> ", ST);
+  if (messUser == "moi") {
+    messageItem.classList.add("me-msg");
+  } else {
+    messageItem.classList.add("other-msg");
+  }
   messageHistoryContainer.appendChild(messageItem);
   //?-------deciding wether moving the scrollstate to the bottom or not
   // console.log("sh aft => ", SH);
@@ -73,7 +78,11 @@ export function addMessage(sender, receiver, message, date, idMess) {
 
   const messageTextElement = document.createElement("div");
   messageTextElement.textContent = message;
-
+  if (getUser_Nickname() == sender) {
+    messageItem.classList.add("me-msg");
+  } else {
+    messageItem.classList.add("other-msg");
+  }
   messageItem.appendChild(senderName);
   messageItem.appendChild(messageTextElement);
   messageHistoryContainer.insertBefore(

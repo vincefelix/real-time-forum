@@ -114,7 +114,7 @@ nav .others-page ul {
 
 .user-nav .user-nav-info .presence-status {
   display: flex;
-  margin-bottom:2.5vh;
+  margin-bottom: 2.5vh;
   margin-top: 1.8vw;
   width: 1.2vw;
   height: 2vh;
@@ -1074,10 +1074,9 @@ nav .user_nav-img {
   option {
     width: 8vw;
   }
-  .user-nav-info
-span {
+  .user-nav-info span {
     margin-left: 2px;
-}
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -1192,9 +1191,8 @@ span {
     margin-top: -51%;
     margin-left: 30%;
   }
-  .user-nav-info
-  span {
-      margin-left: -30px;
+  .user-nav-info span {
+    margin-left: -30px;
   }
   .feedpost {
     overflow: hidden;
@@ -1286,8 +1284,40 @@ span {
   max-height: 300px;
   /* overflow-y: scroll; */
 }
-.message-item {
+/*! "msg"*/
+.other-msg {
+  margin: 8px 0 0px 0%;
+  width: fit-content;
+  background-color: rgba(255, 255, 255, 0.616);
+  padding: 2% 2% 5% 4%;
+  border-radius: 10px;
+  span {
+    font-weight: bolder;
+    color: rgba(34, 34, 34, 0.89);
+    text-shadow: 0px 0px 4px rgb(184, 153, 184);
+  }
+  div {
+    text-indent: 5%;
+    color: black;
+    font-weight: 600;
+  }
+}
+/*!"moi msg"*/
+.me-msg {
   margin: 8px 0 0px 0;
+  width: fit-content;
+  background-color: rgba(245, 222, 179, 0.486);
+  padding: 2% 5% 5% 4%;
+  border-radius: 10px;
+  span {
+    font-weight: bolder;
+    color: rgba(255, 253, 253, 0.678);
+    text-shadow: 0px 0px 4px rgb(32, 21, 32);
+  }
+  div {
+    text-indent: 5%;
+    color: rgba(0, 0, 0, 0.87);
+  }
 }
 
 .message-popup-header {
