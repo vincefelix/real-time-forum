@@ -1291,6 +1291,8 @@ nav .user_nav-img {
   background-color: rgba(255, 255, 255, 0.616);
   padding: 2% 2% 5% 4%;
   border-radius: 10px;
+  animation: show 500ms ease-in-out;
+  transition: all 500ms;
   span {
     font-weight: bolder;
     color: rgba(34, 34, 34, 0.89);
@@ -1309,6 +1311,9 @@ nav .user_nav-img {
   background-color: rgba(245, 222, 179, 0.486);
   padding: 2% 5% 5% 4%;
   border-radius: 10px;
+  animation: show 500ms ease-in-out;
+  transition: all 500ms;
+
   span {
     font-weight: bolder;
     color: rgba(255, 253, 253, 0.678);
@@ -1320,6 +1325,17 @@ nav .user_nav-img {
   }
 }
 
+@keyframes show {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 .message-popup-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #ccc;
