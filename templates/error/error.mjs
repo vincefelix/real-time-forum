@@ -42,6 +42,7 @@ export class error {
   redirect(location = "home") {
     const where = location == "home" ? document.cookie : location;
     this.goBack.addEventListener("click", () => {
+      history.pushState({}, "", "/");
       socket.mysocket.send(
         JSON.stringify({
           type: "checkCookie",
