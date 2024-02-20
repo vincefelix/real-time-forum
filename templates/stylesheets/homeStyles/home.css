@@ -1293,6 +1293,13 @@ nav .user_nav-img {
   border-radius: 10px;
   animation: show 500ms ease-in-out;
   transition: all 500ms;
+  justify-self: left;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 14px;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  margin-right: 4%;
+
   span {
     font-weight: bolder;
     color: rgba(34, 34, 34, 0.89);
@@ -1313,7 +1320,12 @@ nav .user_nav-img {
   border-radius: 10px;
   animation: show 500ms ease-in-out;
   transition: all 500ms;
-
+  justify-self: right;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 11px;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 10px;
+  margin-right: 4%;
   span {
     font-weight: bolder;
     color: rgba(255, 253, 253, 0.678);
@@ -1350,6 +1362,7 @@ nav .user_nav-img {
   max-height: 180px;
   padding: 5px 0 6px 11px;
   overflow-y: auto;
+  display: grid;
 }
 
 .message-popup-footer {
