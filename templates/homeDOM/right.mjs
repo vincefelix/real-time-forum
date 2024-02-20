@@ -225,7 +225,8 @@ export class RightSidebarSection {
     userName,
     profileImageSrc,
     messagePopupId,
-    isConnected
+    isConnected,
+    Unread
   ) {
     const userContainer = document.createElement("div");
 
@@ -284,7 +285,7 @@ export class RightSidebarSection {
     connectionInfo.appendChild(profileImage);
     connectionInfo.appendChild(connectedName);
     connectionInfo.appendChild(connectionIndicator);
-
+    if (Unread > 0) connectionInfo.style.backgroundColor = "red";
     userContainer.appendChild(connectionInfo);
 
     let modified = document.createElement("div");

@@ -15,7 +15,7 @@ export const initHome = (props = {}, posts, userList) => {
   // console.log("users in database => ", userList);
   // console.log("typeof posts to display ", typeof posts);
   console.log("nav ", props);
-  navigation.init("@"+props.payload.NickName, props.payload.Profil);
+  navigation.init("@" + props.payload.NickName, props.payload.Profil);
   profileToggle.init();
   mainContent.init();
   rightSidebar.init();
@@ -49,7 +49,7 @@ export const initHome = (props = {}, posts, userList) => {
       }
     }
   }
-  userList = sort(userList);
+  //userList = sort(userList);
   if (userList != null) {
     const sessionId = getUserId();
     console.log("actual conn => ", sessionId);
@@ -67,7 +67,8 @@ export const initHome = (props = {}, posts, userList) => {
         "@" + user.Username,
         user.Profil,
         `messagePopup-${user.Username}`,
-        state
+        state,
+        user.Unread
       );
     }
   }

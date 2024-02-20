@@ -122,7 +122,7 @@ socket.mysocket.onmessage = (e) => {
       let userSideOffline = document.getElementById("disconnected-container");
       userSideOffline.innerHTML = "";
       userSideOnline.innerHTML = "";
-      let userList = sort(dataObject.Payload);
+      let userList = dataObject.Payload;
       if (userList != null) {
         const sessionId = getUserId();
         for (const user of userList) {
@@ -138,7 +138,8 @@ socket.mysocket.onmessage = (e) => {
             "@" + user.Username,
             user.Profil,
             `messagePopup-${user.Username}`,
-            state
+            state,
+            user.Unread
           );
         }
       }
@@ -154,7 +155,7 @@ socket.mysocket.onmessage = (e) => {
       );
       userSideOfflineOff.innerHTML = "";
       userSideOnlineOff.innerHTML = "";
-      let userListoff = sort(dataObject.Payload);
+      let userListoff = dataObject.Payload;
       if (userListoff != null) {
         const sessionId = getUserId();
         for (const user of userListoff) {
@@ -170,7 +171,8 @@ socket.mysocket.onmessage = (e) => {
             "@" + user.Username,
             user.Profil,
             `messagePopup-${user.Username}`,
-            state
+            state,
+            user.Unread
           );
         }
       }
@@ -267,6 +269,33 @@ socket.mysocket.onmessage = (e) => {
       }
       break;
     case "newMsg":
+      //?---- changing list order
+      let userSideOnlineN = document.getElementById("connected-container");
+      let userSideOfflineN = document.getElementById("disconnected-container");
+      userSideOfflineN.innerHTML = "";
+      userSideOnlineN.innerHTML = "";
+      let userListN = dataObject.userList;
+      if (userListN != null) {
+        const sessionId = getUserId();
+        for (const user of userListN) {
+          if (user.Id == sessionId) continue; //! not displaying the session owner
+          let side =
+            user.Online == true
+              ? rightSidebar.connectedUsers
+              : rightSidebar.disconnectedUsers;
+          let state = user.Online == true ? true : false;
+          //------------------------------
+          rightSidebar.createUser(
+            side,
+            "@" + user.Username,
+            user.Profil,
+            `messagePopup-${user.Username}`,
+            state,
+            user.Unread
+          );
+        }
+      }
+      //?
       console.log("in addMessage...");
       const receiver = dataObject.Payload.Receiver;
       const sender = dataObject.Payload.Sender;
