@@ -1,6 +1,7 @@
 package Socket
 
 import (
+	"fmt"
 	db "forum/Database"
 	"log"
 )
@@ -13,13 +14,14 @@ func HandleOnlineUser(database db.Db) {
 			UserTab = UpdateConn(user, UserTab)
 			serverResponse := make(map[string]interface{})
 			serverResponse["Type"] = "online"
-			clients, ok, err := GetUsers_State(database)
+			clients, ok, err := GetUsers_State(user.Username, database)
+			fmt.Println("got clients => ", clients)
 			if !ok {
 				log.Println("❌ Error getting users state in habldeOnlineUser")
 				user.Con.WriteJSON(err)
 			}
 			serverResponse["Payload"] = clients
-			user.NotifyOthers(serverResponse)
+			user.NotifyOthers(database)
 
 		case disconnect := <-IsDisconnected:
 			log.Printf("user: %v is disconnected\n", disconnect.Username)
@@ -39,13 +41,13 @@ func HandleOnlineUser(database db.Db) {
 
 			serverResponse := make(map[string]interface{})
 			serverResponse["Type"] = "offline"
-			clients, ok, err := GetUsers_State(database)
+			clients, ok, err := GetUsers_State(disconnect.Username, database)
 			if !ok {
 				log.Println("❌ Error getting users state in habldeOnlineUser")
 				disconnect.Con.WriteJSON(err)
 			}
 			serverResponse["Payload"] = clients
-			disconnect.NotifyOthers(serverResponse)
+			disconnect.NotifyOthers(database)
 		}
 	}
 }

@@ -40,7 +40,7 @@ func (database *Db) LoadMessage(sender string, receiver string, IdMess string, f
 	// AND timestamp < (SELECT timestamp FROM Messages WHERE
 	// LIMIT 10;`, sender, receiver, sender, receiver, sender, receiver, sender, receiver)
 	// 	} else {
-	_, err := database.Doc.Exec("UPDATE Messages SET isread = TRUE WHERE sender = ? AND receiver = ? AND isread = FALSE", sender, receiver)
+	_, err := database.Doc.Exec("UPDATE Messages SET isread = TRUE WHERE sender = ? AND receiver = ? AND isread = FALSE", receiver[1:], "@"+sender)
 	if err != nil {
 		fmt.Println("❌ cannot update messages in database")
 		return &sql.Rows{}, err

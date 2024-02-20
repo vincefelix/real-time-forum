@@ -9,14 +9,14 @@ import (
 	"log"
 )
 
-func GetUsers_State(database db.Db) ([]UserConn, bool, Struct.Errormessage) {
-	Users, ok := auth.GetAllUSers(database.Doc)
+func GetUsers_State(SessionUsername string, database db.Db) ([]UserConn, bool, Struct.Errormessage) {
+	Users, ok := auth.GetAllUSers(database, SessionUsername)
 	fmt.Println("------------ fetched users ----------")
 	for i := range Users {
 		fmt.Println(Users[i])
 	}
 
-	if !ok {
+	if ok != nil {
 		log.Println("❌ error while  getting users from database")
 		return nil,
 			false,
@@ -27,7 +27,7 @@ func GetUsers_State(database db.Db) ([]UserConn, bool, Struct.Errormessage) {
 	for _, user := range Users {
 		for _, connectedUser := range UserTab {
 			if connectedUser.Id == user.Id {
-				Clients = append(Clients, UserConn{Username: user.Username, Profil: user.Pp, Online: true, Id: user.Id})
+				Clients = append(Clients, UserConn{Username: user.Username, Profil: user.Pp, Online: true, Id: user.Id, Unread: user.UnreadMessage})
 				break
 			}
 		}
@@ -35,10 +35,10 @@ func GetUsers_State(database db.Db) ([]UserConn, bool, Struct.Errormessage) {
 	var Clients2 []UserConn
 	for _, user := range Users {
 		if !ConnectedUser(user, Clients) {
-			Clients2 = append(Clients2, UserConn{Username: user.Username, Profil: user.Pp, Online: false, Id: user.Id})
+			Clients2 = append(Clients2, UserConn{Username: user.Username, Profil: user.Pp, Online: false, Id: user.Id, Unread: user.UnreadMessage})
 		}
 	}
-
+fmt.Println("users in here => ", Users)
 	//Clients = removeDuplicateUser(Clients)
 	Clients = append(Clients, Clients2...)
 	fmt.Println("-------- user  list -------")

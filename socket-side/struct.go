@@ -25,6 +25,7 @@ var (
 type UserConn struct {
 	Username string
 	Profil   string
-	Id string
+	Unread   int
+	Id       string
 	Online   bool
 }

@@ -62,7 +62,7 @@ func (c *SocketReader) Read(database db.Db) {
 			c.Con.WriteJSON(err)
 			return
 		}
-		connectedUserList, ok, err := GetUsers_State(database)
+		connectedUserList, ok, err := GetUsers_State(c.Username, database)
 		if !ok {
 			c.Con.WriteJSON(err)
 			return
@@ -120,7 +120,7 @@ func (c *SocketReader) Read(database db.Db) {
 			c.Con.WriteJSON(err)
 			return
 		}
-		connectedUserList, ok, err := GetUsers_State(database)
+		connectedUserList, ok, err := GetUsers_State(c.Username, database)
 		if !ok {
 			c.Con.WriteJSON(err)
 			return
@@ -181,13 +181,21 @@ func (c *SocketReader) Read(database db.Db) {
 			c.Con.WriteJSON(Msg)
 			return
 		}
-		serverResponse, receiver, ok, err := hdle.HandleMessage(requestPayload, database)
+		connectedUserList, ok, err := GetUsers_State(c.Username, database)
 		if !ok {
-			log.Println("error while sending new msg: ", err)
 			c.Con.WriteJSON(err)
 			return
 		}
-		sendToUser(receiver, serverResponse)
+
+		serverResponse, receiver, ok, err := hdle.HandleMessage(requestPayload, database)
+		if !ok {
+			log.Println("❌ error while sending new msg: ", err)
+			c.Con.WriteJSON(err)
+			return
+		}
+		serverResponse["userList"] = connectedUserList
+
+		sendToUser(receiver, serverResponse, database)
 		c.Con.WriteJSON(serverResponse) // send back to the sender
 	case "load_10Msg":
 		log.Println("In load_10Msg...")
