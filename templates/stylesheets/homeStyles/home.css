@@ -1266,10 +1266,10 @@ nav .user_nav-img {
 /* ------------------------------------- */
 .message-popup {
   position: absolute;
-  bottom: 4%;
+  bottom: -7%;
   width: 95%;
   min-width: 130px;
-  right: 4%;
+  right: 52%;
   transform: translate(-50%, -50%);
   background-color: #9e7682e3;
   border: 1px solid #ccc;

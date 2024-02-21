@@ -115,6 +115,8 @@ export class RightSidebarSection {
       console.log("nickname retrieved ", nickname);
       document.getElementById(`messagePopupBody`).innerHTML = "";
       console.log("pop up body cleaned");
+      document.getElementById("newMessageInput").value = "";
+      console.log("textarea cleaned");
       let tek = this.parentElement.parentElement.parentElement.parentElement;
       0;
       console.log("retrieved ", tek);
@@ -266,6 +268,7 @@ export class RightSidebarSection {
             },
           })
         );
+        document.getElementById("newMessageInput").value = "";
         rightSidebar.openChat(userName);
         const nameElement = connectionInfo.querySelector(".connected-name")
           ? connectionInfo.querySelector(".connected-name")
