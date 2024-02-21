@@ -79,7 +79,7 @@ func RegisterUser(data Struct.Register, tab db.Db) (bool, Struct.Errormessage) {
 		}
 		pp := "/static/./assets/boy.gif"
 		if gender == "female" {
-			pp = "/static/./assets/boy.gif"
+			pp = "/static/./assets/fille.gif"
 		}
 		creds := &Struct.Credentials{Name: name, Username: username, Age: age, Gender: gender, Email: email, Password: hashpassword, Id: newid.String(), Surname: surname}
 		//save user in database
@@ -112,7 +112,7 @@ func RegisterUser(data Struct.Register, tab db.Db) (bool, Struct.Errormessage) {
 			return false, Struct.Errormessage{Type: "Bad request", Msg: "the Email must be between 10 to 132 characters", StatusCode: 400, Location: "form", Display: false}
 		} else {
 			fmt.Println("❌ password limitation not respected")
-			return false, Struct.Errormessage{Type: "Bad request", Msg: "the password and confirmpassword must be between 8 to 15 characters", StatusCode: 400}
+			return false, Struct.Errormessage{Type: "Bad request", Msg: "the password and confirmpassword must be between 8 to 15 characters", StatusCode: 400, Location: "form"}
 		}
 		// return
 

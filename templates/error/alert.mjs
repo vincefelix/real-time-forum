@@ -5,7 +5,7 @@ export const alertError = (props = {}) => {
     const field = document.getElementsByTagName("form")[0];
     err.id = `error-form-${props.Location}`;
     err.innerHTML = props.Msg;
-    if (!document.getElementById("error-form")) {
+    if (!document.getElementById(`error-form-${props.Location}`)) {
       field.appendChild(err);
     }
     setTimeout(() => {
