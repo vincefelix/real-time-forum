@@ -277,6 +277,14 @@ socket.mysocket.onmessage = (e) => {
       console.log("changing order in newMsg...");
       let userListN = dataObject.userList;
       if (userListN != null) {
+        userListN.forEach((user) => {
+          console.log(
+            "to add : ",
+            user.Username,
+            "sess => ",
+            user.Id == getUserId()
+          );
+        });
         const sessionId = getUserId();
         for (const user of userListN) {
           if (user.Id == sessionId) continue; //! not displaying the session owner

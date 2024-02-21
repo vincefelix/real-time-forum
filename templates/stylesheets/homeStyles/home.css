@@ -1298,6 +1298,8 @@ nav .user_nav-img {
   border-top-right-radius: 14px;
   border-bottom-left-radius: 14px;
   border-bottom-right-radius: 14px;
+  border-left: 5px solid #9e768200;
+  border-bottom: 5px solid #9e768238;
   margin-right: 4%;
 
   span {
@@ -1326,6 +1328,8 @@ nav .user_nav-img {
   border-bottom-left-radius: 14px;
   border-bottom-right-radius: 10px;
   margin-right: 4%;
+  border-right: 5px solid #9e768200;
+  border-bottom: 5px solid #9e768238;
   span {
     font-weight: bolder;
     color: rgba(255, 253, 253, 0.678);
