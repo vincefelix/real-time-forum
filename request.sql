@@ -20,7 +20,8 @@ WHERE (
   (Messages.receiver = concat("@", u.username) and Messages.sender = "aDiallo")
   )
 ORDER by last_messages.last_message_date DESC;
-	
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
 SELECT DISTINCT id_user, username, pp
 FROM "users" u
 WHERE username != 'mthiaw'
@@ -31,8 +32,3 @@ AND NOT EXISTS (
     OR (m.sender = u.username AND m.receiver = "@mthiaw")
 )
 ORDER BY username ASC;
-
-insert 
-into users (id_user, username, name, surname, age, gender, email, password,pp,pc)
-VALUES  
-('ghjk5sdsd4dsd','christine','NDOUR','oumpagne','30','female','test@gmail.com', '5f4dcc3b5aa765d611forpass','/static/./assets/boy.gif','/static/./assets//mur.gif');
