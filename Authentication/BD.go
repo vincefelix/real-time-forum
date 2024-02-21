@@ -138,28 +138,33 @@ func HelpersBA(from string, tab db.Db, attribute, condition, compare string) (st
 }
 
 func GetAllUSers(database db.Db, SessionUsername string) ([]User, error) {
-	query := fmt.Sprintf(`SELECT DISTINCT id_user,username,pp,
-	(
-	SELECT count(*) FROM Messages 
-	where Messages.receiver ="@%v"
-	and Messages.sender = u.username
-	and Messages.isread = false
-	) as unreadCounter
-	FROM "users"  u, "Messages"
-	LEFT JOIN (
-		SELECT receiver AS r , sender as s , MAX(timestamp) AS last_message_date
-		FROM Messages
-		GROUP BY receiver
-	) AS last_messages
-	 ON concat("@", u.username) = last_messages.r 
-	 or last_messages.s = u.username
-	 WHERE (
-	   ( Messages.receiver = concat("@", "%v") and Messages.sender = u.username )
-		OR 
-		(Messages.receiver = concat("@", u.username) and Messages.sender = "%s")
-		)
-	
-	 ORDER by last_messages.last_message_date DESC;
+	fmt.Println("-----------------------------")
+	fmt.Println("🔔 received SessionUsername: ", SessionUsername)
+	fmt.Println("-----------------------------")
+
+	query := fmt.Sprintf(
+		`
+	SELECT DISTINCT id_user,username,pp,
+    (
+    SELECT count(*) FROM Messages
+    where Messages.receiver ='@%v'
+    and Messages.sender = u.username
+    and Messages.isread = false
+    ) as unreadCounter
+FROM "users"  u, "Messages"
+LEFT JOIN (
+    SELECT receiver AS r , sender as s , MAX(timestamp) AS last_message_date
+    FROM Messages
+    GROUP BY receiver
+) AS last_messages
+ON concat("@", u.username) = last_messages.r
+or last_messages.s = u.username
+WHERE (
+  ( Messages.receiver = concat("@", '%v') and Messages.sender = u.username )
+  OR
+  (Messages.receiver = concat("@", u.username) and Messages.sender = '%v')
+  )
+ORDER by last_messages.last_message_date DESC
 	`, SessionUsername, SessionUsername, SessionUsername)
 	rows, err := database.Doc.Query(query)
 	if err != nil {
@@ -178,29 +183,22 @@ func GetAllUSers(database db.Db, SessionUsername string) ([]User, error) {
 		}
 		userList_WithMsg = append(userList_WithMsg, temp)
 	}
-
+	fmt.Println("userList_Msg: ")
+	for i := range userList_WithMsg {
+		fmt.Println("➡ with Msg => ", userList_WithMsg[i])
+	}
 	query2 := fmt.Sprintf(` 
-	SELECT DISTINCT id_user,username,pp
-FROM "users"  u, "Messages"
-LEFT JOIN (
-    SELECT receiver AS r , sender as s
-    FROM Messages
-    GROUP BY receiver
-) AS last_messages
- ON concat("@", u.username) != last_messages.r 
- or last_messages.s != u.username
-WHERE NOT EXISTS (
+	SELECT DISTINCT id_user, username, pp
+FROM "users" u
+WHERE username != '%v'
+AND NOT EXISTS (
     SELECT 1
-    FROM Messages
-    WHERE 
-    (receiver = CONCAT("@", u.username) AND sender = "%s") 
-    OR 
-    (sender =username  AND receiver = "@%s")
+    FROM "Messages" m
+    WHERE (m.receiver = CONCAT("@", u.username) AND m.sender = '%v')
+    OR (m.sender = u.username AND m.receiver = '@%v')
 )
-
- ORDER by username ASC;
-
-	`, SessionUsername, SessionUsername)
+ORDER BY username ASC;
+	`, SessionUsername, SessionUsername, SessionUsername)
 
 	rows2, err2 := database.Doc.Query(query2)
 	if err2 != nil {
@@ -220,7 +218,10 @@ WHERE NOT EXISTS (
 		temp.UnreadMessage = 0
 		plainUsers = append(plainUsers, temp)
 	}
-	fmt.Println("plain => ", plainUsers)
+	fmt.Println("plainUsers: ")
+	for i := range plainUsers {
+		fmt.Println("➡ plain => ", plainUsers[i])
+	}
 	result := append(userList_WithMsg, plainUsers...)
 	fmt.Println("user states from DB =>  ")
 	for i, v := range result {
