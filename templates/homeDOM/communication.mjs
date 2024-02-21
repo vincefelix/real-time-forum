@@ -122,7 +122,13 @@ export function addComment() {
   console.log("comment sent => ", comment);
   socket.mysocket.send(JSON.stringify(comment));
 }
-
+export function increment_CommentCount(postId) {
+  const commentCount = document
+    .getElementById(postId)
+    .querySelector(".comment-counter");
+  commentCount.innerHTML = parseInt(commentCount.innerText) + 1;
+  console.log(commentCount);
+}
 // --------------------------------categoriesadded---------
 
 export function categoryToggle() {
@@ -180,4 +186,3 @@ export function GetPostValue() {
   console.log("post inf", JSON.stringify(post));
   socket.mysocket.send(JSON.stringify(post));
 }
-

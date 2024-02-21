@@ -7,7 +7,6 @@ import { form } from "../form/formElement.mjs";
 import { error } from "../error/error.mjs";
 import { alertError } from "../error/alert.mjs";
 import { mainContent, rightSidebar } from "../homeDOM/main.mjs";
-import { sort } from "../utils/sort.mjs";
 import { getUserId, getUser_Nickname } from "../utils/getUserId.mjs";
 import * as com from "../homeDOM/communication.mjs";
 
@@ -51,6 +50,7 @@ socket.mysocket.onmessage = (e) => {
   console.log("💥 in onmessage", e.data);
   const dataObject = JSON.parse(e.data);
   switch (dataObject.Type) {
+      //!valid session
     case "socket-open-with-session":
       if (window.location.pathname != "/") {
         const hdleError = new error(404, "Sorry...<br>page not found", "home");
@@ -63,7 +63,8 @@ socket.mysocket.onmessage = (e) => {
         launchHome(dataObject.posts, dataObject.userList);
       }
       break;
-    //--------------------------------------------------
+  
+      //--------------------------------------------------
     //! invalid session from cookies or session expired
     case "socket-open-invalid-session":
       localStorage.removeItem("jwtToken");
@@ -189,7 +190,9 @@ socket.mysocket.onmessage = (e) => {
         console.log("retrieved: ", dataObject.Payload);
       }
       break;
-    //------------------
+
+    //-------------------------------------
+    //! addPost request response from server
     case "addPost":
       console.log("in addpost");
       console.log("received => ", dataObject.Payload);
@@ -208,6 +211,9 @@ socket.mysocket.onmessage = (e) => {
       ];
       mainContent.createAndAddPost(postDetails, true);
       break;
+
+    //-------------------------------------
+    //! addComment request response from server
     case "addComment":
       console.log("adding comm");
       const commentDetails = [
@@ -218,7 +224,11 @@ socket.mysocket.onmessage = (e) => {
         dataObject.Payload.Content,
       ];
       mainContent.createComment(...commentDetails);
+      com.increment_CommentCount(dataObject.Payload.PostId);
       break;
+
+    //-------------------------------------
+    //! loadMsg request response from server
     case "loadMsg":
       console.log("in loadMsg...");
       const msg = dataObject.Payload;
@@ -244,6 +254,9 @@ socket.mysocket.onmessage = (e) => {
         }
       }
       break;
+
+    //-------------------------------------
+    //! load_10Msg request response from server
     case "load_10Msg":
       console.log("in load_10Msg...");
       const moreMsg = dataObject.Payload;
@@ -268,6 +281,9 @@ socket.mysocket.onmessage = (e) => {
         console.log("no more messages to load...");
       }
       break;
+
+    //-------------------------------------
+    //! newMsg request response from server
     case "newMsg":
       //?---- changing list order
       let userSideOnlineN = document.getElementById("connected-container");
@@ -324,6 +340,8 @@ socket.mysocket.onmessage = (e) => {
         //! message notifications
       }
       break;
+
+    //-------------------------------------
     //! an error occured
     default:
       if (
