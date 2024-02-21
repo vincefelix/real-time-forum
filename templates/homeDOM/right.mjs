@@ -267,8 +267,11 @@ export class RightSidebarSection {
           })
         );
         rightSidebar.openChat(userName);
-        const nameElement = connectionInfo.querySelector(".connected-name"),
-          name = nameElement.textContent;
+        const nameElement = connectionInfo.querySelector(".connected-name")
+          ? connectionInfo.querySelector(".connected-name")
+          : connectionInfo.querySelector(".isnotconnected-name");
+        console.log("el => ", nameElement);
+        const name = nameElement.textContent;
         nameElement.innerHTML = name.split(" ")[0];
       }
 
