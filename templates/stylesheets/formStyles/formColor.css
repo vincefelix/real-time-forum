@@ -1,146 +1,135 @@
 :root {
-  --raisin-black: hsla(264, 27%, 11%, 0.4);
-  --raisin-black-heavy: hsla(264, 27%, 11%, 01);
-  --english-violet: hsla(269, 20%, 24%, 1);
-  --eggplant: hsla(333, 19%, 34%, 1);
-  --chamoisee: hsla(21, 24%, 47%, 1);
+  --light-chamoise: #edcb96;
+  --lavender: #9e7682;
+  --candy: #f7c4a5;
+  --blacky: rgba(0, 0, 0, 0.7);
 }
-
+html {
+  background-color: rgba(241, 240, 240);
+}
 #container {
-  box-shadow: 25px 15px 85px 35px rgb(248, 205, 144),
-    25px 5px 35px 25px rgb(250, 249, 249),
-    -25px -5px 85px 25px rgba(164, 117, 212, 0.61);
-  border: 3px groove var(--chamoisee);
-  filter: contrast(120%) brightness(100%) blur(0px);
+  box-shadow: -25px -5px 9px rgba(255, 255, 255, 0.199),
+    15px 5px 85px 1px var(--light-chamoise), -25px -5px 85px 1px var(--candy),
+    15px 15px 9px 1px rgba(95, 94, 94, 0.123);
+
+  background-color: white;
 }
 
 #text-info {
-  /* background-color: var(--eggplant); */
-  background: linear-gradient(
-    173deg,
-    rgba(42, 15, 27, 1) 0%,
-    rgba(144, 118, 130, 1) 100%
-  );
-  color: white;
-  border: 5px ridge var(--raisin-black);
+  background: linear-gradient(165deg, var(--lavender) 20%, #d5804ba1 80%);
+  color: rgba(255, 255, 255, 0.7);
   hr {
-    border: 4px ridge var(--raisin-black);
+    border: 2px dotted rgba(0, 0, 0, 0.212);
     filter: brightness(250%) contrast(110%);
     mix-blend-mode: multiply;
   }
 }
 #log-info {
+  color: var(--blacky);
   #submit-btn {
-    background-color: var(--chamoisee);
-    border: 4px groove var(--raisin-black);
-    filter: brightness(150%) contrast(110%);
+    background-color: rgba(255, 255, 255, 0.164);
+    box-shadow: 2px 4px 10px 2px rgba(41, 41, 41, 0.4);
+    button {
+      color: var(--blacky);
+    }
+    img {
+      opacity: 60%;
+    }
     &:hover {
       cursor: pointer;
-      filter: hue-rotate(250deg);
-      border: 2px ridge;
-      button {
-        cursor: pointer;
-        color: whitesmoke;
-      }
-      img {
-        filter: invert();
-      }
+      border-right: 5px solid rgba(112, 110, 110, 0.329);
+      border-bottom: 5px solid rgba(75, 73, 73, 0.329);
+      filter: invert();
     }
   }
 }
 #loginLink {
-  color: black;
+  color: var(--lavender);
+  font-weight: 1500;
+  filter: contrast(80%) brightness(95%);
+  text-shadow: 1.5px 1px 2px rgba(88, 88, 87, 0.575);
+  transition: all 200ms ease-in-out;
   &:hover {
-    color: var(--chamoisee);
-    background: var(--english-violet);
-    text-decoration: 1px underline var(--chamoisee);
-    filter: brightness(180%);
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: 1px underline var(--light-chamoise);
+    filter: brightness(110%);
+    background-color: var(--lavender);
   }
 }
 
 #createAccountLink {
-  color: black;
+  color: var(--lavender);
+  font-weight: 1500;
+  filter: contrast(80%) brightness(95%);
+  text-shadow: 1.5px 1px 2px rgba(88, 88, 87, 0.575);
   &:hover {
-    color: var(--chamoisee);
-    text-decoration: 1px underline var(--chamoisee);
-    filter: brightness(180%);
-    background-color: var(--english-violet);
+    color: white;
+    text-decoration: 1px underline var(--light-chamoise);
+    filter: brightness(110%);
+    background-color: var(--lavender);
   }
 }
 
 label {
-  text-shadow: 0px 1px 8px var(--chamoisee);
-  color: black;
+  color: rgba(0, 0, 0, 0.6);
   filter: brightness(150%);
 }
 
 #ageLabel {
   #age-holder {
-    box-shadow: 0px 0px 25px 2px chocolate;
-    background-color: var(--raisin-black-heavy);
-    filter: contrast(50%);
+    box-shadow: 0px 0px 25px 1px rgba(210, 105, 30, 0.6);
+    filter: contrast(30%);
     input {
-      color: white;
-      filter: contrast(100%) brightness(100%);
+      color: var(--blacky);
     }
     img {
-      filter: invert();
+      opacity: 50%;
     }
   }
 }
 
 #genderLabel {
   #gender {
-    box-shadow: 0px 0px 25px 2px chocolate;
-    background-color: var(--raisin-black-heavy);
-    filter: contrast(50%);
-    color: white;
+    box-shadow: 0px 0px 25px 1px rgba(210, 105, 30, 0.6);
+    border: none;
+    background-color: var(--light-chamoise);
+    filter: contrast(30%);
+    color: black;
   }
 }
 
 .holder {
-  box-shadow: 0px 0px 25px 2px chocolate;
-  background-color: var(--raisin-black-heavy);
-  filter: contrast(50%);
+  box-shadow: 0px 0px 25px 1px rgba(210, 105, 30, 0.6);
+  filter: contrast(30%);
   input {
-    color: white;
+    color: var(--blacky);
   }
   img {
-    filter: invert();
+    opacity: 95%;
   }
 }
 #separator {
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 #email-holder {
-  border: 2px solid rgba(0, 0, 0, 0.212);
   box-shadow: 0px 0px 25px 2px chocolate;
-  background-color: var(--raisin-black-heavy);
-  filter: contrast(50%);
+  filter: contrast(30%);
   input {
-    color: white;
-  }
-  img {
-    filter: invert();
+    color: var(--blacky);
   }
 }
 
 .Password {
-  background-color: var(--raisin-black-heavy);
-  border: 2px solid rgba(0, 0, 0, 0.212);
   box-shadow: 0px 0px 25px 2px chocolate;
-  filter: contrast(50%);
+  filter: contrast(30%);
   input {
-    color: white;
-  }
-  img {
-    filter: invert();
+    color: black;
   }
   .hideP,
   .hidePConf {
     border-radius: 55%;
-    filter: contrast(150%);
+    filter: contrast(140%);
+    opacity: 70%;
   }
 }
-

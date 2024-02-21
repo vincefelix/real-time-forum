@@ -4,8 +4,8 @@ export const decode = (token) => {
   const decodedPayload = atob(payload);
   const HeaderObj = JSON.parse(decodedHeader);
   const payloadObj = JSON.parse(decodedPayload);
-  console.log("Header décodé:", HeaderObj);
-  console.log("Payload décodé:", payloadObj);
+  // console.log("Header décodé:", HeaderObj);
+  // console.log("Payload décodé:", payloadObj);
   return payloadObj;
 };
 export const setJWT = (token) => {

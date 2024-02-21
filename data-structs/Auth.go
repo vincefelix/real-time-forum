@@ -13,6 +13,8 @@ type Credentials struct {
 	Email    string
 	Password string
 }
+
+
 type Create struct {
 	Surname    string
 	Name       string
@@ -48,6 +50,8 @@ type UserInfo struct {
 	Age       string
 	Gender    string
 	Email     string
+	Profil    string
+	Cover     string
 }
 
 type Cookie struct {

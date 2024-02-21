@@ -31,7 +31,7 @@ func CheckPasswordHash(password, hash string) bool {
 }
 
 // CreateSession allows you to create a session for the current user
-func CreateSession(w http.ResponseWriter, iduser string, tab db.Db) (Structs.Cookie, Structs.Errormessage, error) {
+func CreateSession(iduser string, tab db.Db) (Structs.Cookie, Structs.Errormessage, error) {
 	token, err := uuid.NewV4()
 	if err != nil {
 		fmt.Println("❌ error in uuid while creating session")
@@ -46,12 +46,8 @@ func CreateSession(w http.ResponseWriter, iduser string, tab db.Db) (Structs.Coo
 	expiresAt := time.Now().Add(1800 * time.Second)
 	fmt.Println("expire a", expiresAt.String())
 	//update session dans la base de données
-	attributes := fmt.Sprintf("(%s, %s, %s)", db.User_id, "id_session", "expireat")
-	values := fmt.Sprintf("('%s','%s', '%s')", iduser, sessionToken, expiresAt)
-	//errorUp := tab.INSERT("sessions", "id_session='"+sessionToken+"',expireat='"+expiresAt.String()+"'", "WHERE user_id="+"'"+iduser+"'")
-	errorUp := tab.INSERT("sessions", attributes, values)
+	errorUp := tab.UPDATE("sessions", "id_session='"+sessionToken+"',expireat='"+expiresAt.String()+"'", "WHERE user_id="+"'"+iduser+"'")
 	if errorUp != nil {
-		log.Println("❌ error while inserting session", errorUp)
 		return Structs.Cookie{},
 			Structs.Errormessage{Type: tools.IseType,
 				Msg:        tools.InternalServorError,
@@ -85,11 +81,20 @@ func ValidMailAddress(address string) (string, bool) {
 	return address, match
 }
 
-func CheckCookie(w http.ResponseWriter, value string, tab db.Db) (bool, Structs.Errormessage) {
+func CheckCookie(value string, tab db.Db) (bool, string, Structs.Errormessage) {
+	value = strings.TrimSpace(value)
+	if value == "" {
+		return false, "",
+			Structs.Errormessage{Type: "socket-open-invalid-session",
+				Msg:        "Invalid cookie",
+				StatusCode: 400,
+			}
+	}
+	value = strings.Split(value, "=")[1]
 	idviasession, err, _ := HelpersBA("sessions", tab, "user_id", "WHERE id_session='"+value+"'", "")
 	if err != nil {
 		log.Println("❌ error while checking cookie in database", err)
-		return false,
+		return false, "",
 			Structs.Errormessage{Type: tools.IseType,
 				Msg:        tools.InternalServorError,
 				StatusCode: tools.IseStatus,
@@ -97,14 +102,14 @@ func CheckCookie(w http.ResponseWriter, value string, tab db.Db) (bool, Structs.
 	}
 	if idviasession == "" {
 		log.Println("❌ cookie is not valid", idviasession)
-		return false,
+		return false, "",
 			Structs.Errormessage{Type: "socket-open-invalid-session",
 				Msg:        "Invalid cookie",
 				StatusCode: 400,
 			}
 	}
 	log.Println("✔ cookie is valid", idviasession)
-	return true,
+	return true, value,
 		Structs.Errormessage{Type: "socket-open-with-session",
 			Msg:        "valid cookie",
 			StatusCode: 200,

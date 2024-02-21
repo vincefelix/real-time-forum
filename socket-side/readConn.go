@@ -2,28 +2,19 @@ package Socket
 
 import (
 	"fmt"
-	authTools "forum/Authentication"
+	auth "forum/Authentication"
 	db "forum/Database"
-	auth "forum/Routes"
+	com "forum/Routes"
 	Struct "forum/data-structs"
+	hdle "forum/handlers"
+	"forum/tools"
 	"log"
-	"net/http"
-	"strings"
 
 	"github.com/gorilla/websocket"
 )
 
-// socketReader struct
-type SocketReader struct {
-	Con       *websocket.Conn
-	Mode      int
-	Connected bool
-	Name      string
-	Id        string
-}
-
 // the credentials structure stores the data of the logged in user
-func (c *SocketReader) Read(w http.ResponseWriter, database db.Db) {
+func (c *SocketReader) Read(database db.Db) {
 	log.Println("reading...")
 	var request Struct.Request
 	er := c.Con.ReadJSON(&request)
@@ -31,6 +22,7 @@ func (c *SocketReader) Read(w http.ResponseWriter, database db.Db) {
 	if er != nil {
 		if closeMsg, ok := er.(*websocket.CloseError); ok {
 			log.Printf("connexion closed with status %v due to %s", closeMsg.Code, closeMsg.Text)
+			IsDisconnected <- c
 			panic(er)
 		}
 		log.Println("read json error: ", er)
@@ -41,64 +33,184 @@ func (c *SocketReader) Read(w http.ResponseWriter, database db.Db) {
 	requestPayload := request.Payload
 
 	log.Println("payload is here", requestPayload)
-	serverResponse := make(map[string]interface{}, 0)
 	switch requestType {
 	case "register":
-		user := Struct.Register{
-			FirstName:            requestPayload["firstName"].(string),
-			LastName:             requestPayload["lastName"].(string),
-			NickName:             requestPayload["nickName"].(string),
-			Age:                  requestPayload["age"].(string),
-			Gender:               requestPayload["gender"].(string),
-			EmailRegister:        requestPayload["emailRegister"].(string),
-			PasswordRegister:     requestPayload["passwordRegister"].(string),
-			ConfPasswordRegister: requestPayload["confPasswordRegister"].(string),
-		}
-		fmt.Printf("✨ user wants to register with %s\n", user)
-		ok, err := auth.RegisterUser(user, database)
+		log.Println("In register")
+		serverResponse, ok, err := hdle.HandleRegister(requestPayload, database)
 		if !ok {
-			log.Printf("❌ error while registering user %s\n", c.Con.LocalAddr())
 			c.Con.WriteJSON(err)
 			return
 		}
-		serverResponse["Type"] = "register"
-		serverResponse["Authorization"] = "granted"
-		serverResponse["status"] = "200"
+
 		c.Con.WriteJSON(serverResponse)
+
 	case "login":
 		fmt.Println("in login")
-		user := Struct.Login{
-			EmailLogin:    requestPayload["emailLogin"].(string),
-			PassWordLogin: requestPayload["passwordLogin"].(string),
-		}
-		payload, userCookie, ok, err := auth.LoginUser(w, user, database)
+		connInf, serverResponse, ok, err := hdle.HandleLogin(requestPayload, database)
 		if !ok {
-			log.Println("❌ error while login user", err)
 			c.Con.WriteJSON(err)
 			return
 		}
-		token, errToken, errMess := GenerateToken(payload)
-		if errToken != nil {
-			log.Printf("❌ error while generating token %s\n", errToken)
-			c.Con.WriteJSON(errMess)
+		c.Connected = true
+		c.Id = connInf[0]
+		c.Username = connInf[1]
+		c.Profil = connInf[2]
+		Isconnected <- c
+		posTab, ok, err := com.GetAll_fromDB(serverResponse["session"].(string))
+		fmt.Println("postab to send => ", posTab)
+		if !ok {
+			c.Con.WriteJSON(err)
 			return
 		}
-		serverResponse["Type"] = "login"
-		serverResponse["Authorization"] = "granted"
-		serverResponse["status"] = "200"
-		serverResponse["Payload"] = token
-		serverResponse["cookie"] = userCookie
+		connectedUserList, ok, err := GetUsers_State(c.Username, database)
+		if !ok {
+			c.Con.WriteJSON(err)
+			return
+		}
+
+		serverResponse["posts"] = posTab
+		serverResponse["userList"] = connectedUserList
+		c.Con.WriteJSON(serverResponse)
+	case "disconnect":
+		log.Println("In disconnection process...")
+		connInf := auth.GetCOnnInf(database, requestPayload["data"].(string))
+		if len(connInf) == 0 {
+			c.Con.WriteJSON(
+				Struct.Errormessage{Type: tools.IseType,
+					Msg:        tools.InternalServorError,
+					StatusCode: tools.IseStatus,
+					Location:   "home",
+					Display:    true,
+				})
+		}
+		c.Id = connInf[0]
+		c.Username = connInf[1]
+		c.Profil = connInf[2]
+		c.Connected = false
+		IsDisconnected <- c
+		serverResponse := make(map[string]interface{}, 0)
+		serverResponse["Type"] = "disconnection"
+		serverResponse["Status"] = "200"
+		serverResponse["Msg"] = "user logOut"
 		c.Con.WriteJSON(serverResponse)
 	case "checkCookie":
-		// check if the cookie is present in database
-		cookie := strings.Split(requestPayload["data"].(string), "=")[1]
-		ok, Msg := authTools.CheckCookie(w, cookie, database)
+		ok, session, Msg := hdle.HandleCookie(requestPayload, database)
 		if !ok {
-			log.Println("❌ cookie not found in db")
+			c.Con.WriteJSON(Msg)
+			IsDisconnected <- c
+			return
+		}
+		connInf := auth.GetCOnnInf(database, session)
+		if len(connInf) == 0 {
+			c.Con.WriteJSON(
+				Struct.Errormessage{Type: tools.IseType,
+					Msg:        tools.InternalServorError,
+					StatusCode: tools.IseStatus,
+					Location:   "home",
+					Display:    true,
+				})
+		}
+		c.Id = connInf[0]
+		c.Username = connInf[1]
+		c.Profil = connInf[2]
+		c.Connected = true
+		Isconnected <- c
+		posTab, ok, err := com.GetAll_fromDB(session)
+		if !ok {
+			c.Con.WriteJSON(err)
+			return
+		}
+		connectedUserList, ok, err := GetUsers_State(c.Username, database)
+		if !ok {
+			c.Con.WriteJSON(err)
+			return
+		}
+		serverResponse := make(map[string]interface{}, 0)
+		serverResponse["Type"] = Msg.Type
+		serverResponse["Msg"] = "valid cookie"
+		serverResponse["Status"] = "200"
+		serverResponse["posts"] = posTab
+		serverResponse["userList"] = connectedUserList
+		c.Con.WriteJSON(serverResponse)
+
+	case "createPost":
+		log.Println("In createPost")
+		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
+		if ok {
+			serverResponse, check, err := hdle.HandlePost(requestPayload, database)
+			if !check {
+				c.Con.WriteJSON(err)
+				return
+			}
+			c.Broadcast(serverResponse)
+		} else {
+			c.Con.WriteJSON(Msg)
+		}
+
+	case "createComment":
+		log.Println("in create comment...")
+		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
+		if ok {
+			serverResponse, check, err := hdle.HandleComment(requestPayload, database)
+			if !check {
+				c.Con.WriteJSON(err)
+				return
+			}
+			c.Broadcast(serverResponse)
+		} else {
+			c.Con.WriteJSON(Msg)
+		}
+	case "loadMsg":
+		// load messages from server to client
+		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
+		if !ok {
 			c.Con.WriteJSON(Msg)
 			return
 		}
-		c.Con.WriteJSON(Msg)
+		serverResponse, ok, err := hdle.HandleLoadMsg(requestPayload, database, "load")
+		if !ok {
+			log.Println("error while loading  msg: ", err)
+			c.Con.WriteJSON(err)
+			return
+		}
+		c.Con.WriteJSON(serverResponse)
+
+	case "newMsg":
+		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
+		if !ok {
+			c.Con.WriteJSON(Msg)
+			return
+		}
+		serverResponse, receiver, ok, err := hdle.HandleMessage(requestPayload, database)
+		if !ok {
+			log.Println("❌ error while sending new msg: ", err)
+			c.Con.WriteJSON(err)
+			return
+		}
+		connectedUserList, ok, err := GetUsers_State(c.Username, database)
+		if !ok {
+			c.Con.WriteJSON(err)
+			return
+		}
+		fmt.Printf("Connected User List for %v: %v", c.Username, connectedUserList)
+		serverResponse["userList"] = connectedUserList
+		c.Con.WriteJSON(serverResponse) // send back to the sender
+		sendToUser(receiver, serverResponse, database)
+	case "load_10Msg":
+		log.Println("In load_10Msg...")
+		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
+		if !ok {
+			c.Con.WriteJSON(Msg)
+			return
+		}
+		serverResponse, ok, err := hdle.HandleLoadMsg(requestPayload, database, "moreMsg")
+		if !ok {
+			log.Println("error while loading  msg: ", err)
+			c.Con.WriteJSON(err)
+			return
+		}
+		serverResponse["Type"] = "load_10Msg"
+		c.Con.WriteJSON(serverResponse)
 	}
 
 	log.Println("done reading!!!")

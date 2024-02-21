@@ -1,4 +1,4 @@
-package Socket
+package tools
 
 import (
 	"crypto/hmac"
@@ -8,7 +8,6 @@ import (
 	"errors"
 	"fmt"
 	Struct "forum/data-structs"
-	"forum/tools"
 	"strings"
 )
 
@@ -26,7 +25,7 @@ func GenerateToken(data interface{}) (string, error, Struct.Errormessage) {
 	headerJSON, err := json.Marshal(header)
 	if err != nil {
 		fmt.Println("❌ error while marshalling header")
-		return "", err, Struct.Errormessage{Type: tools.IseType, Msg: tools.InternalServorError, StatusCode: tools.IseStatus}
+		return "", err, Struct.Errormessage{Type: IseType, Msg: InternalServorError, StatusCode: IseStatus, Location: "home",Display: true,}
 	}
 	encodedHeader := base64.URLEncoding.EncodeToString(headerJSON)
 
@@ -36,7 +35,7 @@ func GenerateToken(data interface{}) (string, error, Struct.Errormessage) {
 	DataJSON, err := json.Marshal(Datas)
 	if err != nil {
 		fmt.Println("❌ error while marshalling datas")
-		return "", err, Struct.Errormessage{Type: tools.IseType, Msg: tools.InternalServorError, StatusCode: tools.IseStatus}
+		return "", err, Struct.Errormessage{Type: IseType, Msg: InternalServorError, StatusCode: IseStatus, Location: "home",Display: true,}
 	}
 	encodedData := base64.URLEncoding.EncodeToString(DataJSON)
 

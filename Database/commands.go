@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"log"
+	"time"
 )
 
 /*
@@ -26,19 +28,55 @@ func (database *Db) INSERT(table string, Attributes string, Values string) error
 	return err
 }
 
-/*
-GetData retrieves datas from our database and returns their values
+func (database *Db) LoadMessage(sender string, receiver string, IdMess string, from time.Time, request string) (*sql.Rows, error) {
+	query := ""
+	if from == (time.Time{}) {
+		from = time.Now()
+	}
+	// 	if from == (time.Time{}) {
+	// 		query = fmt.Sprintf(`SELECT sender, receiver, message, timestamp, isread
+	// FROM Messages
+	// WHERE ((sender = '%s' AND receiver = '%s') OR (sender = '%s' AND receiver = '%s'))
+	// AND timestamp < (SELECT timestamp FROM Messages WHERE
+	// LIMIT 10;`, sender, receiver, sender, receiver, sender, receiver, sender, receiver)
+	// 	} else {
+	_, err := database.Doc.Exec("UPDATE Messages SET isread = TRUE WHERE sender = ? AND receiver = ? AND isread = FALSE", receiver[1:], "@"+sender)
+	if err != nil {
+		fmt.Println("❌ cannot update messages in database")
+		return &sql.Rows{}, err
+	}
+	fmt.Printf("debug => sender: '%s', receiver: '%s' || receiver: '%s', sender: '%s'\n", sender, receiver, receiver[1:], "@"+sender)
+	fmt.Printf("debug => sender: Idmess: '%s'", IdMess)
+	switch request {
+	case "load":
+		query = fmt.Sprintf(`SELECT id, sender, receiver, message, timestamp, date, isread
+		FROM Messages
+		WHERE ((sender ='%s' AND receiver ='%s') OR (sender ='%s' AND receiver ='%s'))
+		AND timestamp <'%s'
+		ORDER BY timestamp DESC
+		LIMIT 10
+		;`, sender, receiver, receiver[1:], "@"+sender, from)
+	case "moreMsg":
+		fmt.Println("user wants to load more messages...")
+		query = fmt.Sprintf(`SELECT id, sender, receiver, message, timestamp, date, isread
+	FROM Messages
+	WHERE ((sender = '%s' AND receiver = '%s') OR (sender = '%s' AND receiver = '%s'))
+	AND timestamp < (SELECT timestamp FROM Messages WHERE id ='%s')
+	ORDER BY timestamp DESC
+	LIMIT 10
+	;`, sender, receiver, receiver[1:], "@"+sender, IdMess)
+	}
 
-  - Attributes represents the tables attributes.
+	rows, err := database.Doc.Query(query)
+	if err != nil {
+		fmt.Println("⚠ LoadMessage ERROR ⚠: could not read database file, ", err)
+		return rows, err
 
-  - From represents the entity (table) where we'll find the attribute
-    It must be written in this format : (username or email, etc...)
-    note that there must be a single entity
+	}
+	log.Println("✔ LoadMessage from db OK")
+	return rows, err
+}
 
-  - condition  represents the other instruction that specifies which datas to fecth
-
-Ex: WHERE age > 12, WHERE name = 'nabou', ORDER by, etc....
-*/
 func (database *Db) GetData(Attributes string, From string, condition string) (*sql.Rows, error) {
 	query := fmt.Sprintf("SELECT %v FROM %v %v;", Attributes, From, condition)
 	switch {
@@ -83,18 +121,6 @@ func (database *Db) UPDATE(table string, Toset string, condition string) error {
 
 }
 
-/*
-DELETE removes an element from a table
-
-  - Attributes represents the tables attributes.
-
-  - table represents the entity (table) where we'll find the attribute
-    It must be written in this format : <table_name>
-    note that there must be a single entity
-
-  - condition  represents the other instruction that specifies which datas to fecth
-    Ex: WHERE age > 12, ORDER by, etc....
-*/
 func (database *Db) DELETE(table string, condition string) error {
 	query := fmt.Sprintf("DELETE FROM %v %s;", table, condition)
 	if table == "" {

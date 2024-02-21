@@ -1,4 +1,3 @@
-//import { updateFormContent } from "./formScript.mjs";
 export const generateLoginForm = (This) => {
   This.innerHTML = `
     <form method="post">
@@ -19,27 +18,4 @@ export const generateLoginForm = (This) => {
     </fieldset>
     </form>
     `;
-};
-
-export const moveToLogin = (This) => {
-  This.formDiv.style.opacity = "0";
-  This.sideMessageHeader.style.opacity = "0";
-  This.logInfo.style.opacity = "0";
-  This.formDiv.innerHTML = "";
-  setTimeout(() => {
-    //waiting 400ms to generate login content
-    This.submitDiv.innerHTML = "";
-    This.formDiv.innerHTML = "";
-    This.loginForm();
-    This.redirect = document.getElementsByClassName("redirectLink")[0];
-    This.redirect.addEventListener("click", updateFormContent);
-    This.formDiv.style.opacity = "1";
-    This.sideMessageHeader.style.opacity = "1";
-    This.logInfo.style.opacity = "1";
-  }, 400);
-  //*adding switch animation
-  This.textInfo.style.animation = "switchTextInfoBack 800ms ease-in-out";
-  This.textInfo.style.transform = "translateX(0%)";
-  This.formDiv.style.animation = "switchFormDivBack 800ms ease-in-out)";
-  This.formDiv.style.transform = "translateX(0%)";
 };

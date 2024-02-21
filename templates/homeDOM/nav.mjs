@@ -1,9 +1,10 @@
+//import { decode } from "../utils/JWT.mjs";
+
 export class Navigation {
     constructor() {
-        this.createNavigation();
     }
 
-    createNavigation() {
+    init(username, pp) {
         // Create nav element
         const navElement = document.createElement('nav');
 
@@ -24,7 +25,7 @@ export class Navigation {
         // Hamburger icon
         const tooglerLeftImg = document.createElement('img');
         tooglerLeftImg.className = 'tooglerleftimg';
-        tooglerLeftImg.src = '/static/./assets/hamburger.png';
+        tooglerLeftImg.src = '';
         tooglerLeftImg.alt = '';
 
         // Append elements to logo section
@@ -55,7 +56,7 @@ export class Navigation {
 
         const profileLink = document.createElement('a');
         profileLink.href = '#';
-        profileLink.textContent = 'Profil';
+        profileLink.textContent = '';
 
         // Append links to li elements
         homeTab.appendChild(homeLink);
@@ -86,13 +87,13 @@ export class Navigation {
 
         const optionsMenuImg = document.createElement('img');
         optionsMenuImg.className = 'options-menu-img';
-        optionsMenuImg.src = '/static/./assets/profil-img.png';
+        optionsMenuImg.src = pp;
         optionsMenuImg.alt = '';
 
         // User name
         const userName = document.createElement('span');
         userName.className = 'username';
-        userName.textContent = 'Masseck';
+        userName.textContent = username;
 
         // Append elements to user nav info section
         userNavInfoSection.appendChild(presenceStatus);
