@@ -58,7 +58,7 @@ func sendToUser(username string, response map[string]interface{}, database db.Db
 	fmt.Printf("%s must received %v\n", username[1:], response)
 	for _, user := range UserTab {
 		if user.Username == username[1:] && user.Connected {
-			connectedUserList, ok, err := GetUsers_State(user.Username, database)
+			connectedUserList, ok, err := GetUsers_State(username[1:], database)
 			if !ok {
 				user.Con.WriteJSON(err)
 				return
