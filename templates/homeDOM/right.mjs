@@ -100,6 +100,10 @@ export class RightSidebarSection {
     const messagePopup = document.createElement("div");
     messagePopup.className = "message-popup";
     messagePopup.id = "messagePopup";
+    const popupTitle = document.createElement("h3");
+    popupTitle.textContent = "discussion";
+    popupTitle.id = "title-name";
+    this.popupTitle = popupTitle;
 
     //close popup
     const closeButton = document.createElement("span");
@@ -117,6 +121,7 @@ export class RightSidebarSection {
       //messagePopupContainer.style.display = "none";
       //  console.log(document.getElementById(tek).style.display);
       document.getElementById("chatbox").style.display = "none";
+      popupTitle.textContent = "discussion";
     };
     //body
     // Message popup content
@@ -125,11 +130,6 @@ export class RightSidebarSection {
 
     const messagePopupHeader = document.createElement("div");
     messagePopupHeader.className = "message-popup-header";
-
-    const popupTitle = document.createElement("h3");
-    popupTitle.textContent = "discussion";
-    popupTitle.id = "title-name";
-    this.popupTitle = popupTitle;
 
     const messagePopupBody = document.createElement("div");
     messagePopupBody.className = "message-popup-body";
@@ -156,7 +156,11 @@ export class RightSidebarSection {
     messagePopupBody.addEventListener("scroll", () => {
       //console.log("scrolltop ", messagePopupBody.scrollTop);
       console.log("scrollheight ", messagePopupBody.scrollHeight);
-      if (messagePopupBody.scrollTop == 0) {
+      console.log(messagePopupBody.children.length);
+      if (
+        messagePopupBody.scrollTop == 0 &&
+        messagePopupBody.children.length > 0
+      ) {
         console.log("catched");
         throttledRequest();
       }
@@ -246,8 +250,10 @@ export class RightSidebarSection {
 
     connectionInfo.onclick = function () {
       console.log("clicked");
+      if (connectionInfo.classList.contains("unread"))
+        connectionInfo.classList.remove("unread");
       //?----sending "loadMsg" request
-      if (document.getElementById("title-name") != userName) {
+      if (document.getElementById("title-name").textContent != userName) {
         const receiver = userName,
           sender = getUser_Nickname();
         socket.mysocket.send(
@@ -260,8 +266,11 @@ export class RightSidebarSection {
             },
           })
         );
+        rightSidebar.openChat(userName);
+        const nameElement = connectionInfo.querySelector(".connected-name"),
+          name = nameElement.textContent;
+        nameElement.innerHTML = name.split(" ")[0];
       }
-      rightSidebar.openChat(userName);
 
       //?----end of "get last 10 messages" request
     };
@@ -269,12 +278,19 @@ export class RightSidebarSection {
     const profileImage = document.createElement("img");
     profileImage.src = profileImageSrc;
     profileImage.alt = userName;
-
+    //container state before generating
+    const containerState = document.getElementById("chatbox").style.display;
+    //----------------
     const connectedName = document.createElement("span");
     connectedName.className = isConnected
       ? "connected-name"
       : "isnotconnected-name";
-    connectedName.textContent = userName;
+    connectedName.innerHTML =
+      Unread > 0
+        ? containerState != "block"
+          ? `${userName} <small class ="unreadCount">📩</small>`
+          : userName
+        : userName;
 
     const connectionIndicator = document.createElement("span");
     connectionIndicator.className = "connection-indicator";
@@ -285,7 +301,13 @@ export class RightSidebarSection {
     connectionInfo.appendChild(profileImage);
     connectionInfo.appendChild(connectedName);
     connectionInfo.appendChild(connectionIndicator);
-    if (Unread > 0) connectionInfo.style.backgroundColor = "red";
+    console.log("state container => ", containerState);
+    if (Unread > 0) connectionInfo.classList.add("unread");
+    if (
+      containerState == "block" &&
+      connectionInfo.classList.contains("unread")
+    )
+      connectionInfo.classList.remove("unread");
     userContainer.appendChild(connectionInfo);
 
     let modified = document.createElement("div");

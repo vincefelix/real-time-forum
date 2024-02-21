@@ -1462,3 +1462,15 @@ button {
     margin-bottom: 2%;
   }
 }
+
+/*?----------------- unread case  ------------------*/
+.unread {
+  background-color: var(--lavender);
+  color: white;
+}
+.unread img {
+  mix-blend-mode: hard-light;
+  margin-right: -4%;
+  margin-left: -14%;
+}
+/*?----------------- end of unread case  ------------------*/

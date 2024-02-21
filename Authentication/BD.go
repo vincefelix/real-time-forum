@@ -141,7 +141,7 @@ func GetAllUSers(database db.Db, SessionUsername string) ([]User, error) {
 	query := fmt.Sprintf(`SELECT DISTINCT id_user,username,pp,
 	(
 	SELECT count(*) FROM Messages 
-	where Messages.receiver ="@sniang"
+	where Messages.receiver ="@%v"
 	and Messages.sender = u.username
 	and Messages.isread = false
 	) as unreadCounter
@@ -160,7 +160,7 @@ func GetAllUSers(database db.Db, SessionUsername string) ([]User, error) {
 		)
 	
 	 ORDER by last_messages.last_message_date DESC;
-	`, SessionUsername, SessionUsername)
+	`, SessionUsername, SessionUsername, SessionUsername)
 	rows, err := database.Doc.Query(query)
 	if err != nil {
 		fmt.Println("⚠ GetUserState ERROR ⚠: could not read database file, ", err)

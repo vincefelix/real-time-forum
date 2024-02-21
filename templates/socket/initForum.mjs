@@ -274,6 +274,7 @@ socket.mysocket.onmessage = (e) => {
       let userSideOfflineN = document.getElementById("disconnected-container");
       userSideOfflineN.innerHTML = "";
       userSideOnlineN.innerHTML = "";
+      console.log("changing order in newMsg...");
       let userListN = dataObject.userList;
       if (userListN != null) {
         const sessionId = getUserId();
