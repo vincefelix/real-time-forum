@@ -583,6 +583,11 @@ nav .user_nav-img {
   /* background-color: rgba(0, 0, 0, 0.156); */
 }
 
+.textofmsg{
+  font-weight: bold;
+  font-size: clamp(10px 1.2vw 15px);
+}
+
 .right-sidebar .disconnected-users img {
   height: 30px;
   width: 30px;
@@ -1058,7 +1063,7 @@ nav .user_nav-img {
   }
 
   .feedpost {
-    max-height: 600px;
+    max-height: 650px;
     height: auto;
     overflow: hidden;
   }
@@ -1288,8 +1293,17 @@ nav .user_nav-img {
 
   .feedpost {
     height: auto;
-    max-height: 500px;
+    max-height: 650px;
     overflow: hidden;
+  }
+  .new-comment-form {
+    margin-top: 10px;
+    height: 70px;
+    overflow-y: auto;
+  }
+  .new-comment-form textarea{
+    width: 90%;
+    height: 60px;
   }
 }
 

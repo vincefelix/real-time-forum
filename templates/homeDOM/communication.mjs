@@ -20,7 +20,8 @@ export function sendMessage(userName, sender, message, time, idMess) {
   const senderName = document.createElement("span");
   senderName.innerHTML = `${messUser} ` + `<small>${time}</small>`;
 
-  const messageTextElement = document.createElement("div");
+  const messageTextElement = document.createElement("pre");
+  messageTextElement.className = "textofmsg"
   messageTextElement.textContent = message;
 
   messageItem.appendChild(senderName);
