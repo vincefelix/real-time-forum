@@ -50,7 +50,7 @@ socket.mysocket.onmessage = (e) => {
   console.log("💥 in onmessage", e.data);
   const dataObject = JSON.parse(e.data);
   switch (dataObject.Type) {
-      //!valid session
+    //!valid session
     case "socket-open-with-session":
       if (window.location.pathname != "/") {
         const hdleError = new error(404, "Sorry...<br>page not found", "home");
@@ -63,8 +63,8 @@ socket.mysocket.onmessage = (e) => {
         launchHome(dataObject.posts, dataObject.userList);
       }
       break;
-  
-      //--------------------------------------------------
+
+    //--------------------------------------------------
     //! invalid session from cookies or session expired
     case "socket-open-invalid-session":
       localStorage.removeItem("jwtToken");
@@ -335,6 +335,16 @@ socket.mysocket.onmessage = (e) => {
       if (com.isChatBox_opened(chatUsername)) {
         console.log("chatbox opened");
         com.sendMessage(chatUsername, sender, message, date, idMess);
+        socket.sendData(
+          JSON.stringify({
+            Type: "updateMess",
+            Payload: {
+              receiver: receiver,
+              sender: sender,
+              data: document.cookie,
+            },
+          })
+        );
       } else {
         console.log("chatbox closed");
         //! message notifications

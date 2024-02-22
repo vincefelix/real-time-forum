@@ -9,8 +9,6 @@ export function getMessageInput() {
 export function sendMessage(userName, sender, message, time, idMess) {
   // Récupérer le contenu du champ de saisie
   let usernameHeader = userName.includes("@") ? userName : "@" + userName;
-  // console.log("received username ", userName);
-  // console.log("chat header ", usernameHeader);
   const messageInput = document.getElementById(`newMessageInput`);
 
   // Créer un nouvel élément de message
@@ -93,12 +91,14 @@ export function addMessage(sender, receiver, message, date, idMess) {
 }
 
 export function isChatBox_opened(chatUsername) {
+  chatUsername = chatUsername.includes("@") ? chatUsername : `@${chatUsername}`;
   console.log("is chat box opened with " + chatUsername + " ?");
-  const parent = document.getElementById("chatbox");
-  // console.log("in chatbox check\n parent => ", parent);
-  if (parent.style.display == "none") {
+  const parent = document.getElementById("chatbox"),
+    titleChat = parent.querySelector("#title-name").textContent;
+  console.log("chat is open with: ", titleChat);
+  if (parent.style.display == "none" || titleChat != chatUsername) {
     return false;
-  } else if (parent.style.display == "block") {
+  } else if (parent.style.display == "block" && titleChat == chatUsername) {
     return true;
   }
 }

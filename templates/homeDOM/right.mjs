@@ -291,9 +291,14 @@ export class RightSidebarSection {
     connectedName.className = isConnected
       ? "connected-name"
       : "isnotconnected-name";
+    const chatBoxName = document
+      .getElementById("chatbox")
+      .querySelector("#title-name").textContent;
+    console.log("chatBox name for unread: ", chatBoxName);
+
     connectedName.innerHTML =
       Unread > 0
-        ? containerState != "block"
+        ? containerState != "block" || userName != chatBoxName
           ? `${userName} <small class ="unreadCount">📩</small>`
           : userName
         : userName;
@@ -311,6 +316,7 @@ export class RightSidebarSection {
     if (Unread > 0) connectionInfo.classList.add("unread");
     if (
       containerState == "block" &&
+      chatBoxName == userName &&
       connectionInfo.classList.contains("unread")
     )
       connectionInfo.classList.remove("unread");
