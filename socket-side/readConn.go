@@ -71,6 +71,7 @@ func (c *SocketReader) Read(database db.Db) {
 		serverResponse["posts"] = posTab
 		serverResponse["userList"] = connectedUserList
 		c.Con.WriteJSON(serverResponse)
+
 	case "disconnect":
 		log.Println("In disconnection process...")
 		connInf := auth.GetCOnnInf(database, requestPayload["data"].(string))
@@ -93,6 +94,7 @@ func (c *SocketReader) Read(database db.Db) {
 		serverResponse["Status"] = "200"
 		serverResponse["Msg"] = "user logOut"
 		c.Con.WriteJSON(serverResponse)
+
 	case "checkCookie":
 		ok, session, Msg := hdle.HandleCookie(requestPayload, database)
 		if !ok {
@@ -160,6 +162,7 @@ func (c *SocketReader) Read(database db.Db) {
 		} else {
 			c.Con.WriteJSON(Msg)
 		}
+
 	case "loadMsg":
 		// load messages from server to client
 		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
@@ -196,6 +199,20 @@ func (c *SocketReader) Read(database db.Db) {
 		serverResponse["userList"] = connectedUserList
 		c.Con.WriteJSON(serverResponse) // send back to the sender
 		sendToUser(receiver, serverResponse, database)
+
+	case "updateMess":
+		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
+		if !ok {
+			c.Con.WriteJSON(Msg)
+			return
+		}
+		ok, err := UpdateMess(requestPayload, database)
+		if !ok {
+			c.Con.WriteJSON(err)
+			return
+		}
+		fmt.Println("Update Mess Successfully!")
+
 	case "load_10Msg":
 		log.Println("In load_10Msg...")
 		ok, _, Msg := hdle.HandleCookie(requestPayload, database)
